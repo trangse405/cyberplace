@@ -1,4 +1,4 @@
-package com.capstone.cyberplace.controller;
+package com.capstone.cyberplace.controller.entity;
 
 import java.util.List;
 

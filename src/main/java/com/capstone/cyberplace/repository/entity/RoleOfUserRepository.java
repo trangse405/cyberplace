@@ -1,4 +1,4 @@
-package com.capstone.cyberplace.repository;
+package com.capstone.cyberplace.repository.entity;
 
 import java.util.List;
 

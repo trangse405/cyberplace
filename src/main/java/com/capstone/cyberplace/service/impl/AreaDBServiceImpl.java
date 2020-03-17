@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.cyberplace.model.entity.AreaDB;
-import com.capstone.cyberplace.repository.AreaDBRepository;
-import com.capstone.cyberplace.service.AreaDBService;
+import com.capstone.cyberplace.repository.entity.AreaDBRepository;
+import com.capstone.cyberplace.service.entity.AreaDBService;
 
 
 @Service
