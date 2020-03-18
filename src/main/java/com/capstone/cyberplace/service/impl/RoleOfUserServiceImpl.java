@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.capstone.cyberplace.model.entity.RoleOfUser;
-import com.capstone.cyberplace.repository.entity.RoleOfUserRepository;
-import com.capstone.cyberplace.service.entity.RoleOfUserService;
+import com.capstone.cyberplace.model.RoleOfUser;
+import com.capstone.cyberplace.repository.RoleOfUserRepository;
+import com.capstone.cyberplace.service.RoleOfUserService;
 
 
 
