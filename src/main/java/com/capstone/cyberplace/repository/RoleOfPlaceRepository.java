@@ -14,5 +14,7 @@ public interface RoleOfPlaceRepository extends JpaRepository<RoleOfPlace, Intege
 
 	@Query(value = "SELECT * FROM RoleOfPlace", nativeQuery = true) // jpql
 	List<RoleOfPlace> getall();
+	@Query(value = "SELECT p FROM RoleOfPlace p where p.role_of_place_id =?1",nativeQuery = true)
+	RoleOfPlace getByRoleId(int id);
 
 }

@@ -31,6 +31,8 @@ public class PlaceServiceImpl implements PlaceService{
 		return placeRepository.getTop6();
 	}
 
+
+
 	
 	
 //	

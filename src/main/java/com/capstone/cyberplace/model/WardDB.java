@@ -21,13 +21,13 @@ public class WardDB {
 	private int district_id;
 	
 	@Column(name = "ward_name", nullable = false)
-	private int ward_name;
+	private String ward_name;
 	
 	public WardDB() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public WardDB(int id, int district_id, int ward_name) {
+	public WardDB(int id, int district_id, String ward_name) {
 		super();
 		this.id = id;
 		this.district_id = district_id;
@@ -50,13 +50,15 @@ public class WardDB {
 		this.district_id = district_id;
 	}
 
-	public int getWard_name() {
+	public String getWard_name() {
 		return ward_name;
 	}
 
-	public void setWard_name(int ward_name) {
+	public void setWard_name(String ward_name) {
 		this.ward_name = ward_name;
 	}
+
+	
 	
 	
 }

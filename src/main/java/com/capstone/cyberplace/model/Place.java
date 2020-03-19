@@ -37,8 +37,9 @@ public class Place {
 	@Column(name = "street_id", nullable = false)
 	private int street_id;
 
-	@Column(name = "address", nullable = false)
+	@Column(name = "address")
 	private String address;
+	
 	@Column(name = "map_id")
 	private int mapID;
 
@@ -262,5 +263,7 @@ public class Place {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	
 
 }

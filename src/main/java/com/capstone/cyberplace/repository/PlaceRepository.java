@@ -11,14 +11,16 @@ import com.capstone.cyberplace.model.Place;
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
-	@Query(value = "SELECT * FROM Place", nativeQuery = true) // jpql
+	@Query(value = "SELECT TOP(6) * from Place ORDER BY counter_view DESC ", nativeQuery = true) // jpql
 	List<Place> getTop6();
+	
+	
+//	@Query(value = "SELECT TOP(6) p.place_id,p.title , p.description,p.area,p.price	,p.role_of_place_id,p.image_large,p.floors from Place p  ORDER BY counter_view DESC", nativeQuery = true) // jpql
+//	List<Place> getTop6();
 
-//	
-//	@Query("SELECT p FROM Place p WHERE (:title is null or p.title = :title) and (:district is null"
-//			+ " or p.district = :district) and (:role is null or p.role_of_place_id = :role)"
-//			+ "and (p.price BETWEEN :minprice AND :maxprice) and (p.area BETWEEN :minarea AND :maxarea) ") // jpql
-//	List<Place> searchHome(@Param("title") String title, @Param("district") String district,
-//			@Param("role") int role_of_place_id, @Param("minprice") int minprice,
-//			@Param("maxprice") int maxprice, @Param("minarea") int minarea, @Param("maxarea") int maxarea);
+
+
+
+
+	
 }
