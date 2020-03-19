@@ -7,4 +7,5 @@ import com.capstone.cyberplace.model.RoleOfPlace;
 public interface RoleOfPlaceService {
 
 	List<RoleOfPlace> getAllRole();
+	RoleOfPlace getRoleByID(int roleID);
 }

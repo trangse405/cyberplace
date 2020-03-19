@@ -3,11 +3,17 @@ package com.capstone.cyberplace.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.cyberplace.model.StreetDB;
 import com.capstone.cyberplace.repository.StreetDBRepository;
 import com.capstone.cyberplace.service.StreetDBService;
 
+
+
+@Service
+@Transactional
 public class StreetDBServiceImpl implements StreetDBService {
 
 	@Autowired
@@ -17,6 +23,12 @@ public class StreetDBServiceImpl implements StreetDBService {
 	public List<StreetDB> getAllStreet() {
 
 		return streetdbRepository.getAllStreet();
+	}
+
+	@Override
+	public StreetDB getOneStreetByID(int streetID) {
+		
+		return streetdbRepository.getOneStreetByID(streetID);
 	}
 
 }

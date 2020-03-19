@@ -23,4 +23,10 @@ public class RoleOfPlaceServiceImpl implements RoleOfPlaceService{
 		return roleOfPlaceRepository.getall();
 	}
 
+	@Override
+	public RoleOfPlace getRoleByID(int roleID) {
+		
+		return roleOfPlaceRepository.getRoleByID(roleID);
+	}
+
 }

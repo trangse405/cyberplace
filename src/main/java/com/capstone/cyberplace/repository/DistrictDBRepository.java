@@ -11,21 +11,21 @@ import org.springframework.stereotype.Repository;
 import com.capstone.cyberplace.model.DistrictDB;
 
 @Repository
-public interface DistrictDBRepository extends JpaRepository<DistrictDB, Integer>{
-	
-	@Query(value = "SELECT TOP (1000) [id]\r\n" + 
-			
-			"      ,[district]\r\n" + 
-			
+public interface DistrictDBRepository extends JpaRepository<DistrictDB, Integer> {
+
+	@Query(value = "SELECT TOP (1000) [id]\r\n" +
+
+			"      ,[district]\r\n" +
+
 			"  FROM [CapstoneDB].[dbo].[DistrictDB]", nativeQuery = true) // jpql
 	List<DistrictDB> getall();
-	
-	
-	
+
 	@Modifying
-	@Query(value = "INSERT INTO [dbo].[DistrictDB]\r\n"  + "           ([district])\r\n"
-			+  "     VALUES\r\n" + "           (:district)", nativeQuery = true) // jpql
+	@Query(value = "INSERT INTO [dbo].[DistrictDB]\r\n" + "           ([district])\r\n" + "     VALUES\r\n"
+			+ "           (:district)", nativeQuery = true) // jpql
 	void insertArea(@Param("district") String district);
-	
+
+	@Query(value = "SELECT * FROM DistrictDB where id = :district_id", nativeQuery = true) // jpql
+	DistrictDB getOneDistrictByID(@Param("district_id")int districtID);
 
 }

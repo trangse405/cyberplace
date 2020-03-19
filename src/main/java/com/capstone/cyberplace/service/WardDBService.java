@@ -8,4 +8,6 @@ public interface WardDBService {
 
 	
 	List<WardDB> listAllWard ();
+	
+	WardDB getOneWardByID(int wardID);
 }

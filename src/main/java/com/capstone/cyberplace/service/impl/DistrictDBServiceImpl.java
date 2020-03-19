@@ -17,19 +17,25 @@ public class DistrictDBServiceImpl implements DistrictDBService{
 
 	
 	@Autowired
-	private DistrictDBRepository areaDBRepository;
+	private DistrictDBRepository districtDBRepository;
 	
 	
 	@Override
 	public List<DistrictDB> listArea() {
 		
-		return areaDBRepository.getall();
+		return districtDBRepository.getall();
 	}
 
 	@Override
 	public void insertArea(String district) {
-		areaDBRepository.insertArea(district);
+		districtDBRepository.insertArea(district);
 		
+	}
+
+	@Override
+	public DistrictDB getOneDistrictByID(int districtID) {
+		
+		return districtDBRepository.getOneDistrictByID(districtID);
 	}
 
 }

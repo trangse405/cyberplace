@@ -8,5 +8,6 @@ public interface DistrictDBService {
 
 	List<DistrictDB> listArea();
 	void insertArea(String district);
+	DistrictDB getOneDistrictByID(int districtID);
 	
 }

@@ -23,4 +23,10 @@ public class WardDBServiceImpl implements WardDBService{
 		return wardDBRepository.getAllWard();
 	}
 
+	@Override
+	public WardDB getOneWardByID(int wardID) {
+		
+		return wardDBRepository.getOneWardByID(wardID);
+	}
+
 }
