@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.capstone.cyberplace.model.Place;
@@ -19,7 +20,8 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 //	List<Place> getTop6();
 
 
-
+	@Query(value = "SELECT  * from Place where place_id = :place_id ", nativeQuery = true) // jpql
+	Place getOneByID(@Param("place_id") int place_id);
 
 
 	
