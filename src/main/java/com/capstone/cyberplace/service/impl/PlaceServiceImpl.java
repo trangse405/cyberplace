@@ -31,15 +31,12 @@ public class PlaceServiceImpl implements PlaceService{
 		return placeRepository.getTop6();
 	}
 
+	@Override
+	public Place getOneByID(int id) {
+		return placeRepository.getOneByID(id);
+	}
 
 
-	
-	
-//	
-//	@Override
-//	public List<Place> searchHome(String title, String district, int role, int minp, int maxp, int mina, int maxa) {
-//		// TODO Auto-generated method stub
-//		return placeRepository.searchHome(title, district, role, minp, maxp, mina, maxa);
-//	}
+
 
 }

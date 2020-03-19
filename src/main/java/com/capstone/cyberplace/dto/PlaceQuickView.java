@@ -2,7 +2,7 @@ package com.capstone.cyberplace.dto;
 
 public class PlaceQuickView {
 
-	private int place_id;
+	private int placeID;
 	private String title;
 	private String district;
 	private float area;
@@ -16,10 +16,12 @@ public class PlaceQuickView {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PlaceQuickView(int place_id, String title, String district, float area, float price, String roleOfPlaceName,
+	
+
+	public PlaceQuickView(int placeID, String title, String district, float area, float price, String roleOfPlaceName,
 			String imageLarge, int bedRooms, int toilets) {
 		super();
-		this.place_id = place_id;
+		this.placeID = placeID;
 		this.title = title;
 		this.district = district;
 		this.area = area;
@@ -30,13 +32,19 @@ public class PlaceQuickView {
 		this.toilets = toilets;
 	}
 
-	public int getPlace_id() {
-		return place_id;
+
+
+	public int getPlaceID() {
+		return placeID;
 	}
 
-	public void setPlace_id(int place_id) {
-		this.place_id = place_id;
+
+
+	public void setPlaceID(int placeID) {
+		this.placeID = placeID;
 	}
+
+
 
 	public String getTitle() {
 		return title;

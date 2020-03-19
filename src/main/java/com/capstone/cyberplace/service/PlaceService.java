@@ -10,6 +10,7 @@ public interface PlaceService {
 	List<Place> searchHome(String title, String district, int role, int minp, int maxp, int mina, int maxa);
 	
 	List<Place> getTop6();
+	Place getOneByID(int id);
 
 	
 }
