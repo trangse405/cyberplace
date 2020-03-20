@@ -6,12 +6,12 @@ import com.capstone.cyberplace.model.Place;
 
 public interface PlaceService {
 
-	List<Place> searchHome(String title, String district, int role, int minp, int maxp, int mina, int maxa);
+	List<Place> searhPlace(String title, int districtid, int roleid, float mina, float maxa, float minp, float maxp);
 
 	List<Place> getTop6();
 
 	Place getOneByID(int id);
 
-	List<Place> searhPlace(String query);
+
 
 }

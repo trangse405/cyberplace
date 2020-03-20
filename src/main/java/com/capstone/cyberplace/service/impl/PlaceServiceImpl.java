@@ -32,16 +32,12 @@ public class PlaceServiceImpl implements PlaceService{
 		return placeRepository.getOneByID(id);
 	}
 
-	@Override
-	public List<Place> searhPlace(String query) {
-		
-		return placeRepository.listSearchPlace(query);
-	}
+	
 
 	@Override
-	public List<Place> searchHome(String title, String district, int role, int minp, int maxp, int mina, int maxa) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Place> searhPlace(String title, int districtid, int roleid, float mina, float maxa, float minp, float maxp) {
+
+		return placeRepository.listSearchPlace(title, districtid, roleid, mina, maxa, minp, maxp);
 	}
 
 

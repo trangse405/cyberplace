@@ -21,7 +21,10 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
 	// searchUltimate
 	@Modifying
-	@Query(value = "  SELECT * FROM Place where :query", nativeQuery = true) // jpql
-	List<Place> listSearchPlace(@Param("query") String query);
+	@Query(value = "EXEC searchUltimate @title=:title , @districtID =:districtID "
+			+ ", @roleID =:roleID , @mina =:mina , @maxa =:maxa , @minp =:minp , @maxp =:maxp ", nativeQuery = true) // jpql
+	List<Place> listSearchPlace(@Param("title") String title, @Param("districtID") int districtID,
+			@Param("roleID") int roleID, @Param("mina") float mina, @Param("maxa") float maxa,
+			@Param("minp") float minp, @Param("maxp") float maxp);
 
 }

@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.dto.PlaceDetail;
 import com.capstone.cyberplace.dto.PlaceQuickView;
+import com.capstone.cyberplace.dto.SearchCondition;
 import com.capstone.cyberplace.model.DistrictDB;
 import com.capstone.cyberplace.model.Map;
 import com.capstone.cyberplace.model.Place;
@@ -87,7 +90,35 @@ public class PlaceController {
 		return pd;
 	}
 
+//	@GetMapping("/places/search")
+//	public List<PlaceQuickView> searchPlace(@RequestParam("title") String title,
+//			@RequestParam("district_id") int district_id, @RequestParam("role_id") int role_id,
+//			@RequestParam("mina") float mina, @RequestParam("maxa") float maxa, @RequestParam("minp") float minp,
+//			@RequestParam("maxp") float maxp) {
+//		String formatTitle = "";
+//		if (!title.equals("")) {
+//			formatTitle = "%" + title + "%";
+//		}
+//
+//		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, district_id, role_id, mina, maxa, minp, maxp);
+//
+//		return getPlaceQuickView(listP);
+//	}
 	
+	
+	
+	@PostMapping("/places/search")
+	public List<PlaceQuickView> searchPlace(@RequestBody SearchCondition cond) {
+		String formatTitle = "";
+		if (!cond.getTitle().equals("")) {
+			formatTitle = "%" + cond.getTitle() + "%";
+		}
+
+		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
+				cond.getAreaMax(), cond.getAreaMin(), cond.getPriceMin(), cond.getPriceMax());
+
+		return getPlaceQuickView(listP);
+	}
 
 	public List<PlaceQuickView> getPlaceQuickView(List<Place> listP) {
 
