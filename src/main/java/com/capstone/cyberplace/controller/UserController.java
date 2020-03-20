@@ -1,6 +1,7 @@
 package com.capstone.cyberplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +11,9 @@ import com.capstone.cyberplace.common.CommonConstant;
 import com.capstone.cyberplace.model.User;
 import com.capstone.cyberplace.service.impl.UserServiceImpl;
 
+
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/user")
 public class UserController {

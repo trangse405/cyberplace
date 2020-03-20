@@ -19,11 +19,7 @@ public class PlaceServiceImpl implements PlaceService{
 	private PlaceRepository placeRepository;
 	
 	
-	@Override
-	public List<Place> searchHome(String title, String district, int role, int minp, int maxp, int mina, int maxa) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public List<Place> getTop6() {
@@ -34,6 +30,18 @@ public class PlaceServiceImpl implements PlaceService{
 	@Override
 	public Place getOneByID(int id) {
 		return placeRepository.getOneByID(id);
+	}
+
+	@Override
+	public List<Place> searhPlace(String query) {
+		
+		return placeRepository.listSearchPlace(query);
+	}
+
+	@Override
+	public List<Place> searchHome(String title, String district, int role, int minp, int maxp, int mina, int maxa) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

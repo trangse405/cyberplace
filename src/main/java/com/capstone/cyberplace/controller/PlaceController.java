@@ -50,35 +50,8 @@ public class PlaceController {
 	public List<PlaceQuickView> getTop6() {
 
 		List<Place> listP = placeServiceImpl.getTop6();
-		List<RoleOfPlace> listR = roleOfPlaceServiceImpl.getAllRole();
-		List<DistrictDB> listD = districtDBServiceImpl.listArea();
 
-		List<PlaceQuickView> list = new ArrayList<>();
-		for (Place p : listP) {
-			for (RoleOfPlace rop : listR) {
-				if (rop.getRoleOfPlaceID() == p.getRoleOfPlaceID()) {
-					PlaceQuickView item = new PlaceQuickView();
-					item.setArea(p.getArea());
-					item.setImageLarge(p.getImage_large());
-					item.setPlaceID(p.getPlaceID());
-					item.setPrice(p.getPrice());
-					item.setBedRooms(p.getBedRooms());
-					item.setRoleOfPlaceName(rop.getRoleName());
-					item.setTitle(p.getTitle());
-					item.setToilets(p.getToilets());
-
-					for (DistrictDB d : listD) {
-						if (p.getDistrict_id() == d.getId()) {
-							item.setDistrict(d.getDistrict());
-						}
-					}
-
-					list.add(item);
-				}
-			}
-		}
-
-		return list;
+		return getPlaceQuickView(listP);
 	}
 
 	@GetMapping("/places/{id}")
@@ -112,6 +85,41 @@ public class PlaceController {
 		pd.setWard(w.getWard_name());
 
 		return pd;
+	}
+
+	
+
+	public List<PlaceQuickView> getPlaceQuickView(List<Place> listP) {
+
+		List<PlaceQuickView> list = new ArrayList<>();
+		List<RoleOfPlace> listR = roleOfPlaceServiceImpl.getAllRole();
+		List<DistrictDB> listD = districtDBServiceImpl.listArea();
+
+		for (Place p : listP) {
+			for (RoleOfPlace rop : listR) {
+				if (rop.getRoleOfPlaceID() == p.getRoleOfPlaceID()) {
+					PlaceQuickView item = new PlaceQuickView();
+					item.setArea(p.getArea());
+					item.setImageLarge(p.getImage_large());
+					item.setPlaceID(p.getPlaceID());
+					item.setPrice(p.getPrice());
+					item.setBedRooms(p.getBedRooms());
+					item.setRoleOfPlaceName(rop.getRoleName());
+					item.setTitle(p.getTitle());
+					item.setToilets(p.getToilets());
+
+					for (DistrictDB d : listD) {
+						if (p.getDistrict_id() == d.getId()) {
+							item.setDistrict(d.getDistrict());
+						}
+					}
+
+					list.add(item);
+				}
+			}
+		}
+
+		return list;
 	}
 
 }
