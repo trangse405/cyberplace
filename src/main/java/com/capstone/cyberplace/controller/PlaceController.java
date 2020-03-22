@@ -3,6 +3,8 @@ package com.capstone.cyberplace.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -108,17 +110,18 @@ public class PlaceController {
 	
 	
 	@PostMapping("/places/search")
-	public List<PlaceQuickView> searchPlace(@RequestBody SearchCondition cond) {
+	public List<PlaceQuickView> searchPlace(@Valid @RequestBody SearchCondition cond) {
 		String formatTitle = "";
 		if (!cond.getTitle().equals("")) {
 			formatTitle = "%" + cond.getTitle() + "%";
 		}
 
 		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
-				cond.getAreaMax(), cond.getAreaMin(), cond.getPriceMin(), cond.getPriceMax());
+				 cond.getAreaMin(),cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
 
 		return getPlaceQuickView(listP);
 	}
+	
 
 	public List<PlaceQuickView> getPlaceQuickView(List<Place> listP) {
 
