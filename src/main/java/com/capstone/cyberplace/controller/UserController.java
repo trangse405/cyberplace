@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.common.CommonConstant;
+import com.capstone.cyberplace.dto.UserLogin;
 import com.capstone.cyberplace.model.User;
 import com.capstone.cyberplace.service.impl.UserServiceImpl;
 
@@ -26,7 +27,8 @@ public class UserController {
 
 		User user = checkUserName(uname);
 		if (user != null) {
-			return " User Name has exist! ";
+			return " User Name has exist! " + bcryptPassword(upass);
+			
 		}
 
 		try {
@@ -43,18 +45,18 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam("uname") String uname, @RequestParam("upass") String upass) {
+	public UserLogin login(@RequestParam("uname") String uname, @RequestParam("upass") String upass) {
 
 		User user = checkUserName(uname);
 		if (user == null) {
-			return " Wrong user name! ";
+			return new UserLogin(null, " Wrong user name! ");
 		}
 		boolean checkpass = checkPassword(upass, user.getPassword());
 		if (checkpass == false) {
-			return " Wrong password! ";
+			return new UserLogin(null, " Wrong password!  ");
 		}
 
-		return "Login Success";
+		return new UserLogin(user, " Login Success ");
 	}
 
 	// BCrypt password format

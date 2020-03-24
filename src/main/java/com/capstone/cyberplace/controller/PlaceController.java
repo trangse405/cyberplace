@@ -103,20 +103,7 @@ public class PlaceController {
 		return imageLinkServiceImpl.getListImageByPlaceID(id);
 	}
 
-//	@GetMapping("/places/search")
-//	public List<PlaceQuickView> searchPlace(@RequestParam("title") String title,
-//			@RequestParam("district_id") int district_id, @RequestParam("role_id") int role_id,
-//			@RequestParam("mina") float mina, @RequestParam("maxa") float maxa, @RequestParam("minp") float minp,
-//			@RequestParam("maxp") float maxp) {
-//		String formatTitle = "";
-//		if (!title.equals("")) {
-//			formatTitle = "%" + title + "%";
-//		}
-//
-//		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, district_id, role_id, mina, maxa, minp, maxp);
-//
-//		return getPlaceQuickView(listP);
-//	}
+
 
 	@PostMapping("/places/search")
 	public List<PlaceQuickView> searchPlace(@Valid @RequestBody SearchCondition cond) {

@@ -40,6 +40,8 @@ public class User {
 		this.roleID = roleID;
 		this.statusID = statusID;
 	}
+	
+	
 
 	public int getUserID() {
 		return userID;
