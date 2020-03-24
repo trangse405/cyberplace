@@ -27,7 +27,7 @@ public class UserController {
 
 		User user = checkUserName(uname);
 		if (user != null) {
-			return " User Name has exist! " + bcryptPassword(upass);
+			return " User Name has exist! " ;
 			
 		}
 
