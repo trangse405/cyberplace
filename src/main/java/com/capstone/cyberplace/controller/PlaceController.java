@@ -18,12 +18,14 @@ import com.capstone.cyberplace.dto.PlaceDetail;
 import com.capstone.cyberplace.dto.PlaceQuickView;
 import com.capstone.cyberplace.dto.SearchCondition;
 import com.capstone.cyberplace.model.DistrictDB;
+import com.capstone.cyberplace.model.ImageLink;
 import com.capstone.cyberplace.model.Map;
 import com.capstone.cyberplace.model.Place;
 import com.capstone.cyberplace.model.RoleOfPlace;
 import com.capstone.cyberplace.model.StreetDB;
 import com.capstone.cyberplace.model.WardDB;
 import com.capstone.cyberplace.service.impl.DistrictDBServiceImpl;
+import com.capstone.cyberplace.service.impl.ImageLinkServiceImpl;
 import com.capstone.cyberplace.service.impl.MapServiceImpl;
 import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
 import com.capstone.cyberplace.service.impl.RoleOfPlaceServiceImpl;
@@ -50,6 +52,9 @@ public class PlaceController {
 	private StreetDBServiceImpl streetDBServiceImpl;
 	@Autowired
 	private MapServiceImpl mapServiceImpl;
+
+	@Autowired
+	private ImageLinkServiceImpl imageLinkServiceImpl;
 
 	@GetMapping("/places/top6")
 	public List<PlaceQuickView> getTop6() {
@@ -92,6 +97,12 @@ public class PlaceController {
 		return pd;
 	}
 
+	@GetMapping("/places/images/{id}")
+	public List<ImageLink> getListImageLinkByPlaceID(@PathVariable int id) {
+
+		return imageLinkServiceImpl.getListImageByPlaceID(id);
+	}
+
 //	@GetMapping("/places/search")
 //	public List<PlaceQuickView> searchPlace(@RequestParam("title") String title,
 //			@RequestParam("district_id") int district_id, @RequestParam("role_id") int role_id,
@@ -106,9 +117,7 @@ public class PlaceController {
 //
 //		return getPlaceQuickView(listP);
 //	}
-	
-	
-	
+
 	@PostMapping("/places/search")
 	public List<PlaceQuickView> searchPlace(@Valid @RequestBody SearchCondition cond) {
 		String formatTitle = "";
@@ -117,11 +126,10 @@ public class PlaceController {
 		}
 
 		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
-				 cond.getAreaMin(),cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
+				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
 
 		return getPlaceQuickView(listP);
 	}
-	
 
 	public List<PlaceQuickView> getPlaceQuickView(List<Place> listP) {
 

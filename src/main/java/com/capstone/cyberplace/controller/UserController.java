@@ -35,13 +35,9 @@ public class UserController {
 			u.setPassword(bcryptPassword(upass));
 			u.setRoleID(CommonConstant.RoleID_User);
 			u.setStatusID(CommonConstant.User_Status_ID_Active);
-
 			userServiceImpl.register(u);
-
 		} catch (Exception e) {
-			// TODO: handle exception
 			mess = "Something wrong!";
-			System.out.print(bcryptPassword(upass));
 		}
 		return mess;
 	}
