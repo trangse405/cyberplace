@@ -17,9 +17,27 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void register(User u) {
-		userRepository.register(u.getUserName(), u.getPassword(), u.getRoleID(), u.getStatusID(), u.getEmail());
+		userRepository.register(u.getUserName(), u.getPassword(), u.getRoleID(), u.getStatusID());
 		
 	}
+
+	@Override
+	public User findUserByUserName(String username) {
+		
+		return userRepository.findUserByUserName(username);
+	}
+
+	@Override
+	public boolean checkLogin(String username, String password) {
+		User u = userRepository.checkLogin(username, password);
+		if(u != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+
 	
 	
 	

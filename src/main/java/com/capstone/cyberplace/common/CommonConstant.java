@@ -38,6 +38,11 @@ public class CommonConstant {
 	public static final int Place_Status_ID_Deactive = 3;
 	
 	
+	// Number of loopin BCrypt.gensalt
+	
+	public static final int Number_Loop_BCrypt = 12 ;
+	
+	
 	
 
 }

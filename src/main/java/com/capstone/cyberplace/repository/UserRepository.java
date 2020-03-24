@@ -9,19 +9,24 @@ import org.springframework.stereotype.Repository;
 import com.capstone.cyberplace.model.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
-	
-	@Modifying
-	@Query(value = "INSERT INTO Users\r\n" + 
-			"           (user_name\r\n" + 
-			"           ,password\r\n" + 
-			"           ,role_id\r\n" + 
-			"           ,status_id         \r\n" + 
-			"           ,email\r\n" + 
-			"           )\r\n" + 
-			"     VALUES\r\n" + 
-			"           (:uname, :upass, :roleid, :statusid, :email)", nativeQuery = true) // jpql
-	void register(@Param("uname") String uname, @Param("upass") String upass 
-			, @Param("roleid") int roleid , @Param("statusid") int statusid ,@Param("email") String emai);
+public interface UserRepository extends JpaRepository<User, Integer> {
 
+	@Modifying
+	@Query(value = "INSERT INTO Users\r\n" + "           (user_name\r\n" + "           ,password\r\n"
+			+ "           ,role_id\r\n" + "           ,status_id         \r\n" + "           \r\n"
+			+ "           )\r\n" + "     VALUES\r\n"
+			+ "           (:uname, :upass, :roleid, :statusid)", nativeQuery = true) // jpql
+	void register(@Param("uname") String uname, @Param("upass") String upass, @Param("roleid") int roleid,
+			@Param("statusid") int statusid);
+
+	@Query(value = "SELECT * FROM Users  where user_name = :user_name", nativeQuery = true) // jpql
+	User findUserByUserName(@Param("user_name") String user_name);
+	
+	
+	@Query(value = "SELECT * FROM Users  where user_name = :user_name and password =:password", nativeQuery = true) // jpql
+	User checkLogin(@Param("user_name") String user_name ,@Param("password") String password );
+	
+	
+	
+	
 }
