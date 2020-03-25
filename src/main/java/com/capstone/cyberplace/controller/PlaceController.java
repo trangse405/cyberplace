@@ -98,9 +98,14 @@ public class PlaceController {
 	}
 
 	@GetMapping("/places/images/{id}")
-	public List<ImageLink> getListImageLinkByPlaceID(@PathVariable int id) {
+	public List<String> getListImageLinkByPlaceID(@PathVariable int id) {
 
-		return imageLinkServiceImpl.getListImageByPlaceID(id);
+		List<ImageLink> listImage  = imageLinkServiceImpl.getListImageByPlaceID(id);
+		List<String> list  = new ArrayList<String>();
+		for(ImageLink im : listImage) {
+			list.add(im.getImage_link());
+		}
+		return list;
 	}
 
 
