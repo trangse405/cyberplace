@@ -12,6 +12,6 @@ public interface PlaceService {
 
 	Place getOneByID(int id);
 
-
+	List<Place> getAll();
 
 }

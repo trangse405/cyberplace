@@ -7,6 +7,7 @@ public class CommonConstant {
 
 	// Role ID
 	public static final int RoleID_Admin = 1;
+	public static final int RoleID_Staff =2;
 	public static final int RoleID_User = 4;
 
 	// Checking Status ID

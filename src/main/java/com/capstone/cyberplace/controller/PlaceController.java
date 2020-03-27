@@ -36,8 +36,6 @@ import com.capstone.cyberplace.service.impl.WardDBServiceImpl;
 @RestController
 @RequestMapping("/api/cp")
 public class PlaceController {
-//	private static EntityManagerFactory entityManagerFactory =
-//	          Persistence.createEntityManagerFactory("example-unit");
 
 	@Autowired
 	private PlaceServiceImpl placeServiceImpl;
@@ -60,6 +58,14 @@ public class PlaceController {
 	public List<PlaceQuickView> getTop6() {
 
 		List<Place> listP = placeServiceImpl.getTop6();
+
+		return getPlaceQuickView(listP);
+	}
+
+	@GetMapping("/places/all")
+	public List<PlaceQuickView> getAll() {
+
+		List<Place> listP = placeServiceImpl.getAll();
 
 		return getPlaceQuickView(listP);
 	}
@@ -100,15 +106,13 @@ public class PlaceController {
 	@GetMapping("/places/images/{id}")
 	public List<String> getListImageLinkByPlaceID(@PathVariable int id) {
 
-		List<ImageLink> listImage  = imageLinkServiceImpl.getListImageByPlaceID(id);
-		List<String> list  = new ArrayList<String>();
-		for(ImageLink im : listImage) {
+		List<ImageLink> listImage = imageLinkServiceImpl.getListImageByPlaceID(id);
+		List<String> list = new ArrayList<String>();
+		for (ImageLink im : listImage) {
 			list.add(im.getImage_link());
 		}
 		return list;
 	}
-
-
 
 	@PostMapping("/places/search")
 	public List<PlaceQuickView> searchPlace(@Valid @RequestBody SearchCondition cond) {

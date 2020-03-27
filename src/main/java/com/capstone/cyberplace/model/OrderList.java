@@ -35,21 +35,22 @@ public class OrderList {
 
 	@Column(name = "name", nullable = false)
 	private String name;
-	
+
 	@Column(name = "email", nullable = false)
 	private String email;
-	
+
 	@Column(name = "phone_number", nullable = false)
 	private String phone_number;
+
+	@Column(name = "message", nullable = false)
+	private String message;
 
 	public OrderList() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public OrderList(int orderID, int ordererID, int placeID, int staffID, int orderStatusID, Date dateTime,
-			String name, String email, String phone_number) {
+			String name, String email, String phone_number, String message) {
 		super();
 		this.orderID = orderID;
 		this.ordererID = ordererID;
@@ -60,45 +61,32 @@ public class OrderList {
 		this.name = name;
 		this.email = email;
 		this.phone_number = phone_number;
+		this.message = message;
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
 
 	public String getPhone_number() {
 		return phone_number;
 	}
 
-
-
 	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
 	}
-
-
 
 	public int getOrderID() {
 		return orderID;
@@ -146,6 +134,14 @@ public class OrderList {
 
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.capstone.cyberplace.service;
 
+import java.util.List;
+
 import com.capstone.cyberplace.model.User;
 
 public interface UserService {
@@ -9,5 +11,9 @@ public interface UserService {
 	User findUserByUserName(String username);
 
 	boolean checkLogin(String username, String password);
+
+	List<User> getAllStaff();
+
+	List<User> getAllUser();
 
 }

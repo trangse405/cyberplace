@@ -13,9 +13,15 @@ import com.capstone.cyberplace.model.Place;
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
-	@Query(value = "SELECT TOP(6) * from Place ORDER BY counter_view DESC ", nativeQuery = true) // jpql
+	// get top 6
+	@Query(value = "SELECT TOP(6) * from Place where status_place_id =1  ORDER BY counter_view DESC ", nativeQuery = true) // jpql
 	List<Place> getTop6();
 
+	// get all
+	@Query(value = "SELECT  * from Place where status_place_id =1  ORDER BY counter_view DESC ", nativeQuery = true) // jpql
+	List<Place> getAll();
+
+	// find by place id
 	@Query(value = "SELECT  * from Place where place_id = :place_id ", nativeQuery = true) // jpql
 	Place getOneByID(@Param("place_id") int place_id);
 
