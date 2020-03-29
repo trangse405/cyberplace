@@ -41,4 +41,10 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeRepository.getAll();
 	}
 
+	@Override
+	public Place checkPlace(int placeID) {
+
+		return placeRepository.getPlaceByPlaceIDAndStatusID(placeID);
+	}
+
 }

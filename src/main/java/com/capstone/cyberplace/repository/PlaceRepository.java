@@ -22,15 +22,20 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	List<Place> getAll();
 
 	// find by place id
-	@Query(value = "SELECT  * from Place where place_id = :place_id ", nativeQuery = true) // jpql
+	@Query(value = "SELECT  * from Place where place_id = :place_id AND status_place_id = 1", nativeQuery = true) // jpql
 	Place getOneByID(@Param("place_id") int place_id);
 
 	// searchUltimate
 	@Modifying
-	@Query(value = "EXEC searchUltimate @title=:title , @districtID =:districtID "
+	@Query(value = "EXEC searchUltimate @title= :title , @districtID =:districtID "
 			+ ", @roleID =:roleID , @mina =:mina , @maxa =:maxa , @minp =:minp , @maxp =:maxp ", nativeQuery = true) // jpql
 	List<Place> listSearchPlace(@Param("title") String title, @Param("districtID") int districtID,
 			@Param("roleID") int roleID, @Param("mina") float mina, @Param("maxa") float maxa,
 			@Param("minp") float minp, @Param("maxp") float maxp);
+
+	// check Status place
+
+	@Query(value = "SELECT * FROM Place where place_id =:place_id  ", nativeQuery = true) // jpql
+	Place getPlaceByPlaceIDAndStatusID(@Param("place_id") int placeID);
 
 }

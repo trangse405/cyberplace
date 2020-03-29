@@ -14,4 +14,6 @@ public interface PlaceService {
 
 	List<Place> getAll();
 
+	Place checkPlace(int placeID);
+
 }

@@ -26,19 +26,17 @@ public class OrderListController {
 	private OrderListServiceImpl orderListServiceImpl;
 
 	@PostMapping("/insert-order")
-	public String insertOrder(@Valid @RequestBody InsertedOrderForm inserted) {
-
-		String message = "Insert Order Success";
+	public boolean insertOrder(@Valid @RequestBody InsertedOrderForm inserted) {
 
 		try {
 
 			orderListServiceImpl.addOrder(inserted, CommonConstant.Order_Status_ID_Pending);
 
 		} catch (Exception e) {
-			message = "Some thing Wrong";
+			return false;
 		}
 
-		return message;
+		return true;
 	}
 
 	@GetMapping("/get-order-place-user")
