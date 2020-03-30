@@ -16,4 +16,8 @@ public interface PlaceService {
 
 	Place checkPlace(int placeID);
 
+	// trả về danh sách kết quả tìm kiếm có phân trang
+
+
+
 }

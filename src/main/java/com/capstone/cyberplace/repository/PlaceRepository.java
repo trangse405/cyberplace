@@ -2,6 +2,8 @@ package com.capstone.cyberplace.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,7 +19,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	@Query(value = "SELECT TOP(6) * from Place where status_place_id =1  ORDER BY counter_view DESC ", nativeQuery = true) // jpql
 	List<Place> getTop6();
 
-	// get all
+	// get all active
 	@Query(value = "SELECT  * from Place where status_place_id =1  ORDER BY counter_view DESC ", nativeQuery = true) // jpql
 	List<Place> getAll();
 
@@ -37,5 +39,13 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
 	@Query(value = "SELECT * FROM Place where place_id =:place_id  ", nativeQuery = true) // jpql
 	Place getPlaceByPlaceIDAndStatusID(@Param("place_id") int placeID);
+
+	// get all
+
+	@Query(value = "SELECT  * from Place  ", nativeQuery = true) // jpql
+	Page<Place> getAllPageable(Pageable pageable);
+	
+	
+	
 
 }

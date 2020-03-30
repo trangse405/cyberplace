@@ -47,4 +47,6 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeRepository.getPlaceByPlaceIDAndStatusID(placeID);
 	}
 
+
+
 }

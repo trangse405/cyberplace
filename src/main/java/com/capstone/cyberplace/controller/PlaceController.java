@@ -6,6 +6,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.cyberplace.dto.PlaceDetail;
 import com.capstone.cyberplace.dto.PlaceQuickView;
 import com.capstone.cyberplace.dto.SearchCondition;
+import com.capstone.cyberplace.dto.SearchConditionPage;
 import com.capstone.cyberplace.model.DistrictDB;
 import com.capstone.cyberplace.model.ImageLink;
 import com.capstone.cyberplace.model.Map;
@@ -25,6 +31,7 @@ import com.capstone.cyberplace.model.Place;
 import com.capstone.cyberplace.model.RoleOfPlace;
 import com.capstone.cyberplace.model.StreetDB;
 import com.capstone.cyberplace.model.WardDB;
+import com.capstone.cyberplace.repository.PlaceRepository;
 import com.capstone.cyberplace.service.impl.DistrictDBServiceImpl;
 import com.capstone.cyberplace.service.impl.ImageLinkServiceImpl;
 import com.capstone.cyberplace.service.impl.MapServiceImpl;
@@ -53,6 +60,9 @@ public class PlaceController {
 	private MapServiceImpl mapServiceImpl;
 
 	@Autowired
+	private PlaceRepository placerepository;
+
+	@Autowired
 	private ImageLinkServiceImpl imageLinkServiceImpl;
 
 	@GetMapping("/places/top6")
@@ -63,6 +73,15 @@ public class PlaceController {
 		return getPlaceQuickView(listP);
 	}
 
+	@GetMapping("/places/page")
+	public Page<Place> getPagePlace(@RequestParam("page") int page, @RequestParam("number") int number) {
+
+		Pageable pageable = PageRequest.of(page, number);
+
+		return placerepository.getAllPageable(pageable);
+	}
+
+	// kiểm tra status của 1 place
 	@GetMapping("/places/checkplace")
 	public int checkPlace(@RequestParam("placeid") int placeID) {
 
@@ -73,6 +92,7 @@ public class PlaceController {
 
 	}
 
+	// kéo ra tất cả place
 	@GetMapping("/places/all")
 	public List<PlaceQuickView> getAll() {
 
@@ -138,6 +158,24 @@ public class PlaceController {
 		return getPlaceQuickView(listP);
 	}
 
+	@PostMapping("/places/search-page")
+	public Page<PlaceQuickView> searchPagePlace(@Valid @RequestBody SearchConditionPage cond) {
+		String formatTitle = "";
+		if (!cond.getTitle().equals("")) {
+			formatTitle = "%" + cond.getTitle() + "%";
+		}
+		Pageable pageable = PageRequest.of(cond.getPage(), cond.getNumber());
+
+		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
+				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
+
+		List<PlaceQuickView> listContent = getPlaceQuickView(listP);
+
+		
+
+		return toPage(listContent, pageable);
+	}
+
 	public List<PlaceQuickView> getPlaceQuickView(List<Place> listP) {
 
 		List<PlaceQuickView> list = new ArrayList<>();
@@ -169,6 +207,19 @@ public class PlaceController {
 		}
 
 		return list;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+
+	private Page<PlaceQuickView> toPage(List<PlaceQuickView> list, Pageable pageable) {
+		if (pageable.getOffset() >= list.size()) {
+			return Page.empty();
+		}
+		int startIndex = (int) pageable.getOffset();
+		int endIndex = (int) ((pageable.getOffset() + pageable.getPageSize()) > list.size() ? list.size()
+				: pageable.getOffset() + pageable.getPageSize());
+		List subList = list.subList(startIndex, endIndex);
+		return new PageImpl(subList, pageable, list.size());
 	}
 
 }
