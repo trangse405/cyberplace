@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.capstone.cyberplace.dto.InsertedOrderForm;
+import com.capstone.cyberplace.dto.form.InsertedOrderForm;
 import com.capstone.cyberplace.model.OrderList;
 import com.capstone.cyberplace.repository.OrderListRepository;
 import com.capstone.cyberplace.service.OrderListService;

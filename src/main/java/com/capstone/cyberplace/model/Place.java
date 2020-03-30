@@ -73,6 +73,15 @@ public class Place {
 	@Column(name = "image_large")
 	private String image_large;
 
+	@Column(name = "contact_name")
+	private String contactName;
+	@Column(name = "contact_phone_number")
+	private String contactPhoneNumber;
+	@Column(name = "contact_address")
+	private String contactAddress;
+	@Column(name = "contact_email")
+	private String contactEmail;
+
 	public Place() {
 		// TODO Auto-generated constructor stub
 	}
@@ -80,7 +89,8 @@ public class Place {
 	public Place(int placeID, int ownerID, String title, float price, float area, int district_id, int ward_id,
 			int street_id, String address, int mapID, int roleOfPlaceID, int statusPlaceID, int counterView,
 			float frontispiece, String homeDirection, int floors, int bedRooms, int toilets, String description,
-			String image_large) {
+			String image_large, String contactName, String contactPhoneNumber, String contactAddress,
+			String contactEmail) {
 		super();
 		this.placeID = placeID;
 		this.ownerID = ownerID;
@@ -102,6 +112,42 @@ public class Place {
 		this.toilets = toilets;
 		this.description = description;
 		this.image_large = image_large;
+		this.contactName = contactName;
+		this.contactPhoneNumber = contactPhoneNumber;
+		this.contactAddress = contactAddress;
+		this.contactEmail = contactEmail;
+	}
+
+	public String getContactName() {
+		return contactName;
+	}
+
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+
+	public String getContactPhoneNumber() {
+		return contactPhoneNumber;
+	}
+
+	public void setContactPhoneNumber(String contactPhoneNumber) {
+		this.contactPhoneNumber = contactPhoneNumber;
+	}
+
+	public String getContactAddress() {
+		return contactAddress;
+	}
+
+	public void setContactAddress(String contactAddress) {
+		this.contactAddress = contactAddress;
+	}
+
+	public String getContactEmail() {
+		return contactEmail;
+	}
+
+	public void setContactEmail(String contactEmail) {
+		this.contactEmail = contactEmail;
 	}
 
 	public int getDistrict_id() {

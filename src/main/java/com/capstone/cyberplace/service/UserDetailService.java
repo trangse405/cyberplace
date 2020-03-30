@@ -1,6 +1,6 @@
 package com.capstone.cyberplace.service;
 
-import com.capstone.cyberplace.dto.InsertedUserDetailForm;
+import com.capstone.cyberplace.dto.form.InsertedUserDetailForm;
 import com.capstone.cyberplace.model.UserDetail;
 
 public interface UserDetailService {

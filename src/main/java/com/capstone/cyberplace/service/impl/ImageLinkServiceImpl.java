@@ -23,4 +23,10 @@ public class ImageLinkServiceImpl implements ImageLinkService {
 		return imageLinkRepository.getListImageByPlaceID(placeID);
 	}
 
+	@Override
+	public void insertImageLink(int place_id, String image_link) {
+		imageLinkRepository.insertImageLink(place_id, image_link);
+
+	}
+
 }

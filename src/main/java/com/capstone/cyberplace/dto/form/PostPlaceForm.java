@@ -1,4 +1,4 @@
-package com.capstone.cyberplace.dto;
+package com.capstone.cyberplace.dto.form;
 
 import java.util.List;
 
@@ -7,14 +7,16 @@ import com.capstone.cyberplace.controller.FurnitureGroupForm;
 public class PostPlaceForm {
 
 	// page 1
+	private int userID;
 	private String title;
-	private String roleOfPlaceID;
+	private int roleOfPlaceID;
 	private int districtID;
 	private int wardID;
 	private int StreetID;
 	private float area;
 	private float price;
 	private String addressDetail;
+	private String imageLarge;
 
 	// page 2
 	private String descriptions;
@@ -26,7 +28,7 @@ public class PostPlaceForm {
 	private int numberBedrooms;
 	private int numberToilets;
 	// page 4
-	private List<EquipmetListForm> listEquip;
+	private List<EquipmentListForm> listEquip;
 	// page5
 	private List<String> listImageLink;
 	// page6
@@ -39,19 +41,19 @@ public class PostPlaceForm {
 	private String email;
 	private String checkingDate;
 
-	
-	
-	
 	public PostPlaceForm() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PostPlaceForm(String title, String roleOfPlaceID, int districtID, int wardID, int streetID, float area,
-			float price, String addressDetail, String descriptions, float frontispiece, String homeDirection,
-			int numberFloors, int numberBedrooms, int numberToilets, List<EquipmetListForm> listEquip,
-			List<String> listImageLink, float longtitude, float latitude, String contactName, String contactAddress,
-			String phoneNumber, String email, String checkingDate) {
+	
+
+	public PostPlaceForm(int userID, String title, int roleOfPlaceID, int districtID, int wardID, int streetID,
+			float area, float price, String addressDetail, String imageLarge, String descriptions, float frontispiece,
+			String homeDirection, int numberFloors, int numberBedrooms, int numberToilets,
+			List<EquipmentListForm> listEquip, List<String> listImageLink, float longtitude, float latitude,
+			String contactName, String contactAddress, String phoneNumber, String email, String checkingDate) {
 		super();
+		this.userID = userID;
 		this.title = title;
 		this.roleOfPlaceID = roleOfPlaceID;
 		this.districtID = districtID;
@@ -60,6 +62,7 @@ public class PostPlaceForm {
 		this.area = area;
 		this.price = price;
 		this.addressDetail = addressDetail;
+		this.imageLarge = imageLarge;
 		this.descriptions = descriptions;
 		this.frontispiece = frontispiece;
 		this.homeDirection = homeDirection;
@@ -77,6 +80,36 @@ public class PostPlaceForm {
 		this.checkingDate = checkingDate;
 	}
 
+
+
+	public int getRoleOfPlaceID() {
+		return roleOfPlaceID;
+	}
+
+
+
+	public void setRoleOfPlaceID(int roleOfPlaceID) {
+		this.roleOfPlaceID = roleOfPlaceID;
+	}
+
+
+
+	public String getImageLarge() {
+		return imageLarge;
+	}
+
+	public void setImageLarge(String imageLarge) {
+		this.imageLarge = imageLarge;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -85,13 +118,7 @@ public class PostPlaceForm {
 		this.title = title;
 	}
 
-	public String getRoleOfPlaceID() {
-		return roleOfPlaceID;
-	}
 
-	public void setRoleOfPlaceID(String roleOfPlaceID) {
-		this.roleOfPlaceID = roleOfPlaceID;
-	}
 
 	public int getDistrictID() {
 		return districtID;
@@ -189,11 +216,11 @@ public class PostPlaceForm {
 		this.numberToilets = numberToilets;
 	}
 
-	public List<EquipmetListForm> getListEquip() {
+	public List<EquipmentListForm> getListEquip() {
 		return listEquip;
 	}
 
-	public void setListEquip(List<EquipmetListForm> listEquip) {
+	public void setListEquip(List<EquipmentListForm> listEquip) {
 		this.listEquip = listEquip;
 	}
 

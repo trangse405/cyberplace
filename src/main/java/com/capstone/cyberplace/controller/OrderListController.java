@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.common.CommonConstant;
-import com.capstone.cyberplace.dto.InsertedOrderForm;
-import com.capstone.cyberplace.dto.UpdateOrderForm;
+import com.capstone.cyberplace.dto.form.InsertedOrderForm;
+import com.capstone.cyberplace.dto.form.UpdateOrderForm;
 import com.capstone.cyberplace.model.OrderList;
 import com.capstone.cyberplace.model.Place;
 import com.capstone.cyberplace.service.impl.OrderListServiceImpl;

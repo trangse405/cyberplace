@@ -1,22 +1,24 @@
-package com.capstone.cyberplace.dto;
+package com.capstone.cyberplace.dto.form;
 
-public class UpdateOrderForm {
+public class InsertedOrderForm {
 
-	private int orderID;
+	private int ordererID;
+	private int placeID;
 	private String dateTime;
 	private String name;
 	private String email;
 	private String phoneNumber;
 	private String message;
 
-	public UpdateOrderForm() {
+	public InsertedOrderForm() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UpdateOrderForm(int orderID, String dateTime, String name, String email, String phoneNumber,
+	public InsertedOrderForm(int ordererID, int placeID, String dateTime, String name, String email, String phoneNumber,
 			String message) {
 		super();
-		this.orderID = orderID;
+		this.ordererID = ordererID;
+		this.placeID = placeID;
 		this.dateTime = dateTime;
 		this.name = name;
 		this.email = email;
@@ -24,12 +26,20 @@ public class UpdateOrderForm {
 		this.message = message;
 	}
 
-	public int getOrderID() {
-		return orderID;
+	public int getOrdererID() {
+		return ordererID;
 	}
 
-	public void setOrderID(int orderID) {
-		this.orderID = orderID;
+	public void setOrdererID(int ordererID) {
+		this.ordererID = ordererID;
+	}
+
+	public int getPlaceID() {
+		return placeID;
+	}
+
+	public void setPlaceID(int placeID) {
+		this.placeID = placeID;
 	}
 
 	public String getDateTime() {

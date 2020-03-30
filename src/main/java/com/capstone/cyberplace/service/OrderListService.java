@@ -1,6 +1,6 @@
 package com.capstone.cyberplace.service;
 
-import com.capstone.cyberplace.dto.InsertedOrderForm;
+import com.capstone.cyberplace.dto.form.InsertedOrderForm;
 import com.capstone.cyberplace.model.OrderList;
 
 public interface OrderListService {

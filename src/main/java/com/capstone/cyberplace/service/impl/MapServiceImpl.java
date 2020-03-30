@@ -17,8 +17,20 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public Map getOneByMapID(int mapID) {
-	
+
 		return mapRepository.getOneByMapID(mapID);
+	}
+
+	@Override
+	public void insertMap(float longtitude, float latitude) {
+		mapRepository.insertMap(latitude, longtitude);
+
+	}
+
+	@Override
+	public Map getMapIDByLongtitudeAndLatitude(float latitude, float longtitude) {
+
+		return mapRepository.getMapIDByLongtitudeAndLatitude(latitude, longtitude);
 	}
 
 }

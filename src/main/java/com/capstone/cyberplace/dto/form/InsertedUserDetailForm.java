@@ -1,4 +1,4 @@
-package com.capstone.cyberplace.dto;
+package com.capstone.cyberplace.dto.form;
 
 public class InsertedUserDetailForm {
 
