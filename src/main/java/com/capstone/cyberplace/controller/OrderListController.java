@@ -15,7 +15,9 @@ import com.capstone.cyberplace.common.CommonConstant;
 import com.capstone.cyberplace.dto.InsertedOrderForm;
 import com.capstone.cyberplace.dto.UpdateOrderForm;
 import com.capstone.cyberplace.model.OrderList;
+import com.capstone.cyberplace.model.Place;
 import com.capstone.cyberplace.service.impl.OrderListServiceImpl;
+import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -25,8 +27,17 @@ public class OrderListController {
 	@Autowired
 	private OrderListServiceImpl orderListServiceImpl;
 
+	@Autowired
+	private PlaceServiceImpl placeServiceImpl;
+
 	@PostMapping("/insert-order")
 	public boolean insertOrder(@Valid @RequestBody InsertedOrderForm inserted) {
+
+		Place p = placeServiceImpl.checkPlace(inserted.getPlaceID());
+
+		if (p.getStatusPlaceID() != 1) {
+			return false;
+		}
 
 		try {
 

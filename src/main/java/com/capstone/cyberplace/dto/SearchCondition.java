@@ -9,13 +9,15 @@ public class SearchCondition {
 	private int areaMin;
 	private int priceMax;
 	private int priceMin;
+	private int page;
+	private int amount;
 
 	public SearchCondition() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public SearchCondition(String title, int roleOfPlaceID, int districtID, int areaMax, int areaMin, int priceMax,
-			int priceMin) {
+			int priceMin, int page, int amount) {
 		super();
 		this.title = title;
 		this.roleOfPlaceID = roleOfPlaceID;
@@ -24,6 +26,24 @@ public class SearchCondition {
 		this.areaMin = areaMin;
 		this.priceMax = priceMax;
 		this.priceMin = priceMin;
+		this.page = page;
+		this.amount = amount;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 	public String getTitle() {

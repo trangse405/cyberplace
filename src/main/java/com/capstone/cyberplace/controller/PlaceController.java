@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.cyberplace.dto.PlaceDetail;
 import com.capstone.cyberplace.dto.PlaceQuickView;
 import com.capstone.cyberplace.dto.SearchCondition;
-import com.capstone.cyberplace.dto.SearchConditionPage;
 import com.capstone.cyberplace.model.DistrictDB;
 import com.capstone.cyberplace.model.ImageLink;
 import com.capstone.cyberplace.model.Map;
@@ -81,7 +79,9 @@ public class PlaceController {
 		return placerepository.getAllPageable(pageable);
 	}
 
-	// kiểm tra status của 1 place
+	/*
+	 *  trả  về tất cả place đang active
+	 * */
 	@GetMapping("/places/checkplace")
 	public int checkPlace(@RequestParam("placeid") int placeID) {
 
@@ -92,15 +92,20 @@ public class PlaceController {
 
 	}
 
-	// kéo ra tất cả place
+	/*
+	 *  trả  về tất cả place đang active
+	 * */
 	@GetMapping("/places/all")
-	public List<PlaceQuickView> getAll() {
+	public List<PlaceQuickView> getAllActive() {
 
 		List<Place> listP = placeServiceImpl.getAll();
 
 		return getPlaceQuickView(listP);
 	}
 
+	/*
+	 *  trả về chi tiết place theo ID
+	 * */
 	@GetMapping("/places/{id}")
 	public PlaceDetail getOneById(@PathVariable int id) {
 
@@ -134,6 +139,10 @@ public class PlaceController {
 		return pd;
 	}
 
+	
+	/*
+	 *  trả về danh sách ảnh theo placeID
+	 * */
 	@GetMapping("/places/images/{id}")
 	public List<String> getListImageLinkByPlaceID(@PathVariable int id) {
 
@@ -145,26 +154,30 @@ public class PlaceController {
 		return list;
 	}
 
-	@PostMapping("/places/search")
-	public List<PlaceQuickView> searchPlace(@Valid @RequestBody SearchCondition cond) {
-		String formatTitle = "";
-		if (!cond.getTitle().equals("")) {
-			formatTitle = "%" + cond.getTitle() + "%";
-		}
+//	@PostMapping("/places/search")
+//	public List<PlaceQuickView> searchPlace(@Valid @RequestBody SearchCondition cond) {
+//		String formatTitle = "";
+//		if (!cond.getTitle().equals("")) {
+//			formatTitle = "%" + cond.getTitle() + "%";
+//		}
+//
+//		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
+//				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
+//
+//		return getPlaceQuickView(listP);
+//	}
 
-		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
-				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
-
-		return getPlaceQuickView(listP);
-	}
-
+	/*
+	 *  trả về danh sách kết quả tìm kiếm theo page
+	 * */
+	
 	@PostMapping("/places/search-page")
-	public Page<PlaceQuickView> searchPagePlace(@Valid @RequestBody SearchConditionPage cond) {
+	public Page<PlaceQuickView> getListSearchByPage(@Valid @RequestBody SearchCondition cond) {
 		String formatTitle = "";
 		if (!cond.getTitle().equals("")) {
 			formatTitle = "%" + cond.getTitle() + "%";
 		}
-		Pageable pageable = PageRequest.of(cond.getPage(), cond.getNumber());
+		Pageable pageable = PageRequest.of(cond.getPage(), cond.getAmount());
 
 		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
 				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
@@ -174,8 +187,11 @@ public class PlaceController {
 		return toPage(listContent, pageable);
 	}
 
+	/*
+	 *  trả về số kết quả tìm được 
+	 * */
 	@PostMapping("/places/count-search-result")
-	public int counter(@Valid @RequestBody SearchConditionPage cond) {
+	public int getCountSearch(@Valid @RequestBody SearchCondition cond) {
 		String formatTitle = "";
 		if (!cond.getTitle().equals("")) {
 			formatTitle = "%" + cond.getTitle() + "%";
@@ -187,6 +203,26 @@ public class PlaceController {
 		return listP.size();
 	}
 
+	
+	//////////////////////////////////////////////////////////////////////////
+/*
+ * xử lý phân trang
+ * */
+	private Page<PlaceQuickView> toPage(List<PlaceQuickView> list, Pageable pageable) {
+		if (pageable.getOffset() >= list.size()) {
+			return Page.empty();
+		}
+		int startIndex = (int) pageable.getOffset();
+		int endIndex = (int) ((pageable.getOffset() + pageable.getPageSize()) > list.size() ? list.size()
+				: pageable.getOffset() + pageable.getPageSize());
+		List subList = list.subList(startIndex, endIndex);
+		return new PageImpl(subList, pageable, list.size());
+	}
+	
+	
+	/*
+	 * format list place thành định dạng xem trên trang chủ
+	 * */
 	public List<PlaceQuickView> getPlaceQuickView(List<Place> listP) {
 
 		List<PlaceQuickView> list = new ArrayList<>();
@@ -220,17 +256,5 @@ public class PlaceController {
 		return list;
 	}
 
-	//////////////////////////////////////////////////////////////////////////
-
-	private Page<PlaceQuickView> toPage(List<PlaceQuickView> list, Pageable pageable) {
-		if (pageable.getOffset() >= list.size()) {
-			return Page.empty();
-		}
-		int startIndex = (int) pageable.getOffset();
-		int endIndex = (int) ((pageable.getOffset() + pageable.getPageSize()) > list.size() ? list.size()
-				: pageable.getOffset() + pageable.getPageSize());
-		List subList = list.subList(startIndex, endIndex);
-		return new PageImpl(subList, pageable, list.size());
-	}
 
 }

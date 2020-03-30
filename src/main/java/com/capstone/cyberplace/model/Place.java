@@ -39,7 +39,7 @@ public class Place {
 
 	@Column(name = "address")
 	private String address;
-	
+
 	@Column(name = "map_id")
 	private int mapID;
 
@@ -52,25 +52,25 @@ public class Place {
 	@Column(name = "counter_view")
 	private int counterView;
 
-	@Column(name = "frontispiece", nullable = false)
+	@Column(name = "frontispiece")
 	private float frontispiece;
 
-	@Column(name = "home_direction", nullable = false)
+	@Column(name = "home_direction")
 	private String homeDirection;
 
-	@Column(name = "floors", nullable = false)
+	@Column(name = "floors")
 	private int floors;
 
-	@Column(name = "bed_rooms", nullable = false)
+	@Column(name = "bed_rooms")
 	private int bedRooms;
 
-	@Column(name = "toilets", nullable = false)
+	@Column(name = "toilets")
 	private int toilets;
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "description")
 	private String description;
 
-	@Column(name = "image_large", nullable = false)
+	@Column(name = "image_large")
 	private String image_large;
 
 	public Place() {
@@ -263,7 +263,5 @@ public class Place {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	
 
 }
