@@ -171,9 +171,20 @@ public class PlaceController {
 
 		List<PlaceQuickView> listContent = getPlaceQuickView(listP);
 
-		
-
 		return toPage(listContent, pageable);
+	}
+
+	@PostMapping("/places/count-search-result")
+	public int counter(@Valid @RequestBody SearchConditionPage cond) {
+		String formatTitle = "";
+		if (!cond.getTitle().equals("")) {
+			formatTitle = "%" + cond.getTitle() + "%";
+		}
+
+		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
+				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
+
+		return listP.size();
 	}
 
 	public List<PlaceQuickView> getPlaceQuickView(List<Place> listP) {
