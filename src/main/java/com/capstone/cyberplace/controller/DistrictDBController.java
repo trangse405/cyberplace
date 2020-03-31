@@ -35,7 +35,7 @@ public class DistrictDBController {
 		return mess;
 	}
 	
-	@GetMapping("/getall")
+	@GetMapping("/getalldistrict")
     public List<DistrictDB> getAllDistrict() {
 		
 		
