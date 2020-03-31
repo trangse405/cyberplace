@@ -10,8 +10,6 @@ import com.capstone.cyberplace.model.StreetDB;
 import com.capstone.cyberplace.repository.StreetDBRepository;
 import com.capstone.cyberplace.service.StreetDBService;
 
-
-
 @Service
 @Transactional
 public class StreetDBServiceImpl implements StreetDBService {
@@ -27,8 +25,14 @@ public class StreetDBServiceImpl implements StreetDBService {
 
 	@Override
 	public StreetDB getOneStreetByID(int streetID) {
-		
+
 		return streetdbRepository.getOneStreetByID(streetID);
+	}
+
+	@Override
+	public List<StreetDB> getAllStreetByWardID(int wardID) {
+
+		return streetdbRepository.getAllStreetByWardID(wardID);
 	}
 
 }

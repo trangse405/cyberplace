@@ -7,6 +7,8 @@ import com.capstone.cyberplace.model.StreetDB;
 public interface StreetDBService {
 
 	List<StreetDB> getAllStreet();
-	
+
 	StreetDB getOneStreetByID(int streetID);
+
+	List<StreetDB> getAllStreetByWardID(int wardID);
 }

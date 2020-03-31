@@ -12,21 +12,27 @@ import com.capstone.cyberplace.service.WardDBService;
 
 @Service
 @Transactional
-public class WardDBServiceImpl implements WardDBService{
+public class WardDBServiceImpl implements WardDBService {
 
 	@Autowired
 	private WardDBRepository wardDBRepository;
-	
+
 	@Override
 	public List<WardDB> listAllWard() {
-		
+
 		return wardDBRepository.getAllWard();
 	}
 
 	@Override
 	public WardDB getOneWardByID(int wardID) {
-		
+
 		return wardDBRepository.getOneWardByID(wardID);
+	}
+
+	@Override
+	public List<WardDB> getAllWardByDistrictID(int districtID) {
+
+		return wardDBRepository.getAllWardByDistrictID(districtID);
 	}
 
 }

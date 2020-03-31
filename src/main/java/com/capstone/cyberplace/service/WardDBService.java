@@ -6,8 +6,9 @@ import com.capstone.cyberplace.model.WardDB;
 
 public interface WardDBService {
 
-	
-	List<WardDB> listAllWard ();
-	
+	List<WardDB> listAllWard();
+
 	WardDB getOneWardByID(int wardID);
+
+	List<WardDB> getAllWardByDistrictID(int districtID);
 }

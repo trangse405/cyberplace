@@ -117,26 +117,25 @@ public class PlaceController {
 	public List<PlaceQuickView> getAllActive() {
 
 		List<Place> listP = placeServiceImpl.getAll();
-		
 
 		return getPlaceQuickView(listP);
 	}
-	
-	//---------------------test function with place id =2------------------
+
+	// ---------------------test function with place id =2------------------
 	@GetMapping("/places/test")
 	public PostPlaceForm test() {
 
 		Place p = placerepository.getOneByID(2);
 		List<ImageLink> listS = imageLinkServiceImpl.getListImageByPlaceID(2);
 		List<String> list = new ArrayList<String>();
-		for(ImageLink i : listS) {
+		for (ImageLink i : listS) {
 			list.add(i.getImage_link());
 		}
-		List<EquipmentList>  listE = equipmentListServiceImpl.getListEquipByPlaceID(2); 
-		
+		List<EquipmentList> listE = equipmentListServiceImpl.getListEquipByPlaceID(2);
+
 		List<EquipmentListForm> listEQ = new ArrayList<EquipmentListForm>();
-		
-		for(EquipmentList e : listE) {
+
+		for (EquipmentList e : listE) {
 			EquipmentListForm eq = new EquipmentListForm();
 			eq.setName(e.getEquipmentName());
 			eq.setPrice(e.getPrice());
@@ -153,8 +152,8 @@ public class PlaceController {
 
 		return ps;
 	}
-	
-	//---------------------------------------
+
+	// ---------------------------------------
 
 	/*
 	 * trả về chi tiết place theo ID
@@ -247,7 +246,7 @@ public class PlaceController {
 			return false;
 		}
 
-		try {	
+		try {
 			for (String s : form.getListImageLink()) {
 				imageLinkServiceImpl.insertImageLink(placeID, s);
 			}

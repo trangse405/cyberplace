@@ -36,7 +36,8 @@ public class DistrictDBController {
 	}
 	
 	@GetMapping("/getall")
-    public List<DistrictDB> getAllStatistic() {
+    public List<DistrictDB> getAllDistrict() {
+		
 		
         return districtDBServiceImpl.listArea();
     }
