@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.capstone.cyberplace.model.CheckingList;
 import com.capstone.cyberplace.repository.CheckingListRepository;
 import com.capstone.cyberplace.service.CheckingListService;
 
@@ -17,6 +18,18 @@ public class CheckingListServiceImpl implements CheckingListService {
 	@Override
 	public void insertItemToCheckingList(int place_id, String dateTime, int checkingStatusID) {
 		checkingListRepository.insertItemToCheckingList(place_id, dateTime, checkingStatusID);
+
+	}
+
+	@Override
+	public CheckingList getCheckingByPlaceID(int placeID) {
+
+		return checkingListRepository.getCheckingByPlaceID(placeID);
+	}
+
+	@Override
+	public void updateItemToCheckingList(int place_id, String dateTime) {
+		checkingListRepository.updateItemToCheckingList(place_id, dateTime);
 
 	}
 

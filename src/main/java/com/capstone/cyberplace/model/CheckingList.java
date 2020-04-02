@@ -18,16 +18,16 @@ public class CheckingList {
 	@Column(name = "checking_id", nullable = false)
 	private int checkingID;
 
-	@Column(name = "place_id", nullable = false)
+	@Column(name = "place_id")
 	private int placeID;
 
-	@Column(name = "staff_id", nullable = false)
-	private int staffID;
+	@Column(name = "staff_id")
+	private Integer staffID;
 
-	@Column(name = "date_time", nullable = false)
+	@Column(name = "date_time")
 	private Date dateTime;
 
-	@Column(name = "checking_status_id", nullable = false)
+	@Column(name = "checking_status_id")
 	private int checkingStatusID;
 
 	public CheckingList() {
@@ -59,11 +59,11 @@ public class CheckingList {
 		this.placeID = placeID;
 	}
 
-	public int getStaffID() {
+	public Integer getStaffID() {
 		return staffID;
 	}
 
-	public void setStaffID(int staffID) {
+	public void setStaffID(Integer staffID) {
 		this.staffID = staffID;
 	}
 

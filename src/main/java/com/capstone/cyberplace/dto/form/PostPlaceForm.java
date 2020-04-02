@@ -2,8 +2,6 @@ package com.capstone.cyberplace.dto.form;
 
 import java.util.List;
 
-import com.capstone.cyberplace.controller.FurnitureGroupForm;
-
 public class PostPlaceForm {
 
 	// page 1
@@ -12,11 +10,10 @@ public class PostPlaceForm {
 	private int roleOfPlaceID;
 	private int districtID;
 	private int wardID;
-	private int StreetID;
+	private int streetID;
 	private float area;
 	private float price;
 	private String addressDetail;
-	private String imageLarge;
 
 	// page 2
 	private String descriptions;
@@ -45,10 +42,8 @@ public class PostPlaceForm {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public PostPlaceForm(int userID, String title, int roleOfPlaceID, int districtID, int wardID, int streetID,
-			float area, float price, String addressDetail, String imageLarge, String descriptions, float frontispiece,
+			float area, float price, String addressDetail, String descriptions, float frontispiece,
 			String homeDirection, int numberFloors, int numberBedrooms, int numberToilets,
 			List<EquipmentListForm> listEquip, List<String> listImageLink, float longtitude, float latitude,
 			String contactName, String contactAddress, String phoneNumber, String email, String checkingDate) {
@@ -58,11 +53,10 @@ public class PostPlaceForm {
 		this.roleOfPlaceID = roleOfPlaceID;
 		this.districtID = districtID;
 		this.wardID = wardID;
-		StreetID = streetID;
+		this.streetID = streetID;
 		this.area = area;
 		this.price = price;
 		this.addressDetail = addressDetail;
-		this.imageLarge = imageLarge;
 		this.descriptions = descriptions;
 		this.frontispiece = frontispiece;
 		this.homeDirection = homeDirection;
@@ -80,26 +74,20 @@ public class PostPlaceForm {
 		this.checkingDate = checkingDate;
 	}
 
+	public int getStreetID() {
+		return streetID;
+	}
 
+	public void setStreetID(int streetID) {
+		this.streetID = streetID;
+	}
 
 	public int getRoleOfPlaceID() {
 		return roleOfPlaceID;
 	}
 
-
-
 	public void setRoleOfPlaceID(int roleOfPlaceID) {
 		this.roleOfPlaceID = roleOfPlaceID;
-	}
-
-
-
-	public String getImageLarge() {
-		return imageLarge;
-	}
-
-	public void setImageLarge(String imageLarge) {
-		this.imageLarge = imageLarge;
 	}
 
 	public int getUserID() {
@@ -118,8 +106,6 @@ public class PostPlaceForm {
 		this.title = title;
 	}
 
-
-
 	public int getDistrictID() {
 		return districtID;
 	}
@@ -134,14 +120,6 @@ public class PostPlaceForm {
 
 	public void setWardID(int wardID) {
 		this.wardID = wardID;
-	}
-
-	public int getStreetID() {
-		return StreetID;
-	}
-
-	public void setStreetID(int streetID) {
-		StreetID = streetID;
 	}
 
 	public float getArea() {

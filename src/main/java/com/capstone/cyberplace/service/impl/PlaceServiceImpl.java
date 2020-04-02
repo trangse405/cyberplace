@@ -24,11 +24,6 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public Place getOneByID(int id) {
-		return placeRepository.getOneByID(id);
-	}
-
-	@Override
 	public List<Place> searhPlace(String title, int districtid, int roleid, float mina, float maxa, float minp,
 			float maxp) {
 
@@ -42,28 +37,44 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public Place checkPlace(int placeID) {
+	public Place getPlaceByPlaceID(int placeID) {
 
-		return placeRepository.getPlaceByPlaceIDAndStatusID(placeID);
+		return placeRepository.getPlaceByPlaceID(placeID);
 	}
 
 	@Override
 	public void insertPlace(int userID, String title, float price, float area, int district_id, int wardID,
-			int streetID, String address, int mapID, int roleOfPlaceID, int statusPlaceID, int counterView,
-			float frontispiece, String home_direction, int floors, int bed_rooms, int toilets, String description,
-			String imageLarge, String contactName, String contactPhoneNumber, String contactAddress,
-			String contactEmail) {
+			int streetID, String address, int roleOfPlaceID, int statusPlaceID, int counterView, float frontispiece,
+			String home_direction, int floors, int bed_rooms, int toilets, String description, String imageLarge,
+			String contactName, String contactPhoneNumber, String contactAddress, String contactEmail) {
 
-		placeRepository.insertPlace(userID, title, price, area, district_id, wardID, streetID, address, mapID,
-				roleOfPlaceID, statusPlaceID, counterView, frontispiece, home_direction, floors, bed_rooms, toilets,
-				description, imageLarge, contactName, contactPhoneNumber, contactAddress, contactEmail);
+		placeRepository.insertPlace(userID, title, price, area, district_id, wardID, streetID, address, roleOfPlaceID,
+				statusPlaceID, counterView, frontispiece, home_direction, floors, bed_rooms, toilets, description,
+				imageLarge, contactName, contactPhoneNumber, contactAddress, contactEmail);
 
 	}
 
 	@Override
 	public Place getPlaceByMapID(int map_id) {
-		
+
 		return placeRepository.getPlaceByMapID(map_id);
+	}
+
+	@Override
+	public void updatePlace(String title, float price, float area, int district_id, int wardID, int streetID,
+			String address, int roleOfPlaceID, float frontispiece, String home_direction, int floors, int bed_rooms,
+			int toilets, String description, String contactName, String contactPhoneNumber, String contactAddress,
+			String contactEmail, int place_id) {
+		placeRepository.updatePlace(title, price, area, district_id, wardID, streetID, address, roleOfPlaceID,
+				frontispiece, home_direction, floors, bed_rooms, toilets, description, contactName, contactPhoneNumber,
+				contactAddress, contactEmail, place_id);
+
+	}
+
+	@Override
+	public Place getOneActiveByPlaceID(int id) {
+
+		return placeRepository.getOneActiveByPlaceID(id);
 	}
 
 }

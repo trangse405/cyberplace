@@ -25,7 +25,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
 	// find by place id
 	@Query(value = "SELECT  * from Place where place_id = :place_id AND status_place_id = 1", nativeQuery = true) // jpql
-	Place getOneByID(@Param("place_id") int place_id);
+	Place getOneActiveByPlaceID(@Param("place_id") int place_id);
 
 	// searchUltimate
 	@Modifying
@@ -38,22 +38,23 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	// check Status place
 
 	@Query(value = "SELECT * FROM Place where place_id =:place_id  ", nativeQuery = true) // jpql
-	Place getPlaceByPlaceIDAndStatusID(@Param("place_id") int placeID);
+	Place getPlaceByPlaceID(@Param("place_id") int placeID);
 
 	// get all
 
 	@Query(value = "SELECT  * from Place  ", nativeQuery = true) // jpql
 	Page<Place> getAllPageable(Pageable pageable);
 
+	// insert
 	@Modifying
 	@Query(value = "INSERT INTO Place (owner_id , title , price , area , district_id ,ward_id , street_id\r\n"
-			+ ", address , map_id , role_of_place_id , status_place_id , counter_view , frontispiece,home_direction, \r\n"
+			+ ", address ,  role_of_place_id , status_place_id , counter_view , frontispiece,home_direction, \r\n"
 			+ "floors, bed_rooms, toilets,description,image_large , contact_name , contact_phone_number , contact_address , contact_email ) VALUES (:owner_id , :title , :price , :area , :district_id , :ward_id , :street_id "
 			+ ", :address , :map_id , :role_of_place_id , :status_place_id , :counter_view , :frontispiece "
 			+ ", :home_direction , :floors , :bed_rooms , :toilets , :description ,:image_large ,:contact_name , :contact_phone_number , :contact_address , :contact_email) ", nativeQuery = true) // jpql
 	void insertPlace(@Param("owner_id") int userID, @Param("title") String title, @Param("price") float price,
 			@Param("area") float area, @Param("district_id") int district_id, @Param("ward_id") int wardID,
-			@Param("street_id") int streetID, @Param("address") String address, @Param("map_id") int mapID,
+			@Param("street_id") int streetID, @Param("address") String address,
 			@Param("role_of_place_id") int roleOfPlaceID, @Param("status_place_id") int statusPlaceID,
 			@Param("counter_view") int counterView, @Param("frontispiece") float frontispiece,
 			@Param("home_direction") String home_direction, @Param("floors") int floors,
@@ -61,11 +62,25 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 			@Param("image_large") String imageLarge, @Param("contact_name") String contactName,
 			@Param("contact_phone_number") String contactPhoneNumber, @Param("contact_address") String contactAddress,
 			@Param("contact_email") String contactEmail);
-	
-	
-	//get one by map id
-	
+
+	// get one by map id
+
 	@Query(value = "SELECT * FROM Place where map_id = :map_id  ", nativeQuery = true) // jpql
 	Place getPlaceByMapID(@Param("map_id") int map_id);
+
+	// update
+	@Modifying
+	@Query(value = "UPDATE Place SET title = :title , price = :price , area = :area , district_id = :district_id , ward_id = :ward_id , street_id = :street_id "
+			+ ", address = :address , role_of_place_id = :role_of_place_id , frontispiece = :frontispiece , home_direction = :home_direction , floors = :floors "
+			+ ", bed_rooms= :bed_rooms , toilets= :toilets ,  description= :description , contact_name = :contact_name "
+			+ ", contact_address = :contact_address , contact_phone_number = :contact_phone_number , contact_email =:contact_email where place_id = :place_id ", nativeQuery = true) // jpql
+	void updatePlace(@Param("title") String title, @Param("price") float price, @Param("area") float area,
+			@Param("district_id") int district_id, @Param("ward_id") int wardID, @Param("street_id") int streetID,
+			@Param("address") String address, @Param("role_of_place_id") int roleOfPlaceID,
+			@Param("frontispiece") float frontispiece, @Param("home_direction") String home_direction,
+			@Param("floors") int floors, @Param("bed_rooms") int bed_rooms, @Param("toilets") int toilets,
+			@Param("description") String description, @Param("contact_name") String contactName,
+			@Param("contact_phone_number") String contactPhoneNumber, @Param("contact_address") String contactAddress,
+			@Param("contact_email") String contactEmail, @Param("place_id") int place_id);
 
 }

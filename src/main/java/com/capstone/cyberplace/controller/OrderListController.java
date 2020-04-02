@@ -33,7 +33,7 @@ public class OrderListController {
 	@PostMapping("/insert-order")
 	public boolean insertOrder(@Valid @RequestBody InsertedOrderForm inserted) {
 
-		Place p = placeServiceImpl.checkPlace(inserted.getPlaceID());
+		Place p = placeServiceImpl.getPlaceByPlaceID(inserted.getPlaceID());
 
 		if (p.getStatusPlaceID() != 1) {
 			return false;

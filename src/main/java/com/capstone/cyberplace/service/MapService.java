@@ -6,7 +6,7 @@ public interface MapService {
 
 	Map getOneByMapID(int mapID);
 
-	void insertMap(float longtitude, float latitude);
-	
-	Map getMapIDByLongtitudeAndLatitude( float latitude,float longtitude);
+	void insertMap(float longtitude, float latitude, int place_id);
+
+	Map getMapIDByPlaceID(int place_id);
 }

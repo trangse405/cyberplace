@@ -22,15 +22,27 @@ public class Map {
 	@Column(name = "latitude", nullable = false)
 	private float latitude;
 
+	@Column(name = "place_id")
+	private int placeID;
+
 	public Map() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Map(int mapID, float longtitude, float latitude) {
+	public Map(int mapID, float longtitude, float latitude, int placeID) {
 		super();
 		this.mapID = mapID;
 		this.longtitude = longtitude;
 		this.latitude = latitude;
+		this.placeID = placeID;
+	}
+
+	public int getPlaceID() {
+		return placeID;
+	}
+
+	public void setPlaceID(int placeID) {
+		this.placeID = placeID;
 	}
 
 	public int getMapID() {

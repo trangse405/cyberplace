@@ -15,10 +15,11 @@ public interface MapRepository extends JpaRepository<Map, Integer> {
 	Map getOneByMapID(@Param("map_id") int map_id);
 
 	@Modifying
-	@Query(value = " INSERT INTO Map (latitude , longtitude) VALUES (:latitude , :longtitude)", nativeQuery = true) // jpql
-	void insertMap(@Param("latitude") float latitude, @Param("longtitude") float longtitude);
+	@Query(value = " INSERT INTO Map (latitude , longtitude , place_id) VALUES (:latitude , :longtitude , :place_id)", nativeQuery = true) // jpql
+	void insertMap(@Param("latitude") float latitude, @Param("longtitude") float longtitude,
+			@Param("place_id") int place_id);
 
-	@Query(value = "SELECT * FROM Map where latitude = :latitude AND longtitude = :longtitude ", nativeQuery = true) // jpql
-	Map getMapIDByLongtitudeAndLatitude(@Param("latitude") float latitude, @Param("longtitude") float longtitude);
+	@Query(value = "SELECT * FROM Map where place_id = :place_id ", nativeQuery = true) // jpql
+	Map getMapIDByPlaceID(@Param("place_id") int place_id);
 
 }

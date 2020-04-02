@@ -22,15 +22,15 @@ public class MapServiceImpl implements MapService {
 	}
 
 	@Override
-	public void insertMap(float longtitude, float latitude) {
-		mapRepository.insertMap(latitude, longtitude);
+	public void insertMap(float longtitude, float latitude, int place_id) {
+		mapRepository.insertMap(latitude, longtitude, place_id);
 
 	}
 
 	@Override
-	public Map getMapIDByLongtitudeAndLatitude(float latitude, float longtitude) {
+	public Map getMapIDByPlaceID(int place_id) {
 
-		return mapRepository.getMapIDByLongtitudeAndLatitude(latitude, longtitude);
+		return mapRepository.getMapIDByPlaceID(place_id);
 	}
 
 }

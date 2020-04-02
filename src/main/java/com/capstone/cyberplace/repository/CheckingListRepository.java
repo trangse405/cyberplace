@@ -15,4 +15,13 @@ public interface CheckingListRepository extends JpaRepository<CheckingList, Inte
 	@Query(value = "INSERT INTO CheckingList (place_id , date_time , checking_status_id) VALUES (:place_id , :date_time , :checking_status_id)", nativeQuery = true) // jpql
 	void insertItemToCheckingList(@Param("place_id") int place_id, @Param("date_time") String dateTime,
 			@Param("checking_status_id") int checkingStatusID);
+
+	@Query(value = "SELECT * FROM CheckingList where place_id = :place_id ", nativeQuery = true) // jpql
+	CheckingList getCheckingByPlaceID(@Param("place_id") int placeID);
+	
+	
+	@Modifying
+	@Query(value = "UPDATE CheckingList SET date_time = :date_time  where place_id = :place_id ", nativeQuery = true) // jpql
+	void updateItemToCheckingList(@Param("place_id") int place_id, @Param("date_time") String dateTime) ;
+
 }

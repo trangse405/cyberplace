@@ -40,8 +40,7 @@ public class Place {
 	@Column(name = "address")
 	private String address;
 
-	@Column(name = "map_id")
-	private int mapID;
+	
 
 	@Column(name = "role_of_place_id", nullable = false)
 	private int roleOfPlaceID;
@@ -87,7 +86,7 @@ public class Place {
 	}
 
 	public Place(int placeID, int ownerID, String title, float price, float area, int district_id, int ward_id,
-			int street_id, String address, int mapID, int roleOfPlaceID, int statusPlaceID, int counterView,
+			int street_id, String address,  int roleOfPlaceID, int statusPlaceID, int counterView,
 			float frontispiece, String homeDirection, int floors, int bedRooms, int toilets, String description,
 			String image_large, String contactName, String contactPhoneNumber, String contactAddress,
 			String contactEmail) {
@@ -101,7 +100,7 @@ public class Place {
 		this.ward_id = ward_id;
 		this.street_id = street_id;
 		this.address = address;
-		this.mapID = mapID;
+	
 		this.roleOfPlaceID = roleOfPlaceID;
 		this.statusPlaceID = statusPlaceID;
 		this.counterView = counterView;
@@ -182,13 +181,7 @@ public class Place {
 		this.address = address;
 	}
 
-	public int getMapID() {
-		return mapID;
-	}
 
-	public void setMapID(int mapID) {
-		this.mapID = mapID;
-	}
 
 	public int getRoleOfPlaceID() {
 		return roleOfPlaceID;

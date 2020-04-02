@@ -25,6 +25,7 @@ import com.capstone.cyberplace.dto.PlaceQuickView;
 import com.capstone.cyberplace.dto.form.PostPlaceForm;
 import com.capstone.cyberplace.dto.SearchCondition;
 import com.capstone.cyberplace.dto.form.EquipmentListForm;
+import com.capstone.cyberplace.model.CheckingList;
 import com.capstone.cyberplace.model.DistrictDB;
 import com.capstone.cyberplace.model.EquipmentList;
 import com.capstone.cyberplace.model.ImageLink;
@@ -103,7 +104,7 @@ public class PlaceController {
 	@GetMapping("/places/checkplace")
 	public int checkPlace(@RequestParam("placeid") int placeID) {
 
-		Place p = placeServiceImpl.checkPlace(placeID);
+		Place p = placeServiceImpl.getPlaceByPlaceID(placeID);
 
 		// trả về status tương ứng
 		return p.getStatusPlaceID();
@@ -123,9 +124,9 @@ public class PlaceController {
 
 	// ---------------------test function with place id =2------------------
 	@GetMapping("/places/test")
-	public PostPlaceForm test() {
-
-		Place p = placerepository.getOneByID(2);
+	public Map test() {
+		Map m = mapServiceImpl.getMapIDByPlaceID(22);
+		Place p = placerepository.getOneActiveByPlaceID(2);
 		List<ImageLink> listS = imageLinkServiceImpl.getListImageByPlaceID(2);
 		List<String> list = new ArrayList<String>();
 		for (ImageLink i : listS) {
@@ -150,6 +151,59 @@ public class PlaceController {
 		ps.setListImageLink(list);
 		ps.setListEquip(listEQ);
 
+		return m;
+	}
+
+	@GetMapping("/places/fillupdate")
+	public PostPlaceForm fillDataToUpdatePlaceForm(@RequestParam("placeid") int placeID) {
+
+		Place p = placerepository.getPlaceByPlaceID(placeID);
+
+		// get list image link
+
+		List<ImageLink> listS = imageLinkServiceImpl.getListImageByPlaceID(placeID);
+		List<String> list = new ArrayList<String>();
+		for (ImageLink i : listS) {
+			list.add(i.getImage_link());
+		}
+
+		// get equipment list
+		List<EquipmentList> listE = equipmentListServiceImpl.getListEquipByPlaceID(placeID);
+
+		List<EquipmentListForm> listEQ = new ArrayList<EquipmentListForm>();
+
+		for (EquipmentList e : listE) {
+			EquipmentListForm eq = new EquipmentListForm();
+			eq.setName(e.getEquipmentName());
+			eq.setPrice(e.getPrice());
+			eq.setLikeNew(e.getLikeNew());
+			eq.setQuantity(e.getQuantity());
+			eq.setEquipmentDescrible(e.getEquipmentDescribe());
+			listEQ.add(eq);
+		}
+
+		// get check time meeing
+
+		String checkedDate = "";
+		CheckingList checked = checkingListServiceImpl.getCheckingByPlaceID(placeID);
+		if (checked != null) {
+			checkedDate = checked.getDateTime().toString();
+		}
+
+		// get map infor
+
+		Map m = mapServiceImpl.getMapIDByPlaceID(p.getPlaceID());
+
+		// fill form
+		PostPlaceForm ps = new PostPlaceForm();
+		convertPlaceToPost(p, ps);
+		ps.setListImageLink(list);
+		ps.setListEquip(listEQ);
+
+		ps.setCheckingDate(checkedDate);
+		ps.setLatitude(m.getLatitude());
+		ps.setLongtitude(m.getLongtitude());
+
 		return ps;
 	}
 
@@ -161,11 +215,11 @@ public class PlaceController {
 	@GetMapping("/places/{id}")
 	public PlaceDetail getOneById(@PathVariable int id) {
 
-		Place p = placeServiceImpl.getOneByID(id);
+		Place p = placeServiceImpl.getOneActiveByPlaceID(id);
 		DistrictDB d = districtDBServiceImpl.getOneDistrictByID(p.getDistrict_id());
 		WardDB w = wardDBServiceImpl.getOneWardByID(p.getWard_id());
 		StreetDB s = streetDBServiceImpl.getOneStreetByID(p.getStreet_id());
-		Map m = mapServiceImpl.getOneByMapID(p.getMapID());
+		Map m = mapServiceImpl.getMapIDByPlaceID(id);
 		RoleOfPlace r = roleOfPlaceServiceImpl.getRoleByID(p.getRoleOfPlaceID());
 
 		PlaceDetail pd = new PlaceDetail();
@@ -225,38 +279,50 @@ public class PlaceController {
 		return toPage(listContent, pageable).getContent();
 	}
 
+	
+
 	/*
 	 * insert các thông tin trong form rao tin
 	 */
 	@PostMapping("/places/insert-places")
 	public boolean insertPlace(@Valid @RequestBody PostPlaceForm form) {
 
-		int mapID = getMapIDAfterInserted(form.getLatitude(), form.getLongtitude());
+		int placeID = getPlaceIDAfterInserted(form);
 
-		int placeID = getPlaceIDAfterInserted(form, mapID, form.getListImageLink().get(0));
+		if (form.getListEquip() != null && !form.getListEquip().isEmpty()) {
+			try {
+				for (EquipmentListForm item : form.getListEquip()) {
+					equipmentListServiceImpl.insertEquipmentItem(placeID, item.getName(), item.getQuantity(),
+							item.getPrice(), item.getLikeNew(), item.getEquipmentDescrible());
 
-		try {
-			for (EquipmentListForm item : form.getListEquip()) {
-				equipmentListServiceImpl.insertEquipmentItem(placeID, item.getName(), item.getQuantity(),
-						item.getPrice(), item.getLikeNew(), item.getEquipmentDescrible());
-
+				}
+			} catch (Exception e) {
+				System.out.print("insert equip error");
+				return false;
 			}
-		} catch (Exception e) {
-			System.out.print("insert equip error");
-			return false;
+		}
+		if (form.getListImageLink() != null && !form.getListImageLink().isEmpty()) {
+			try {
+				for (String s : form.getListImageLink()) {
+					imageLinkServiceImpl.insertImageLink(placeID, s);
+				}
+			} catch (Exception e) {
+				System.out.print("insert image link error");
+				return false;
+			}
+
 		}
 
-		try {
-			for (String s : form.getListImageLink()) {
-				imageLinkServiceImpl.insertImageLink(placeID, s);
-			}
-		} catch (Exception e) {
-			System.out.print("insert image link error");
-			return false;
-		}
 		try {
 			checkingListServiceImpl.insertItemToCheckingList(placeID, form.getCheckingDate(),
 					CommonConstant.Checking_Status_ID_Pending);
+		} catch (Exception e) {
+			System.out.print("insert checking error");
+			return false;
+		}
+
+		try {
+			mapServiceImpl.insertMap(form.getLongtitude(), form.getLatitude(), placeID);
 		} catch (Exception e) {
 			System.out.print("insert checking error");
 			return false;
@@ -333,40 +399,71 @@ public class PlaceController {
 	}
 
 	/*
-	 * lấy ra map id sau khi insert thông tin vào bảng map
-	 */
-	public int getMapIDAfterInserted(float latitude, float longtitude) {
-
-		try {
-			mapServiceImpl.insertMap(longtitude, latitude);
-		} catch (Exception e) {
-			System.out.print("insert map error");
-		}
-
-		Map m = mapServiceImpl.getMapIDByLongtitudeAndLatitude(latitude, longtitude);
-
-		return m.getMapID();
-	}
-
-	/*
 	 * lấy ra place id sau khi insert thông tin vào bảng place
 	 */
-	public int getPlaceIDAfterInserted(PostPlaceForm form, int mapID, String imageLarge) {
+	public int getPlaceIDAfterInserted(PostPlaceForm form) {
 
 		try {
-			placeServiceImpl.insertPlace(form.getUserID(), form.getTitle(), form.getPrice(), form.getArea(),
-					form.getDistrictID(), form.getWardID(), form.getStreetID(), form.getAddressDetail(), mapID,
-					form.getRoleOfPlaceID(), CommonConstant.Place_Status_ID_Pending, 0, form.getFrontispiece(),
-					form.getHomeDirection(), form.getNumberFloors(), form.getNumberBedrooms(), form.getNumberToilets(),
-					form.getDescriptions(), imageLarge, form.getContactName(), form.getPhoneNumber(),
-					form.getContactAddress(), form.getEmail());
+			Place p = new Place();
+			p.setOwnerID(form.getUserID());
+			p.setTitle(form.getTitle());
+			p.setPrice(form.getPrice());
+			p.setArea(form.getArea());
+			p.setDistrict_id(form.getDistrictID());
+			p.setWard_id(form.getWardID());
+			p.setStreet_id(form.getStreetID());
+			p.setAddress(form.getAddressDetail());
+			p.setRoleOfPlaceID(form.getRoleOfPlaceID());
+			p.setStatusPlaceID(CommonConstant.Place_Status_ID_Pending);
+			p.setCounterView(0);
+			p.setFrontispiece(form.getFrontispiece());
+			p.setHomeDirection(form.getHomeDirection());
+			p.setFloors(form.getNumberFloors());
+			p.setBedRooms(form.getNumberBedrooms());
+			p.setToilets(form.getNumberToilets());
+			p.setDescription(form.getDescriptions());
+			p.setImage_large(form.getListImageLink().get(0));
+			p.setContactAddress(form.getContactAddress());
+			p.setContactName(form.getContactName());
+			p.setContactPhoneNumber(form.getPhoneNumber());
+			p.setContactEmail(form.getEmail());
+			p = placerepository.save(p);
+			placerepository.flush();
+
+			return p.getPlaceID();
+
 		} catch (Exception e) {
 			System.out.print("insert place error");
 		}
 
-		Place newPlace = placeServiceImpl.getPlaceByMapID(mapID);
+		return -1;
+	}
 
-		return newPlace.getPlaceID();
+	/*
+	 * đổ thông tin place ra post để update
+	 */
+	public void convertPlaceToPost(Place p, PostPlaceForm pf) {
+
+		pf.setAddressDetail(p.getAddress());
+
+		pf.setArea(p.getArea());
+		pf.setContactAddress(p.getContactAddress());
+		pf.setContactName(p.getContactName());
+		pf.setPhoneNumber(p.getContactPhoneNumber());
+		pf.setEmail(p.getContactEmail());
+		pf.setDescriptions(p.getDescription());
+		pf.setDistrictID(p.getDistrict_id());
+		pf.setFrontispiece(p.getFrontispiece());
+		pf.setNumberFloors(p.getFloors());
+		pf.setHomeDirection(p.getHomeDirection());
+		pf.setNumberBedrooms(p.getBedRooms());
+		pf.setNumberToilets(p.getToilets());
+		pf.setTitle(p.getTitle());
+		pf.setPrice(p.getPrice());
+		pf.setRoleOfPlaceID(p.getRoleOfPlaceID());
+		pf.setStreetID(p.getStreet_id());
+		pf.setWardID(p.getWard_id());
+
 	}
 
 }

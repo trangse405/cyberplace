@@ -24,5 +24,10 @@ public interface EquipmentListReopsitory extends JpaRepository<EquipmentList, In
 	
 	@Query(value = "SELECT * FROM EquipmentList where place_id = :place_id ", nativeQuery = true) // jpql
 	List<EquipmentList> getListEquipByPlaceID(@Param("place_id") int placeID);
+	
+	
+	
+	
+	
 
 }

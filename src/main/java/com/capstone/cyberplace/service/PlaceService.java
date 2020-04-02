@@ -10,17 +10,21 @@ public interface PlaceService {
 
 	List<Place> getTop6();
 
-	Place getOneByID(int id);
+	Place getOneActiveByPlaceID(int id);
 
 	List<Place> getAll();
 
-	Place checkPlace(int placeID);
+	Place getPlaceByPlaceID(int placeID);
 
 	void insertPlace(int userID, String title, float price, float area, int district_id, int wardID, int streetID,
-			String address, int mapID, int roleOfPlaceID, int statusPlaceID, int counterView, float frontispiece,
+			String address, int roleOfPlaceID, int statusPlaceID, int counterView, float frontispiece,
 			String home_direction, int floors, int bed_rooms, int toilets, String description, String imageLarge,
 			String contactName, String contactPhoneNumber, String contactAddress, String contactEmail);
 
-	
-	Place getPlaceByMapID( int map_id);
+	Place getPlaceByMapID(int map_id);
+
+	void updatePlace(String title, float price, float area, int district_id, int wardID, int streetID, String address,
+			int roleOfPlaceID, float frontispiece, String home_direction, int floors, int bed_rooms, int toilets,
+			String description, String contactName, String contactPhoneNumber, String contactAddress,
+			String contactEmail, int place_id);
 }
