@@ -28,9 +28,12 @@ public class CheckingListServiceImpl implements CheckingListService {
 	}
 
 	@Override
-	public void updateItemToCheckingList(int place_id, String dateTime) {
-		checkingListRepository.updateItemToCheckingList(place_id, dateTime);
-
+	public void updateItemCheckingList(int place_id, String dateTime) {
+		checkingListRepository.updateItemCheckingList(place_id, dateTime);
+		
 	}
+
+
+
 
 }

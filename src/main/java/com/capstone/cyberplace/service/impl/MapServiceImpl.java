@@ -33,4 +33,10 @@ public class MapServiceImpl implements MapService {
 		return mapRepository.getMapIDByPlaceID(place_id);
 	}
 
+	@Override
+	public void updateMap(float latitude, float longtitude, int place_id) {
+		mapRepository.updateMap(latitude, longtitude, place_id);
+
+	}
+
 }

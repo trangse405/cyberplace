@@ -19,7 +19,7 @@ public interface PlaceService {
 	void insertPlace(int userID, String title, float price, float area, int district_id, int wardID, int streetID,
 			String address, int roleOfPlaceID, int statusPlaceID, int counterView, float frontispiece,
 			String home_direction, int floors, int bed_rooms, int toilets, String description, String imageLarge,
-			String contactName, String contactPhoneNumber, String contactAddress, String contactEmail);
+			String contactName, String contactPhoneNumber, String contactAddress, String contactEmail , String dataPost);
 
 	Place getPlaceByMapID(int map_id);
 

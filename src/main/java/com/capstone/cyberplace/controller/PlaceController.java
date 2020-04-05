@@ -22,9 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.cyberplace.common.CommonConstant;
 import com.capstone.cyberplace.dto.PlaceDetail;
 import com.capstone.cyberplace.dto.PlaceQuickView;
-import com.capstone.cyberplace.dto.form.PostPlaceForm;
 import com.capstone.cyberplace.dto.SearchCondition;
 import com.capstone.cyberplace.dto.form.EquipmentListForm;
+import com.capstone.cyberplace.dto.form.PostPlaceForm;
+import com.capstone.cyberplace.dto.form.UpdatePlaceForm;
 import com.capstone.cyberplace.model.CheckingList;
 import com.capstone.cyberplace.model.DistrictDB;
 import com.capstone.cyberplace.model.EquipmentList;
@@ -154,6 +155,9 @@ public class PlaceController {
 		return m;
 	}
 
+	/*
+	 * trả thông tin cho trang update place
+	 */
 	@GetMapping("/places/fillupdate")
 	public PostPlaceForm fillDataToUpdatePlaceForm(@RequestParam("placeid") int placeID) {
 
@@ -205,6 +209,76 @@ public class PlaceController {
 		ps.setLongtitude(m.getLongtitude());
 
 		return ps;
+	}
+
+	/*
+	 * update place
+	 */
+	@PostMapping("/places/update")
+	public boolean updatePlace(@Valid @RequestBody UpdatePlaceForm form) {
+
+		try {
+			placeServiceImpl.updatePlace(form.getTitle(), form.getPrice(), form.getArea(), form.getDistrictID(),
+					form.getWardID(), form.getStreetID(), form.getAddressDetail(), form.getRoleOfPlaceID(),
+					form.getFrontispiece(), form.getHomeDirection(), form.getNumberFloors(), form.getNumberBedrooms(),
+					form.getNumberToilets(), form.getDescriptions(), form.getContactName(), form.getPhoneNumber(),
+					form.getContactAddress(), form.getEmail(), form.getPlacceID());
+
+		} catch (Exception e) {
+			System.out.println("update place fail");
+			return false;
+		}
+
+		try {
+			mapServiceImpl.updateMap(form.getLatitude(), form.getLongtitude(), form.getPlacceID());
+		} catch (Exception e) {
+			System.out.println("update map fail");
+		}
+
+		try {
+			equipmentListServiceImpl.deleteListEquipByPlaceID(form.getPlacceID());
+			if (form.getListEquip() != null && !form.getListEquip().isEmpty()) {
+				try {
+					for (EquipmentListForm item : form.getListEquip()) {
+						equipmentListServiceImpl.insertEquipmentItem(form.getPlacceID(), item.getName(),
+								item.getQuantity(), item.getPrice(), item.getLikeNew(), item.getEquipmentDescrible());
+
+					}
+				} catch (Exception e) {
+					System.out.print("insert equip error");
+					return false;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("delete equip fail");
+		}
+
+		try {
+			imageLinkServiceImpl.deleteListImageByPlaceID(form.getPlacceID());
+
+			if (form.getListImageLink() != null && !form.getListImageLink().isEmpty()) {
+				try {
+					for (String s : form.getListImageLink()) {
+						imageLinkServiceImpl.insertImageLink(form.getPlacceID(), s);
+					}
+				} catch (Exception e) {
+					System.out.print("insert image link error");
+					return false;
+				}
+
+			}
+		} catch (Exception e) {
+			System.out.println("delete image fail");
+		}
+
+		try {
+			checkingListServiceImpl.updateItemCheckingList(form.getPlacceID(), form.getCheckingDate());
+		} catch (Exception e) {
+			System.out.print("update check list error");
+			return false;
+		}
+
+		return true;
 	}
 
 	// ---------------------------------------
@@ -278,8 +352,6 @@ public class PlaceController {
 
 		return toPage(listContent, pageable).getContent();
 	}
-
-	
 
 	/*
 	 * insert các thông tin trong form rao tin
@@ -427,6 +499,7 @@ public class PlaceController {
 			p.setContactName(form.getContactName());
 			p.setContactPhoneNumber(form.getPhoneNumber());
 			p.setContactEmail(form.getEmail());
+			p.setDatePost(String.valueOf(java.time.LocalDate.now()));
 			p = placerepository.save(p);
 			placerepository.flush();
 

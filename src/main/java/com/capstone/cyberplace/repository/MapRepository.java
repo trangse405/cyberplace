@@ -21,5 +21,11 @@ public interface MapRepository extends JpaRepository<Map, Integer> {
 
 	@Query(value = "SELECT * FROM Map where place_id = :place_id ", nativeQuery = true) // jpql
 	Map getMapIDByPlaceID(@Param("place_id") int place_id);
+	
+	
+	@Modifying
+	@Query(value = " UPDATE Map SET longtitude = :longtitude , latitude = :latitude where place_id = :place_id", nativeQuery = true) // jpql
+	void updateMap(@Param("latitude") float latitude, @Param("longtitude") float longtitude,
+			@Param("place_id") int place_id);
 
 }

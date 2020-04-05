@@ -22,6 +22,6 @@ public interface CheckingListRepository extends JpaRepository<CheckingList, Inte
 	
 	@Modifying
 	@Query(value = "UPDATE CheckingList SET date_time = :date_time  where place_id = :place_id ", nativeQuery = true) // jpql
-	void updateItemToCheckingList(@Param("place_id") int place_id, @Param("date_time") String dateTime) ;
+	void updateItemCheckingList(@Param("place_id") int place_id, @Param("date_time") String dateTime) ;
 
 }

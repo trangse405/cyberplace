@@ -1,6 +1,5 @@
 package com.capstone.cyberplace.controller;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,17 +19,17 @@ import com.capstone.cyberplace.service.impl.ImageLinkServiceImpl;
 @RestController
 @RequestMapping("/imagelink")
 public class ImageLinkController {
-	
+
 	@Autowired
 	private ImageLinkServiceImpl imageLinkServiceImpl;
-	
+
 	@Autowired
 	private GoogleDriveApiService googleDriveServiceImpl;
-	
-	
+
 	@PostMapping("/upload")
-	public boolean uploadImage(@RequestParam("file") MultipartFile[] file ,@RequestParam("placeid") int placeid ) throws IOException {
-		
+	public String uploadImage(@RequestParam("file") MultipartFile[] file) throws IOException {
+
+		String link = "";
 		for (MultipartFile f : file) {
 
 			if (f.isEmpty()) {
@@ -39,20 +38,21 @@ public class ImageLinkController {
 				File fi = convertMultiPartToFile(f);
 				com.google.api.services.drive.model.File file2 = googleDriveServiceImpl.uploadFileDirectl(fi.getName(),
 						"image/jpg", fi);
-				
-				imageLinkServiceImpl.insertImageLink(placeid, file2.getWebViewLink());
+
+				// imageLinkServiceImpl.insertImageLink( file2.getWebViewLink());
+				link = file2.getWebViewLink();
 				try {
 					System.err.println(file2.toPrettyString());
 				} catch (Exception e) {
-					return false;
+					return "";
 				}
 			}
 
 		}
 
-		return true;
+		return link;
 	}
-	
+
 	// ---------------------------
 	private File convertMultiPartToFile(MultipartFile file) throws IOException {
 		File convFile = new File(file.getOriginalFilename());

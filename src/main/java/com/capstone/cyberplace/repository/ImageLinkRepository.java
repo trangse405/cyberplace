@@ -19,5 +19,9 @@ public interface ImageLinkRepository extends JpaRepository<ImageLink, Integer> {
 	@Modifying
 	@Query(value = " INSERT INTO ImageLink (place_id , image_link ) VALUES (:place_id , :image_link)", nativeQuery = true) // jpql
 	void insertImageLink(@Param("place_id") int place_id, @Param("image_link") String image_link);
+	
+	@Modifying
+	@Query(value = "DELETE FROM ImageLink where place_id = :place_id ", nativeQuery = true) // jpql
+	void deleteListImageByPlaceID(@Param("place_id") int placeID);
 
 }

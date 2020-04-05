@@ -10,4 +10,6 @@ public interface EquipmentListService {
 			String equipmentDescribe);
 
 	List<EquipmentList> getListEquipByPlaceID(int placeID);
+
+	void deleteListEquipByPlaceID(int placeID);
 }

@@ -7,5 +7,5 @@ public interface CheckingListService {
 
 	CheckingList getCheckingByPlaceID(int placeID);
 
-	void updateItemToCheckingList(int place_id, String dateTime);
+	void updateItemCheckingList(int place_id, String dateTime);
 }

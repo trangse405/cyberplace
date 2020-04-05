@@ -49,9 +49,9 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	@Modifying
 	@Query(value = "INSERT INTO Place (owner_id , title , price , area , district_id ,ward_id , street_id\r\n"
 			+ ", address ,  role_of_place_id , status_place_id , counter_view , frontispiece,home_direction, \r\n"
-			+ "floors, bed_rooms, toilets,description,image_large , contact_name , contact_phone_number , contact_address , contact_email ) VALUES (:owner_id , :title , :price , :area , :district_id , :ward_id , :street_id "
+			+ "floors, bed_rooms, toilets,description,image_large , contact_name , contact_phone_number , contact_address , contact_email , date_post ) VALUES (:owner_id , :title , :price , :area , :district_id , :ward_id , :street_id "
 			+ ", :address , :map_id , :role_of_place_id , :status_place_id , :counter_view , :frontispiece "
-			+ ", :home_direction , :floors , :bed_rooms , :toilets , :description ,:image_large ,:contact_name , :contact_phone_number , :contact_address , :contact_email) ", nativeQuery = true) // jpql
+			+ ", :home_direction , :floors , :bed_rooms , :toilets , :description ,:image_large ,:contact_name , :contact_phone_number , :contact_address , :contact_email , :date_post ) ", nativeQuery = true) // jpql
 	void insertPlace(@Param("owner_id") int userID, @Param("title") String title, @Param("price") float price,
 			@Param("area") float area, @Param("district_id") int district_id, @Param("ward_id") int wardID,
 			@Param("street_id") int streetID, @Param("address") String address,
@@ -61,7 +61,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 			@Param("bed_rooms") int bed_rooms, @Param("toilets") int toilets, @Param("description") String description,
 			@Param("image_large") String imageLarge, @Param("contact_name") String contactName,
 			@Param("contact_phone_number") String contactPhoneNumber, @Param("contact_address") String contactAddress,
-			@Param("contact_email") String contactEmail);
+			@Param("contact_email") String contactEmail ,@Param("date_post") String datePost );
 
 	// get one by map id
 

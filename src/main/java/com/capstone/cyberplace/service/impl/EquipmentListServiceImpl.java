@@ -26,8 +26,14 @@ public class EquipmentListServiceImpl implements EquipmentListService {
 
 	@Override
 	public List<EquipmentList> getListEquipByPlaceID(int placeID) {
-		
+
 		return equipmentRepository.getListEquipByPlaceID(placeID);
+	}
+
+	@Override
+	public void deleteListEquipByPlaceID(int placeID) {
+		equipmentRepository.deleteListEquipByPlaceID(placeID);
+
 	}
 
 }

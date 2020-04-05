@@ -9,4 +9,6 @@ public interface MapService {
 	void insertMap(float longtitude, float latitude, int place_id);
 
 	Map getMapIDByPlaceID(int place_id);
+
+	void updateMap(float latitude, float longtitude, int place_id);
 }

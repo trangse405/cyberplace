@@ -29,4 +29,10 @@ public class ImageLinkServiceImpl implements ImageLinkService {
 
 	}
 
+	@Override
+	public void deleteListImageByPlaceID(int placeID) {
+		imageLinkRepository.deleteListImageByPlaceID(placeID);
+
+	}
+
 }

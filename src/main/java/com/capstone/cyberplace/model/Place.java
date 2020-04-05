@@ -40,8 +40,6 @@ public class Place {
 	@Column(name = "address")
 	private String address;
 
-	
-
 	@Column(name = "role_of_place_id", nullable = false)
 	private int roleOfPlaceID;
 
@@ -81,15 +79,18 @@ public class Place {
 	@Column(name = "contact_email")
 	private String contactEmail;
 
+	@Column(name = "date_post")
+	private String datePost;
+
 	public Place() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Place(int placeID, int ownerID, String title, float price, float area, int district_id, int ward_id,
-			int street_id, String address,  int roleOfPlaceID, int statusPlaceID, int counterView,
-			float frontispiece, String homeDirection, int floors, int bedRooms, int toilets, String description,
-			String image_large, String contactName, String contactPhoneNumber, String contactAddress,
-			String contactEmail) {
+			int street_id, String address, int roleOfPlaceID, int statusPlaceID, int counterView, float frontispiece,
+			String homeDirection, int floors, int bedRooms, int toilets, String description, String image_large,
+			String contactName, String contactPhoneNumber, String contactAddress, String contactEmail,
+			String datePost) {
 		super();
 		this.placeID = placeID;
 		this.ownerID = ownerID;
@@ -100,7 +101,6 @@ public class Place {
 		this.ward_id = ward_id;
 		this.street_id = street_id;
 		this.address = address;
-	
 		this.roleOfPlaceID = roleOfPlaceID;
 		this.statusPlaceID = statusPlaceID;
 		this.counterView = counterView;
@@ -115,6 +115,15 @@ public class Place {
 		this.contactPhoneNumber = contactPhoneNumber;
 		this.contactAddress = contactAddress;
 		this.contactEmail = contactEmail;
+		this.datePost = datePost;
+	}
+
+	public String getDatePost() {
+		return datePost;
+	}
+
+	public void setDatePost(String datePost) {
+		this.datePost = datePost;
 	}
 
 	public String getContactName() {
@@ -180,8 +189,6 @@ public class Place {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-
 
 	public int getRoleOfPlaceID() {
 		return roleOfPlaceID;

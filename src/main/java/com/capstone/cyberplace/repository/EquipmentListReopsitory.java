@@ -26,6 +26,11 @@ public interface EquipmentListReopsitory extends JpaRepository<EquipmentList, In
 	List<EquipmentList> getListEquipByPlaceID(@Param("place_id") int placeID);
 	
 	
+	@Modifying
+	@Query(value = "DELETE FROM EquipmentList where place_id = :place_id ", nativeQuery = true) // jpql
+	void deleteListEquipByPlaceID(@Param("place_id") int placeID);
+	
+	
 	
 	
 	
