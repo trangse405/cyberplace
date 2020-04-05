@@ -1,13 +1,11 @@
 package com.capstone.cyberplace.common;
 
-
-
 // chua cac hang so da duoc fix cung trong database
 public class CommonConstant {
 
 	// Role ID
 	public static final int RoleID_Admin = 1;
-	public static final int RoleID_Staff =2;
+	public static final int RoleID_Staff = 2;
 	public static final int RoleID_User = 4;
 
 	// Checking Status ID
@@ -37,13 +35,12 @@ public class CommonConstant {
 	public static final int Place_Status_ID_Active = 1;
 	public static final int Place_Status_ID_Pending = 2;
 	public static final int Place_Status_ID_Deactive = 3;
-	
-	
+	public static final int Place_Status_ID_Rented = 4;
+	public static final int Place_Status_ID_Checking = 5;
+	public static final int Place_Status_ID_Deposited = 6;
+
 	// Number of loopin BCrypt.gensalt
-	
-	public static final int Number_Loop_BCrypt = 12 ;
-	
-	
-	
+
+	public static final int Number_Loop_BCrypt = 12;
 
 }

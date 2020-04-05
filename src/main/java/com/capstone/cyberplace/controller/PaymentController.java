@@ -1,72 +1,44 @@
 package com.capstone.cyberplace.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.capstone.cyberplace.config.PaypalPaymentIntent;
-import com.capstone.cyberplace.config.PaypalPaymentMethod;
-import com.capstone.cyberplace.service.PaypalService;
-import com.capstone.cyberplace.utils.Utils;
-import com.paypal.api.payments.Links;
-import com.paypal.api.payments.Payment;
-import com.paypal.base.rest.PayPalRESTException;
+import com.capstone.cyberplace.common.CommonConstant;
+import com.capstone.cyberplace.model.Payment;
+import com.capstone.cyberplace.service.impl.PaymentServiceImpl;
+import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
+@RequestMapping("/payment")
 public class PaymentController {
 
-	public static final String URL_PAYPAL_SUCCESS = "pay/success";
-	public static final String URL_PAYPAL_CANCEL = "pay/cancel";
-
-	private Logger log = LoggerFactory.getLogger(getClass());
-
 	@Autowired
-	private PaypalService paypalService;
+	private PaymentServiceImpl paymentServiceImpl;
+	@Autowired
+	private PlaceServiceImpl placeServiceImpl;
 
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
+	@PostMapping("/insert-payment")
+	public boolean insertPaymentInfo(@RequestBody Payment paymentInfo) {
 
-	@PostMapping("/pay")
-	public String pay(HttpServletRequest request, @RequestParam("price") double price) {
-		String cancelUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
-		String successUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
+		boolean checkPayment = false;
 		try {
-			Payment payment = paypalService.createPayment(price, "USD", PaypalPaymentMethod.paypal,
-					PaypalPaymentIntent.sale, "payment description", cancelUrl, successUrl);
-			for (Links links : payment.getLinks()) {
-				if (links.getRel().equals("approval_url")) {
-					return "redirect:" + links.getHref();
-				}
-			}
-		} catch (PayPalRESTException e) {
-			log.error(e.getMessage());
+			paymentServiceImpl.insertPaymentInfo(paymentInfo.getUserID(), paymentInfo.getPlaceID(),
+					paymentInfo.getCreateTime(), paymentInfo.getStatus(), paymentInfo.getPayerID(),
+					paymentInfo.getMoney(), paymentInfo.getDescription(), paymentInfo.getOrderID());
+			checkPayment = true;
+		} catch (Exception e) {
+			return false;
 		}
-		return "redirect:/";
+		if (checkPayment == true) {
+			placeServiceImpl.changeStatusPlace(CommonConstant.Place_Status_ID_Deposited, paymentInfo.getPlaceID());
+		}
+
+		return true;
 	}
 
-	@GetMapping(URL_PAYPAL_CANCEL)
-	public String cancelPay() {
-		return "cancel";
-	}
-
-	@GetMapping(URL_PAYPAL_SUCCESS)
-	public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
-		try {
-			Payment payment = paypalService.executePayment(paymentId, payerId);
-			if (payment.getState().equals("approved")) {
-				return "success";
-			}
-		} catch (PayPalRESTException e) {
-			log.error(e.getMessage());
-		}
-		return "redirect:/";
-	}
 }

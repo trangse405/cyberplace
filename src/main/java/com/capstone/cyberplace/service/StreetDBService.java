@@ -10,5 +10,5 @@ public interface StreetDBService {
 
 	StreetDB getOneStreetByID(int streetID);
 
-	List<StreetDB> getAllStreetByWardID(int wardID);
+	List<StreetDB> getAllStreetByDistrictID(int districtID);
 }

@@ -27,10 +27,10 @@ public class StreetDBController {
 		return streetDBServiceImpl.getAllStreet();
 	}
 
-	@GetMapping("/getstreetbyward")
-	public List<StreetData> getAllStreetByWardID(@RequestParam("wardid") int wardID) {
+	@GetMapping("/getstreetbydistrict")
+	public List<StreetData> getAllStreetByWardID(@RequestParam("districtid") int districtID) {
 
-		List<StreetDB> list = streetDBServiceImpl.getAllStreetByWardID(wardID);
+		List<StreetDB> list = streetDBServiceImpl.getAllStreetByDistrictID(districtID);
 		List<StreetData> listData = new ArrayList<>();
 		for (StreetDB s : list) {
 			StreetData item = new StreetData(s.getId(), s.getStreetName());

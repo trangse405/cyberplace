@@ -77,4 +77,10 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeRepository.getOneActiveByPlaceID(id);
 	}
 
+	@Override
+	public void changeStatusPlace(int statusPlaceID, int placeID) {
+		placeRepository.changeStatusPlace(statusPlaceID, placeID);
+
+	}
+
 }

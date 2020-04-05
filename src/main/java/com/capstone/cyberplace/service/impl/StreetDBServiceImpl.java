@@ -30,9 +30,9 @@ public class StreetDBServiceImpl implements StreetDBService {
 	}
 
 	@Override
-	public List<StreetDB> getAllStreetByWardID(int wardID) {
+	public List<StreetDB> getAllStreetByDistrictID(int districtID) {
 
-		return streetdbRepository.getAllStreetByWardID(wardID);
+		return streetdbRepository.getAllStreetByDistrictID(districtID);
 	}
 
 }

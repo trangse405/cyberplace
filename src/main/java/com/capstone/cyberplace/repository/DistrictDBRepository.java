@@ -13,11 +13,7 @@ import com.capstone.cyberplace.model.DistrictDB;
 @Repository
 public interface DistrictDBRepository extends JpaRepository<DistrictDB, Integer> {
 
-	@Query(value = "SELECT TOP (1000) [id]\r\n" +
-
-			"      ,[district]\r\n" +
-
-			"  FROM [CapstoneDB].[dbo].[DistrictDB]", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM DistrictDB ", nativeQuery = true) // jpql
 	List<DistrictDB> getall();
 
 	@Modifying

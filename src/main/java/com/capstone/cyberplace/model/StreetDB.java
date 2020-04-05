@@ -16,21 +16,29 @@ public class StreetDB {
 	@Column(name = "id", nullable = false)
 	private int id;
 
-	@Column(name = "ward_id", nullable = false)
-	private int wardID;
+	@Column(name = "district_id")
+	private int districtID;
 
-	@Column(name = "street_name", nullable = false)
+	@Column(name = "street_name")
 	private String streetName;
 
 	public StreetDB() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public StreetDB(int id, int wardID, String streetName) {
+	public StreetDB(int id, int districtID, String streetName) {
 		super();
 		this.id = id;
-		this.wardID = wardID;
+		this.districtID = districtID;
 		this.streetName = streetName;
+	}
+
+	public int getDistrictID() {
+		return districtID;
+	}
+
+	public void setDistrictID(int districtID) {
+		this.districtID = districtID;
 	}
 
 	public int getId() {
@@ -39,14 +47,6 @@ public class StreetDB {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getWardID() {
-		return wardID;
-	}
-
-	public void setWardID(int wardID) {
-		this.wardID = wardID;
 	}
 
 	public String getStreetName() {

@@ -27,4 +27,7 @@ public interface PlaceService {
 			int roleOfPlaceID, float frontispiece, String home_direction, int floors, int bed_rooms, int toilets,
 			String description, String contactName, String contactPhoneNumber, String contactAddress,
 			String contactEmail, int place_id);
+	
+	
+	void changeStatusPlace( int statusPlaceID,  int placeID);
 }

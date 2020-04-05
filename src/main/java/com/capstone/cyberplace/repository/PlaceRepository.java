@@ -83,4 +83,10 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 			@Param("contact_phone_number") String contactPhoneNumber, @Param("contact_address") String contactAddress,
 			@Param("contact_email") String contactEmail, @Param("place_id") int place_id);
 
+	// change status
+
+	@Modifying
+	@Query(value = "UPDATE Place SET status_place_id =:status_place_id where place_id = :place_id ", nativeQuery = true) // jpql
+	void changeStatusPlace(@Param("status_place_id") int statusPlaceID, @Param("place_id") int placeID);
+
 }
