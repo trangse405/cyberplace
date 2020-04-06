@@ -16,41 +16,41 @@ import com.capstone.cyberplace.model.StatusPlace;
 import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
 import com.capstone.cyberplace.service.impl.StatusPlaceServiceImpl;
 
-@CrossOrigin(origins = "http://localhost:4200")	
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/managepost")
 public class ManagePostController {
-	
+
 	@Autowired
 	private PlaceServiceImpl placeServiceImpl;
 	@Autowired
 	private StatusPlaceServiceImpl statusPlaceServiceImpl;
-	
-	
+
 	@GetMapping("/getallpost")
-    public List<ManagePostForm> getAllPost(@RequestParam("userid") int userID) {
+	public List<ManagePostForm> getAllPost(@RequestParam("userid") int userID) {
 		List<ManagePostForm> list = new ArrayList<>();
-		
+
 		List<Place> listP = placeServiceImpl.getListForManagePost(userID);
-		
+
 		List<StatusPlace> listS = statusPlaceServiceImpl.getAllStatusPlace();
-		
-		for(Place p : listP) {
-			for(StatusPlace s : listS) {
-				if(p.getStatusPlaceID() == s.getStatusPlaceID()) {
+
+		for (Place p : listP) {
+			for (StatusPlace s : listS) {
+				if (p.getStatusPlaceID() == s.getStatusPlaceID()) {
 					ManagePostForm m = new ManagePostForm();
 					m.setAddress(p.getAddress());
 					m.setDatePost(p.getDatePost());
 					m.setPrice(p.getPrice());
 					m.setTitle(p.getTitle());
 					m.setStatus(s.getStatus());
+					m.setStatusID(p.getStatusPlaceID());
 					list.add(m);
 				}
 			}
-			
+
 		}
-		
-        return list;
-    }
+
+		return list;
+	}
 
 }

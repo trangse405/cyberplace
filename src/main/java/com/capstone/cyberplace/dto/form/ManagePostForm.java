@@ -7,6 +7,7 @@ public class ManagePostForm {
 	private String datePost;
 	private float price;
 	private String status;
+	private int statusID;
 
 	public ManagePostForm() {
 		// TODO Auto-generated constructor stub
@@ -50,6 +51,14 @@ public class ManagePostForm {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getStatusID() {
+		return statusID;
+	}
+
+	public void setStatusID(int statusID) {
+		this.statusID = statusID;
 	}
 
 }

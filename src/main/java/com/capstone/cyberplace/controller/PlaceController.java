@@ -295,31 +295,51 @@ public class PlaceController {
 	public PlaceDetail getOneById(@PathVariable int id) {
 
 		Place p = placeServiceImpl.getOneActiveByPlaceID(id);
-		DistrictDB d = districtDBServiceImpl.getOneDistrictByID(p.getDistrict_id());
-		WardDB w = wardDBServiceImpl.getOneWardByID(p.getWard_id());
-		StreetDB s = streetDBServiceImpl.getOneStreetByID(p.getStreet_id());
-		Map m = mapServiceImpl.getMapIDByPlaceID(id);
-		RoleOfPlace r = roleOfPlaceServiceImpl.getRoleByID(p.getRoleOfPlaceID());
-
 		PlaceDetail pd = new PlaceDetail();
+		DistrictDB d = districtDBServiceImpl.getOneDistrictByID(p.getDistrict_id());
+		if (d != null) {
+			pd.setDistrict(d.getDistrict());
+		}
+		WardDB w = wardDBServiceImpl.getOneWardByID(p.getWard_id());
+		if (w != null) {
+			pd.setWard(w.getWard_name());
+		}
+		StreetDB s = streetDBServiceImpl.getOneStreetByID(p.getStreet_id());
+		if (s != null) {
+			pd.setStreet(s.getStreetName());
+		}
+		Map m = mapServiceImpl.getMapIDByPlaceID(id);
+		if (m != null) {
+			pd.setLatitude(m.getLatitude());
+			pd.setLongtitude(m.getLongtitude());
+		}
+		RoleOfPlace r = roleOfPlaceServiceImpl.getRoleByID(p.getRoleOfPlaceID());
+//get list Image 
+		List<ImageLink> listE = new ArrayList<ImageLink>();
+		List<String> listImage = getListImageForDetail(listE, id);
+//get list equip
+		List<EquipmentList> listEq = new ArrayList<EquipmentList>();
+		List<EquipmentListForm> listF = getListEquipForDetail(listEq, id);
+
 		pd.setAddress(p.getAddress());
 		pd.setArea(p.getArea());
 		pd.setBedRooms(p.getBedRooms());
 		pd.setCounterView(p.getCounterView());
 		pd.setDescription(p.getDescription());
-		pd.setDistrict(d.getDistrict());
+
 		pd.setFrontispiece(p.getFrontispiece());
 		pd.setHomeDirection(p.getHomeDirection());
 		pd.setImageLarge(p.getImage_large());
-		pd.setLatitude(m.getLatitude());
-		pd.setLongtitude(m.getLongtitude());
+
 		pd.setPlaceID(p.getPlaceID());
 		pd.setPrice(p.getPrice());
 		pd.setRoleOfPlace(r.getRoleName());
-		pd.setStreet(s.getStreetName());
+
 		pd.setTitle(p.getTitle());
 		pd.setToilets(p.getToilets());
-		pd.setWard(w.getWard_name());
+
+		pd.setListImage(listImage);
+		pd.setListEquip(listF);
 
 		return pd;
 	}
@@ -541,6 +561,43 @@ public class PlaceController {
 		pf.setRoleOfPlaceID(p.getRoleOfPlaceID());
 		pf.setStreetID(p.getStreet_id());
 		pf.setWardID(p.getWard_id());
+
+	}
+
+	// get list Image for place detail
+	public List<String> getListImageForDetail(List<ImageLink> listI, int placeID) {
+		listI = imageLinkServiceImpl.getListImageByPlaceID(placeID);
+
+		List<String> list = new ArrayList<>();
+		if (listI != null) {
+			for (ImageLink i : listI) {
+				list.add(i.getImage_link());
+			}
+		}
+
+		return list;
+	}
+
+	// get list equip for place detail
+	public List<EquipmentListForm> getListEquipForDetail(List<EquipmentList> listE, int placeID) {
+
+		listE = equipmentListServiceImpl.getListEquipByPlaceID(placeID);
+
+		List<EquipmentListForm> list = new ArrayList<EquipmentListForm>();
+		if (listE != null) {
+			for (EquipmentList e : listE) {
+				EquipmentListForm f = new EquipmentListForm();
+				f.setEquipmentDescrible(e.getEquipmentDescribe());
+				f.setLikeNew(e.getLikeNew());
+				f.setName(e.getEquipmentName());
+				f.setPrice(e.getPrice());
+				f.setQuantity(e.getQuantity());
+				list.add(f);
+
+			}
+		}
+
+		return list;
 
 	}
 

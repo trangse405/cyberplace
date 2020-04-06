@@ -90,7 +90,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	void changeStatusPlace(@Param("status_place_id") int statusPlaceID, @Param("place_id") int placeID);
 
 	// get list place for manage post
-	@Query(value = "SELECT * FROM Place where owner_id = :owner_id AND ( status_place_id = 0 or status_place_id =1 or status_place_id = 2 or status_place_id = 5 )", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM Place where owner_id = :owner_id ", nativeQuery = true) // jpql
 	List<Place> getListForManagePost(@Param("owner_id") int userID);
 
 }

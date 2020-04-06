@@ -1,5 +1,9 @@
 package com.capstone.cyberplace.dto;
 
+import java.util.List;
+
+import com.capstone.cyberplace.dto.form.EquipmentListForm;
+
 public class PlaceDetail {
 
 	private int placeID;
@@ -38,13 +42,18 @@ public class PlaceDetail {
 
 	private String imageLarge;
 
+	private List<String> listImage;
+
+	private List<EquipmentListForm> listEquip;
+
 	public PlaceDetail() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public PlaceDetail(int placeID, String title, float area, float price, String district, String ward, String street,
 			String address, float longtitude, float latitude, String roleOfPlace, int counterView, float frontispiece,
-			String homeDirection, int bedRooms, int toilets, String description, String imageLarge) {
+			String homeDirection, int bedRooms, int toilets, String description, String imageLarge,
+			List<String> listImage, List<EquipmentListForm> listEquip) {
 		super();
 		this.placeID = placeID;
 		this.title = title;
@@ -64,6 +73,24 @@ public class PlaceDetail {
 		this.toilets = toilets;
 		this.description = description;
 		this.imageLarge = imageLarge;
+		this.listImage = listImage;
+		this.listEquip = listEquip;
+	}
+
+	public List<String> getListImage() {
+		return listImage;
+	}
+
+	public void setListImage(List<String> listImage) {
+		this.listImage = listImage;
+	}
+
+	public List<EquipmentListForm> getListEquip() {
+		return listEquip;
+	}
+
+	public void setListEquip(List<EquipmentListForm> listEquip) {
+		this.listEquip = listEquip;
 	}
 
 	public int getPlaceID() {
