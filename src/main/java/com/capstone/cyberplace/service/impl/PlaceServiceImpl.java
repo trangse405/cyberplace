@@ -84,4 +84,10 @@ public class PlaceServiceImpl implements PlaceService {
 
 	}
 
+	@Override
+	public List<Place> getListForManagePost(int userID) {
+
+		return placeRepository.getListForManagePost(userID);
+	}
+
 }

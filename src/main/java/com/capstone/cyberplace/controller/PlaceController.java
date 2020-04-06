@@ -162,28 +162,34 @@ public class PlaceController {
 	public PostPlaceForm fillDataToUpdatePlaceForm(@RequestParam("placeid") int placeID) {
 
 		Place p = placerepository.getPlaceByPlaceID(placeID);
-
+		PostPlaceForm ps = new PostPlaceForm();
+		convertPlaceToPost(p, ps);
 		// get list image link
-
 		List<ImageLink> listS = imageLinkServiceImpl.getListImageByPlaceID(placeID);
 		List<String> list = new ArrayList<String>();
-		for (ImageLink i : listS) {
-			list.add(i.getImage_link());
+		if (listS != null) {
+
+			for (ImageLink i : listS) {
+				list.add(i.getImage_link());
+			}
+
 		}
+		ps.setListImageLink(list);
 
 		// get equipment list
 		List<EquipmentList> listE = equipmentListServiceImpl.getListEquipByPlaceID(placeID);
 
 		List<EquipmentListForm> listEQ = new ArrayList<EquipmentListForm>();
-
-		for (EquipmentList e : listE) {
-			EquipmentListForm eq = new EquipmentListForm();
-			eq.setName(e.getEquipmentName());
-			eq.setPrice(e.getPrice());
-			eq.setLikeNew(e.getLikeNew());
-			eq.setQuantity(e.getQuantity());
-			eq.setEquipmentDescrible(e.getEquipmentDescribe());
-			listEQ.add(eq);
+		if (listE != null) {
+			for (EquipmentList e : listE) {
+				EquipmentListForm eq = new EquipmentListForm();
+				eq.setName(e.getEquipmentName());
+				eq.setPrice(e.getPrice());
+				eq.setLikeNew(e.getLikeNew());
+				eq.setQuantity(e.getQuantity());
+				eq.setEquipmentDescrible(e.getEquipmentDescribe());
+				listEQ.add(eq);
+			}
 		}
 
 		// get check time meeing
@@ -197,16 +203,15 @@ public class PlaceController {
 		// get map infor
 
 		Map m = mapServiceImpl.getMapIDByPlaceID(p.getPlaceID());
-
+		if (m != null) {
+			ps.setLatitude(m.getLatitude());
+			ps.setLongtitude(m.getLongtitude());
+		}
 		// fill form
-		PostPlaceForm ps = new PostPlaceForm();
-		convertPlaceToPost(p, ps);
-		ps.setListImageLink(list);
+
 		ps.setListEquip(listEQ);
 
 		ps.setCheckingDate(checkedDate);
-		ps.setLatitude(m.getLatitude());
-		ps.setLongtitude(m.getLongtitude());
 
 		return ps;
 	}

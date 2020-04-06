@@ -2,6 +2,8 @@ package com.capstone.cyberplace.service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.capstone.cyberplace.model.Place;
 
 public interface PlaceService {
@@ -19,7 +21,7 @@ public interface PlaceService {
 	void insertPlace(int userID, String title, float price, float area, int district_id, int wardID, int streetID,
 			String address, int roleOfPlaceID, int statusPlaceID, int counterView, float frontispiece,
 			String home_direction, int floors, int bed_rooms, int toilets, String description, String imageLarge,
-			String contactName, String contactPhoneNumber, String contactAddress, String contactEmail , String dataPost);
+			String contactName, String contactPhoneNumber, String contactAddress, String contactEmail, String dataPost);
 
 	Place getPlaceByMapID(int map_id);
 
@@ -27,7 +29,8 @@ public interface PlaceService {
 			int roleOfPlaceID, float frontispiece, String home_direction, int floors, int bed_rooms, int toilets,
 			String description, String contactName, String contactPhoneNumber, String contactAddress,
 			String contactEmail, int place_id);
-	
-	
-	void changeStatusPlace( int statusPlaceID,  int placeID);
+
+	void changeStatusPlace(int statusPlaceID, int placeID);
+
+	List<Place> getListForManagePost(int userID);
 }

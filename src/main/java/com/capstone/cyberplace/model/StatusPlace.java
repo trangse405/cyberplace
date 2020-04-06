@@ -17,13 +17,13 @@ public class StatusPlace {
 	private int statusPlaceID;
 
 	@Column(name = "status", nullable = false)
-	private int status;
+	private String status;
 
 	public StatusPlace() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public StatusPlace(int statusPlaceID, int status) {
+	public StatusPlace(int statusPlaceID, String status) {
 		super();
 		this.statusPlaceID = statusPlaceID;
 		this.status = status;
@@ -37,11 +37,11 @@ public class StatusPlace {
 		this.statusPlaceID = statusPlaceID;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

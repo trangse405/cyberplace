@@ -61,7 +61,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 			@Param("bed_rooms") int bed_rooms, @Param("toilets") int toilets, @Param("description") String description,
 			@Param("image_large") String imageLarge, @Param("contact_name") String contactName,
 			@Param("contact_phone_number") String contactPhoneNumber, @Param("contact_address") String contactAddress,
-			@Param("contact_email") String contactEmail ,@Param("date_post") String datePost );
+			@Param("contact_email") String contactEmail, @Param("date_post") String datePost);
 
 	// get one by map id
 
@@ -88,5 +88,9 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	@Modifying
 	@Query(value = "UPDATE Place SET status_place_id =:status_place_id where place_id = :place_id ", nativeQuery = true) // jpql
 	void changeStatusPlace(@Param("status_place_id") int statusPlaceID, @Param("place_id") int placeID);
+
+	// get list place for manage post
+	@Query(value = "SELECT * FROM Place where owner_id = :owner_id AND ( status_place_id = 0 or status_place_id =1 or status_place_id = 2 or status_place_id = 5 )", nativeQuery = true) // jpql
+	List<Place> getListForManagePost(@Param("owner_id") int userID);
 
 }
