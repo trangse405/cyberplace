@@ -4,15 +4,25 @@ public class WardData {
 
 	private int id;
 	private String wardName;
+	private String wardLatitude;
+	private String wardLongtitude;
 
-	public WardData() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
-	public WardData(int id, String wardName) {
+	public WardData(int id, String wardName, String wardLatitude, String wardLongtitude) {
 		super();
 		this.id = id;
 		this.wardName = wardName;
+		this.wardLatitude = wardLatitude;
+		this.wardLongtitude = wardLongtitude;
+	}
+
+	public void setWardLatitude(String wardLatitude) {
+		this.wardLatitude = wardLatitude;
+	}
+
+	public void setWardLongtitude(String wardLongtitude) {
+		this.wardLongtitude = wardLongtitude;
 	}
 
 	public int getId() {
@@ -30,5 +40,15 @@ public class WardData {
 	public void setWardName(String wardName) {
 		this.wardName = wardName;
 	}
+
+	public String getWardLatitude() {
+		return wardLatitude;
+	}
+
+	public String getWardLongtitude() {
+		return wardLongtitude;
+	}
+	
+	
 
 }

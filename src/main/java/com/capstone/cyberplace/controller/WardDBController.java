@@ -35,7 +35,7 @@ public class WardDBController {
 		List<WardData> listData = new ArrayList<>();
 
 		for (WardDB w : list) {
-			WardData item = new WardData(w.getId(), w.getWard_name());
+			WardData item = new WardData(w.getId(),w.getWard_name() , w.getWardLatitude() , w.getWardLongitude());
 			listData.add(item);
 
 		}
