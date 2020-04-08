@@ -227,7 +227,7 @@ public class PlaceController {
 					form.getWardID(), form.getStreetID(), form.getAddressDetail(), form.getRoleOfPlaceID(),
 					form.getFrontispiece(), form.getHomeDirection(), form.getNumberFloors(), form.getNumberBedrooms(),
 					form.getNumberToilets(), form.getDescriptions(), form.getContactName(), form.getPhoneNumber(),
-					form.getContactAddress(), form.getEmail(), form.getPlacceID());
+					form.getContactAddress(), form.getEmail(), form.getPlaceID());
 
 		} catch (Exception e) {
 			System.out.println("update place fail");
@@ -235,17 +235,22 @@ public class PlaceController {
 		}
 
 		try {
-			mapServiceImpl.updateMap(form.getLatitude(), form.getLongtitude(), form.getPlacceID());
+			mapServiceImpl.updateMap(form.getLatitude(), form.getLongtitude(), form.getPlaceID());
 		} catch (Exception e) {
 			System.out.println("update map fail");
 		}
 
 		try {
-			equipmentListServiceImpl.deleteListEquipByPlaceID(form.getPlacceID());
+			List<EquipmentList> listEquip = new ArrayList<EquipmentList>();
+			listEquip = equipmentListServiceImpl.getListEquipByPlaceID(form.getPlaceID());
+			if (listEquip != null) {
+				equipmentListServiceImpl.deleteListEquipByPlaceID(form.getPlaceID());
+			}
+
 			if (form.getListEquip() != null && !form.getListEquip().isEmpty()) {
 				try {
 					for (EquipmentListForm item : form.getListEquip()) {
-						equipmentListServiceImpl.insertEquipmentItem(form.getPlacceID(), item.getName(),
+						equipmentListServiceImpl.insertEquipmentItem(form.getPlaceID(), item.getName(),
 								item.getQuantity(), item.getPrice(), item.getLikeNew(), item.getEquipmentDescrible());
 
 					}
@@ -259,12 +264,17 @@ public class PlaceController {
 		}
 
 		try {
-			imageLinkServiceImpl.deleteListImageByPlaceID(form.getPlacceID());
+
+			List<ImageLink> listImage = new ArrayList<ImageLink>();
+			listImage = imageLinkServiceImpl.getListImageByPlaceID(form.getPlaceID());
+			if (listImage != null) {
+				imageLinkServiceImpl.deleteListImageByPlaceID(form.getPlaceID());
+			}
 
 			if (form.getListImageLink() != null && !form.getListImageLink().isEmpty()) {
 				try {
 					for (String s : form.getListImageLink()) {
-						imageLinkServiceImpl.insertImageLink(form.getPlacceID(), s);
+						imageLinkServiceImpl.insertImageLink(form.getPlaceID(), s);
 					}
 				} catch (Exception e) {
 					System.out.print("insert image link error");
@@ -277,7 +287,7 @@ public class PlaceController {
 		}
 
 		try {
-			checkingListServiceImpl.updateItemCheckingList(form.getPlacceID(), form.getCheckingDate());
+			checkingListServiceImpl.updateItemCheckingList(form.getPlaceID(), form.getCheckingDate());
 		} catch (Exception e) {
 			System.out.print("update check list error");
 			return false;

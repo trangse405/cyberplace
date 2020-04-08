@@ -5,7 +5,7 @@ import java.util.List;
 public class UpdatePlaceForm {
 
 	// page 1
-	private int placceID;
+	private int placeID;
 	private String title;
 	private int roleOfPlaceID;
 	private int districtID;
@@ -42,12 +42,12 @@ public class UpdatePlaceForm {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getPlacceID() {
-		return placceID;
+	public int getPlaceID() {
+		return placeID;
 	}
 
-	public void setPlacceID(int placceID) {
-		this.placceID = placceID;
+	public void setPlaceID(int placeID) {
+		this.placeID = placeID;
 	}
 
 	public String getTitle() {
@@ -234,13 +234,13 @@ public class UpdatePlaceForm {
 		this.checkingDate = checkingDate;
 	}
 
-	public UpdatePlaceForm(int placceID, String title, int roleOfPlaceID, int districtID, int wardID, int streetID,
+	public UpdatePlaceForm(int placeID, String title, int roleOfPlaceID, int districtID, int wardID, int streetID,
 			float area, float price, String addressDetail, String descriptions, float frontispiece,
 			String homeDirection, int numberFloors, int numberBedrooms, int numberToilets,
 			List<EquipmentListForm> listEquip, List<String> listImageLink, String longtitude, String latitude,
 			String contactName, String contactAddress, String phoneNumber, String email, String checkingDate) {
 		super();
-		this.placceID = placceID;
+		this.placeID = placeID;
 		this.title = title;
 		this.roleOfPlaceID = roleOfPlaceID;
 		this.districtID = districtID;
