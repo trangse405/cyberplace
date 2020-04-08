@@ -1,5 +1,7 @@
 package com.capstone.cyberplace.service;
 
+import java.util.List;
+
 import com.capstone.cyberplace.model.Map;
 
 public interface MapService {
@@ -11,4 +13,6 @@ public interface MapService {
 	Map getMapIDByPlaceID(int place_id);
 
 	void updateMap(String latitude, String longtitude, int place_id);
+
+	List<Map> getAllMap();
 }

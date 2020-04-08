@@ -9,6 +9,8 @@ public class PlaceQuickView {
 	private float price;
 	private String roleOfPlaceName;
 	private String imageLarge;
+	private String latitude;
+	private String longtitude;
 	private int bedRooms;
 	private int toilets;
 
@@ -16,10 +18,8 @@ public class PlaceQuickView {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public PlaceQuickView(int placeID, String title, String district, float area, float price, String roleOfPlaceName,
-			String imageLarge, int bedRooms, int toilets) {
+			String imageLarge, String latitude, String longtitude, int bedRooms, int toilets) {
 		super();
 		this.placeID = placeID;
 		this.title = title;
@@ -28,23 +28,35 @@ public class PlaceQuickView {
 		this.price = price;
 		this.roleOfPlaceName = roleOfPlaceName;
 		this.imageLarge = imageLarge;
+		this.latitude = latitude;
+		this.longtitude = longtitude;
 		this.bedRooms = bedRooms;
 		this.toilets = toilets;
 	}
 
+	public String getLatitude() {
+		return latitude;
+	}
 
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongtitude() {
+		return longtitude;
+	}
+
+	public void setLongtitude(String longtitude) {
+		this.longtitude = longtitude;
+	}
 
 	public int getPlaceID() {
 		return placeID;
 	}
 
-
-
 	public void setPlaceID(int placeID) {
 		this.placeID = placeID;
 	}
-
-
 
 	public String getTitle() {
 		return title;
@@ -109,9 +121,5 @@ public class PlaceQuickView {
 	public void setToilets(int toilets) {
 		this.toilets = toilets;
 	}
-
-
-
-	
 
 }

@@ -125,34 +125,11 @@ public class PlaceController {
 
 	// ---------------------test function with place id =2------------------
 	@GetMapping("/places/test")
-	public Map test() {
+	public List<Place> test() {
+		List<Place> listP = placeServiceImpl.getTop6();
 		Map m = mapServiceImpl.getMapIDByPlaceID(22);
-		Place p = placerepository.getOneActiveByPlaceID(2);
-		List<ImageLink> listS = imageLinkServiceImpl.getListImageByPlaceID(2);
-		List<String> list = new ArrayList<String>();
-		for (ImageLink i : listS) {
-			list.add(i.getImage_link());
-		}
-		List<EquipmentList> listE = equipmentListServiceImpl.getListEquipByPlaceID(2);
-
-		List<EquipmentListForm> listEQ = new ArrayList<EquipmentListForm>();
-
-		for (EquipmentList e : listE) {
-			EquipmentListForm eq = new EquipmentListForm();
-			eq.setName(e.getEquipmentName());
-			eq.setPrice(e.getPrice());
-			eq.setLikeNew(e.getLikeNew());
-			eq.setQuantity(e.getQuantity());
-			eq.setEquipmentDescrible(e.getEquipmentDescribe());
-			listEQ.add(eq);
-		}
-		PostPlaceForm ps = new PostPlaceForm();
-		ps.setTitle(p.getTitle());
-		ps.setPrice(p.getPrice());
-		ps.setListImageLink(list);
-		ps.setListEquip(listEQ);
-
-		return m;
+		List<Map> listM = mapServiceImpl.getAllMap();
+		return listP;
 	}
 
 	/*
@@ -477,29 +454,35 @@ public class PlaceController {
 		List<PlaceQuickView> list = new ArrayList<>();
 		List<RoleOfPlace> listR = roleOfPlaceServiceImpl.getAllRole();
 		List<DistrictDB> listD = districtDBServiceImpl.listArea();
+		List<Map> listM = mapServiceImpl.getAllMap();
 
 		for (Place p : listP) {
+			PlaceQuickView item = new PlaceQuickView();
+			item.setArea(p.getArea());
+			item.setImageLarge(p.getImage_large());
+			item.setPlaceID(p.getPlaceID());
+			item.setPrice(p.getPrice());
+			item.setBedRooms(p.getBedRooms());
+			item.setTitle(p.getTitle());
+			item.setToilets(p.getToilets());
 			for (RoleOfPlace rop : listR) {
 				if (rop.getRoleOfPlaceID() == p.getRoleOfPlaceID()) {
-					PlaceQuickView item = new PlaceQuickView();
-					item.setArea(p.getArea());
-					item.setImageLarge(p.getImage_large());
-					item.setPlaceID(p.getPlaceID());
-					item.setPrice(p.getPrice());
-					item.setBedRooms(p.getBedRooms());
 					item.setRoleOfPlaceName(rop.getRoleName());
-					item.setTitle(p.getTitle());
-					item.setToilets(p.getToilets());
 
-					for (DistrictDB d : listD) {
-						if (p.getDistrict_id() == d.getId()) {
-							item.setDistrict(d.getDistrict());
-						}
+				}
+				for (DistrictDB d : listD) {
+					if (p.getDistrict_id() == d.getId()) {
+						item.setDistrict(d.getDistrict());
 					}
-
-					list.add(item);
+				}
+				for (Map m : listM) {
+					if (p.getPlaceID() == m.getPlaceID()) {
+						item.setLatitude(m.getLatitude());
+						item.setLongtitude(m.getLongtitude());
+					}
 				}
 			}
+			list.add(item);
 		}
 
 		return list;

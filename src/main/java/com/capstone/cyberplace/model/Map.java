@@ -23,13 +23,13 @@ public class Map {
 	private String latitude;
 
 	@Column(name = "place_id")
-	private int placeID;
+	private Integer placeID;
 
 	public Map() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Map(int mapID, String longtitude, String latitude, int placeID) {
+	public Map(int mapID, String longtitude, String latitude, Integer placeID) {
 		super();
 		this.mapID = mapID;
 		this.longtitude = longtitude;
@@ -37,11 +37,11 @@ public class Map {
 		this.placeID = placeID;
 	}
 
-	public int getPlaceID() {
+	public Integer getPlaceID() {
 		return placeID;
 	}
 
-	public void setPlaceID(int placeID) {
+	public void setPlaceID(Integer placeID) {
 		this.placeID = placeID;
 	}
 

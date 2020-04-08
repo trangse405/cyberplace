@@ -1,5 +1,7 @@
 package com.capstone.cyberplace.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,11 +23,13 @@ public interface MapRepository extends JpaRepository<Map, Integer> {
 
 	@Query(value = "SELECT * FROM Map where place_id = :place_id ", nativeQuery = true) // jpql
 	Map getMapIDByPlaceID(@Param("place_id") int place_id);
-	
-	
+
 	@Modifying
 	@Query(value = " UPDATE Map SET longtitude = :longtitude , latitude = :latitude where place_id = :place_id", nativeQuery = true) // jpql
 	void updateMap(@Param("latitude") String latitude, @Param("longtitude") String longtitude,
 			@Param("place_id") int place_id);
+
+	@Query(value = "SELECT * FROM Map ", nativeQuery = true) // jpql
+	List<Map> getAllMap();
 
 }

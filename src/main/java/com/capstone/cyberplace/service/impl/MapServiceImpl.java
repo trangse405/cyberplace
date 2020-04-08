@@ -1,5 +1,7 @@
 package com.capstone.cyberplace.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,12 @@ public class MapServiceImpl implements MapService {
 	public void updateMap(String latitude, String longtitude, int place_id) {
 		mapRepository.updateMap(latitude, longtitude, place_id);
 
+	}
+
+	@Override
+	public List<Map> getAllMap() {
+
+		return mapRepository.getAllMap();
 	}
 
 }
