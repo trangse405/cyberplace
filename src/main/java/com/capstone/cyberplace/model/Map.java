@@ -17,10 +17,10 @@ public class Map {
 	private int mapID;
 
 	@Column(name = "longtitude", nullable = false)
-	private float longtitude;
+	private String longtitude;
 
 	@Column(name = "latitude", nullable = false)
-	private float latitude;
+	private String latitude;
 
 	@Column(name = "place_id")
 	private int placeID;
@@ -29,7 +29,7 @@ public class Map {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Map(int mapID, float longtitude, float latitude, int placeID) {
+	public Map(int mapID, String longtitude, String latitude, int placeID) {
 		super();
 		this.mapID = mapID;
 		this.longtitude = longtitude;
@@ -53,19 +53,19 @@ public class Map {
 		this.mapID = mapID;
 	}
 
-	public float getLongtitude() {
+	public String getLongtitude() {
 		return longtitude;
 	}
 
-	public void setLongtitude(float longtitude) {
+	public void setLongtitude(String longtitude) {
 		this.longtitude = longtitude;
 	}
 
-	public float getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 

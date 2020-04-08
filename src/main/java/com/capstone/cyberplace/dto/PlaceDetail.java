@@ -7,27 +7,16 @@ import com.capstone.cyberplace.dto.form.EquipmentListForm;
 public class PlaceDetail {
 
 	private int placeID;
-
 	private String title;
-
 	private float area;
-
 	private float price;
-
 	private String district;
-
 	private String ward;
-
 	private String street;
-
 	private String address;
-
-	private float longtitude;
-
-	private float latitude;
-
+	private String longtitude;
+	private String latitude;
 	private String roleOfPlace;
-
 	private int counterView;
 
 	private float frontispiece;
@@ -51,7 +40,7 @@ public class PlaceDetail {
 	}
 
 	public PlaceDetail(int placeID, String title, float area, float price, String district, String ward, String street,
-			String address, float longtitude, float latitude, String roleOfPlace, int counterView, float frontispiece,
+			String address, String longtitude, String latitude, String roleOfPlace, int counterView, float frontispiece,
 			String homeDirection, int bedRooms, int toilets, String description, String imageLarge,
 			List<String> listImage, List<EquipmentListForm> listEquip) {
 		super();
@@ -157,19 +146,19 @@ public class PlaceDetail {
 		this.address = address;
 	}
 
-	public float getLongtitude() {
+	public String getLongtitude() {
 		return longtitude;
 	}
 
-	public void setLongtitude(float longtitude) {
+	public void setLongtitude(String longtitude) {
 		this.longtitude = longtitude;
 	}
 
-	public float getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 

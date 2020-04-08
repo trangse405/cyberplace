@@ -6,9 +6,9 @@ public interface MapService {
 
 	Map getOneByMapID(int mapID);
 
-	void insertMap(float longtitude, float latitude, int place_id);
+	void insertMap(String longtitude, String latitude, int place_id);
 
 	Map getMapIDByPlaceID(int place_id);
 
-	void updateMap(float latitude, float longtitude, int place_id);
+	void updateMap(String latitude, String longtitude, int place_id);
 }

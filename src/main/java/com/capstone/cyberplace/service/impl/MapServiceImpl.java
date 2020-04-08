@@ -22,7 +22,7 @@ public class MapServiceImpl implements MapService {
 	}
 
 	@Override
-	public void insertMap(float longtitude, float latitude, int place_id) {
+	public void insertMap(String longtitude, String latitude, int place_id) {
 		mapRepository.insertMap(latitude, longtitude, place_id);
 
 	}
@@ -34,7 +34,7 @@ public class MapServiceImpl implements MapService {
 	}
 
 	@Override
-	public void updateMap(float latitude, float longtitude, int place_id) {
+	public void updateMap(String latitude, String longtitude, int place_id) {
 		mapRepository.updateMap(latitude, longtitude, place_id);
 
 	}

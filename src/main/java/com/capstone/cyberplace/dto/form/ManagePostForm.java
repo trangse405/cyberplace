@@ -2,15 +2,33 @@ package com.capstone.cyberplace.dto.form;
 
 public class ManagePostForm {
 
+	private int id;
 	private String title;
 	private String address;
 	private String datePost;
 	private float price;
 	private String status;
+	private String imageLarge;
 	private int statusID;
 
 	public ManagePostForm() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getImageLarge() {
+		return imageLarge;
+	}
+
+	public void setImageLarge(String imageLarge) {
+		this.imageLarge = imageLarge;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {

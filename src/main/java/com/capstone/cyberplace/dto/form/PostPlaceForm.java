@@ -29,8 +29,8 @@ public class PostPlaceForm {
 	// page5
 	private List<String> listImageLink;
 	// page6
-	private float longtitude;
-	private float latitude;
+	private String longtitude;
+	private String latitude;
 	// page 7
 	private String contactName;
 	private String contactAddress;
@@ -45,7 +45,7 @@ public class PostPlaceForm {
 	public PostPlaceForm(int userID, String title, int roleOfPlaceID, int districtID, int wardID, int streetID,
 			float area, float price, String addressDetail, String descriptions, float frontispiece,
 			String homeDirection, int numberFloors, int numberBedrooms, int numberToilets,
-			List<EquipmentListForm> listEquip, List<String> listImageLink, float longtitude, float latitude,
+			List<EquipmentListForm> listEquip, List<String> listImageLink, String longtitude, String latitude,
 			String contactName, String contactAddress, String phoneNumber, String email, String checkingDate) {
 		super();
 		this.userID = userID;
@@ -210,19 +210,19 @@ public class PostPlaceForm {
 		this.listImageLink = listImageLink;
 	}
 
-	public float getLongtitude() {
+	public String getLongtitude() {
 		return longtitude;
 	}
 
-	public void setLongtitude(float longtitude) {
+	public void setLongtitude(String longtitude) {
 		this.longtitude = longtitude;
 	}
 
-	public float getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 

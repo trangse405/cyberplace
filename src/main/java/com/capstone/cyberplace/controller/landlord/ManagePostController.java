@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +39,8 @@ public class ManagePostController {
 			for (StatusPlace s : listS) {
 				if (p.getStatusPlaceID() == s.getStatusPlaceID()) {
 					ManagePostForm m = new ManagePostForm();
+					m.setImageLarge(p.getImage_large());
+					m.setId(p.getPlaceID());
 					m.setAddress(p.getAddress());
 					m.setDatePost(p.getDatePost());
 					m.setPrice(p.getPrice());
@@ -51,6 +54,20 @@ public class ManagePostController {
 		}
 
 		return list;
+	}
+
+	@PostMapping("/change-status-place")
+	public boolean changeStatusPlace(@RequestParam("placeID") int placeID,
+			@RequestParam("statusPlaceID") int statusPlaceID) {
+
+		try {
+			placeServiceImpl.changeStatusPlace(statusPlaceID, placeID);
+		} catch (Exception e) {
+			System.err.println("change status false");
+			return false;
+		}
+
+		return true;
 	}
 
 }

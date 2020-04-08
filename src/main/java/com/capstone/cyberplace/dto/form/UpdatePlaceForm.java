@@ -5,271 +5,265 @@ import java.util.List;
 public class UpdatePlaceForm {
 
 	// page 1
-		private int placceID;
-		private String title;
-		private int roleOfPlaceID;
-		private int districtID;
-		private int wardID;
-		private int streetID;
-		private float area;
-		private float price;
-		private String addressDetail;
+	private int placceID;
+	private String title;
+	private int roleOfPlaceID;
+	private int districtID;
+	private int wardID;
+	private int streetID;
+	private float area;
+	private float price;
+	private String addressDetail;
 
-		// page 2
-		private String descriptions;
+	// page 2
+	private String descriptions;
 
-		// page3
-		private float frontispiece;
-		private String homeDirection;
-		private int numberFloors;
-		private int numberBedrooms;
-		private int numberToilets;
-		// page 4
-		private List<EquipmentListForm> listEquip;
-		// page5
-		private List<String> listImageLink;
-		// page6
-		private float longtitude;
-		private float latitude;
-		// page 7
-		private String contactName;
-		private String contactAddress;
-		private String phoneNumber;
-		private String email;
-		private String checkingDate;
-		
-		public UpdatePlaceForm() {
-			// TODO Auto-generated constructor stub
-		}
+	// page3
+	private float frontispiece;
+	private String homeDirection;
+	private int numberFloors;
+	private int numberBedrooms;
+	private int numberToilets;
+	// page 4
+	private List<EquipmentListForm> listEquip;
+	// page5
+	private List<String> listImageLink;
+	// page6
+	private String longtitude;
+	private String latitude;
+	// page 7
+	private String contactName;
+	private String contactAddress;
+	private String phoneNumber;
+	private String email;
+	private String checkingDate;
 
-		public int getPlacceID() {
-			return placceID;
-		}
+	public UpdatePlaceForm() {
+		// TODO Auto-generated constructor stub
+	}
 
-		public void setPlacceID(int placceID) {
-			this.placceID = placceID;
-		}
+	public int getPlacceID() {
+		return placceID;
+	}
 
-		public String getTitle() {
-			return title;
-		}
+	public void setPlacceID(int placceID) {
+		this.placceID = placceID;
+	}
 
-		public void setTitle(String title) {
-			this.title = title;
-		}
+	public String getTitle() {
+		return title;
+	}
 
-		public int getRoleOfPlaceID() {
-			return roleOfPlaceID;
-		}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-		public void setRoleOfPlaceID(int roleOfPlaceID) {
-			this.roleOfPlaceID = roleOfPlaceID;
-		}
+	public int getRoleOfPlaceID() {
+		return roleOfPlaceID;
+	}
 
-		public int getDistrictID() {
-			return districtID;
-		}
+	public void setRoleOfPlaceID(int roleOfPlaceID) {
+		this.roleOfPlaceID = roleOfPlaceID;
+	}
 
-		public void setDistrictID(int districtID) {
-			this.districtID = districtID;
-		}
+	public int getDistrictID() {
+		return districtID;
+	}
 
-		public int getWardID() {
-			return wardID;
-		}
+	public void setDistrictID(int districtID) {
+		this.districtID = districtID;
+	}
 
-		public void setWardID(int wardID) {
-			this.wardID = wardID;
-		}
+	public int getWardID() {
+		return wardID;
+	}
 
-		public int getStreetID() {
-			return streetID;
-		}
+	public void setWardID(int wardID) {
+		this.wardID = wardID;
+	}
 
-		public void setStreetID(int streetID) {
-			this.streetID = streetID;
-		}
+	public int getStreetID() {
+		return streetID;
+	}
 
-		public float getArea() {
-			return area;
-		}
+	public void setStreetID(int streetID) {
+		this.streetID = streetID;
+	}
 
-		public void setArea(float area) {
-			this.area = area;
-		}
+	public float getArea() {
+		return area;
+	}
 
-		public float getPrice() {
-			return price;
-		}
+	public void setArea(float area) {
+		this.area = area;
+	}
 
-		public void setPrice(float price) {
-			this.price = price;
-		}
+	public float getPrice() {
+		return price;
+	}
 
-		public String getAddressDetail() {
-			return addressDetail;
-		}
+	public void setPrice(float price) {
+		this.price = price;
+	}
 
-		public void setAddressDetail(String addressDetail) {
-			this.addressDetail = addressDetail;
-		}
+	public String getAddressDetail() {
+		return addressDetail;
+	}
 
-		public String getDescriptions() {
-			return descriptions;
-		}
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
+	}
 
-		public void setDescriptions(String descriptions) {
-			this.descriptions = descriptions;
-		}
+	public String getDescriptions() {
+		return descriptions;
+	}
 
-		public float getFrontispiece() {
-			return frontispiece;
-		}
+	public void setDescriptions(String descriptions) {
+		this.descriptions = descriptions;
+	}
 
-		public void setFrontispiece(float frontispiece) {
-			this.frontispiece = frontispiece;
-		}
+	public float getFrontispiece() {
+		return frontispiece;
+	}
 
-		public String getHomeDirection() {
-			return homeDirection;
-		}
+	public void setFrontispiece(float frontispiece) {
+		this.frontispiece = frontispiece;
+	}
 
-		public void setHomeDirection(String homeDirection) {
-			this.homeDirection = homeDirection;
-		}
+	public String getHomeDirection() {
+		return homeDirection;
+	}
 
-		public int getNumberFloors() {
-			return numberFloors;
-		}
+	public void setHomeDirection(String homeDirection) {
+		this.homeDirection = homeDirection;
+	}
 
-		public void setNumberFloors(int numberFloors) {
-			this.numberFloors = numberFloors;
-		}
+	public int getNumberFloors() {
+		return numberFloors;
+	}
 
-		public int getNumberBedrooms() {
-			return numberBedrooms;
-		}
+	public void setNumberFloors(int numberFloors) {
+		this.numberFloors = numberFloors;
+	}
 
-		public void setNumberBedrooms(int numberBedrooms) {
-			this.numberBedrooms = numberBedrooms;
-		}
+	public int getNumberBedrooms() {
+		return numberBedrooms;
+	}
 
-		public int getNumberToilets() {
-			return numberToilets;
-		}
+	public void setNumberBedrooms(int numberBedrooms) {
+		this.numberBedrooms = numberBedrooms;
+	}
 
-		public void setNumberToilets(int numberToilets) {
-			this.numberToilets = numberToilets;
-		}
+	public int getNumberToilets() {
+		return numberToilets;
+	}
 
-		public List<EquipmentListForm> getListEquip() {
-			return listEquip;
-		}
+	public void setNumberToilets(int numberToilets) {
+		this.numberToilets = numberToilets;
+	}
 
-		public void setListEquip(List<EquipmentListForm> listEquip) {
-			this.listEquip = listEquip;
-		}
+	public List<EquipmentListForm> getListEquip() {
+		return listEquip;
+	}
 
-		public List<String> getListImageLink() {
-			return listImageLink;
-		}
+	public void setListEquip(List<EquipmentListForm> listEquip) {
+		this.listEquip = listEquip;
+	}
 
-		public void setListImageLink(List<String> listImageLink) {
-			this.listImageLink = listImageLink;
-		}
+	public List<String> getListImageLink() {
+		return listImageLink;
+	}
 
-		public float getLongtitude() {
-			return longtitude;
-		}
+	public void setListImageLink(List<String> listImageLink) {
+		this.listImageLink = listImageLink;
+	}
 
-		public void setLongtitude(float longtitude) {
-			this.longtitude = longtitude;
-		}
+	public String getLongtitude() {
+		return longtitude;
+	}
 
-		public float getLatitude() {
-			return latitude;
-		}
+	public void setLongtitude(String longtitude) {
+		this.longtitude = longtitude;
+	}
 
-		public void setLatitude(float latitude) {
-			this.latitude = latitude;
-		}
+	public String getLatitude() {
+		return latitude;
+	}
 
-		public String getContactName() {
-			return contactName;
-		}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
 
-		public void setContactName(String contactName) {
-			this.contactName = contactName;
-		}
+	public String getContactName() {
+		return contactName;
+	}
 
-		public String getContactAddress() {
-			return contactAddress;
-		}
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
 
-		public void setContactAddress(String contactAddress) {
-			this.contactAddress = contactAddress;
-		}
+	public String getContactAddress() {
+		return contactAddress;
+	}
 
-		public String getPhoneNumber() {
-			return phoneNumber;
-		}
+	public void setContactAddress(String contactAddress) {
+		this.contactAddress = contactAddress;
+	}
 
-		public void setPhoneNumber(String phoneNumber) {
-			this.phoneNumber = phoneNumber;
-		}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-		public String getEmail() {
-			return email;
-		}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-		public void setEmail(String email) {
-			this.email = email;
-		}
+	public String getEmail() {
+		return email;
+	}
 
-		public String getCheckingDate() {
-			return checkingDate;
-		}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-		public void setCheckingDate(String checkingDate) {
-			this.checkingDate = checkingDate;
-		}
+	public String getCheckingDate() {
+		return checkingDate;
+	}
 
-		public UpdatePlaceForm(int placceID, String title, int roleOfPlaceID, int districtID, int wardID, int streetID,
-				float area, float price, String addressDetail, String descriptions, float frontispiece,
-				String homeDirection, int numberFloors, int numberBedrooms, int numberToilets,
-				List<EquipmentListForm> listEquip, List<String> listImageLink, float longtitude, float latitude,
-				String contactName, String contactAddress, String phoneNumber, String email, String checkingDate) {
-			super();
-			this.placceID = placceID;
-			this.title = title;
-			this.roleOfPlaceID = roleOfPlaceID;
-			this.districtID = districtID;
-			this.wardID = wardID;
-			this.streetID = streetID;
-			this.area = area;
-			this.price = price;
-			this.addressDetail = addressDetail;
-			this.descriptions = descriptions;
-			this.frontispiece = frontispiece;
-			this.homeDirection = homeDirection;
-			this.numberFloors = numberFloors;
-			this.numberBedrooms = numberBedrooms;
-			this.numberToilets = numberToilets;
-			this.listEquip = listEquip;
-			this.listImageLink = listImageLink;
-			this.longtitude = longtitude;
-			this.latitude = latitude;
-			this.contactName = contactName;
-			this.contactAddress = contactAddress;
-			this.phoneNumber = phoneNumber;
-			this.email = email;
-			this.checkingDate = checkingDate;
-		}
-		
-		
-		
-		
-		
-		
-		
+	public void setCheckingDate(String checkingDate) {
+		this.checkingDate = checkingDate;
+	}
+
+	public UpdatePlaceForm(int placceID, String title, int roleOfPlaceID, int districtID, int wardID, int streetID,
+			float area, float price, String addressDetail, String descriptions, float frontispiece,
+			String homeDirection, int numberFloors, int numberBedrooms, int numberToilets,
+			List<EquipmentListForm> listEquip, List<String> listImageLink, String longtitude, String latitude,
+			String contactName, String contactAddress, String phoneNumber, String email, String checkingDate) {
+		super();
+		this.placceID = placceID;
+		this.title = title;
+		this.roleOfPlaceID = roleOfPlaceID;
+		this.districtID = districtID;
+		this.wardID = wardID;
+		this.streetID = streetID;
+		this.area = area;
+		this.price = price;
+		this.addressDetail = addressDetail;
+		this.descriptions = descriptions;
+		this.frontispiece = frontispiece;
+		this.homeDirection = homeDirection;
+		this.numberFloors = numberFloors;
+		this.numberBedrooms = numberBedrooms;
+		this.numberToilets = numberToilets;
+		this.listEquip = listEquip;
+		this.listImageLink = listImageLink;
+		this.longtitude = longtitude;
+		this.latitude = latitude;
+		this.contactName = contactName;
+		this.contactAddress = contactAddress;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.checkingDate = checkingDate;
+	}
+
 }

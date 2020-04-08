@@ -16,7 +16,7 @@ public interface MapRepository extends JpaRepository<Map, Integer> {
 
 	@Modifying
 	@Query(value = " INSERT INTO Map (latitude , longtitude , place_id) VALUES (:latitude , :longtitude , :place_id)", nativeQuery = true) // jpql
-	void insertMap(@Param("latitude") float latitude, @Param("longtitude") float longtitude,
+	void insertMap(@Param("latitude") String latitude, @Param("longtitude") String longtitude,
 			@Param("place_id") int place_id);
 
 	@Query(value = "SELECT * FROM Map where place_id = :place_id ", nativeQuery = true) // jpql
@@ -25,7 +25,7 @@ public interface MapRepository extends JpaRepository<Map, Integer> {
 	
 	@Modifying
 	@Query(value = " UPDATE Map SET longtitude = :longtitude , latitude = :latitude where place_id = :place_id", nativeQuery = true) // jpql
-	void updateMap(@Param("latitude") float latitude, @Param("longtitude") float longtitude,
+	void updateMap(@Param("latitude") String latitude, @Param("longtitude") String longtitude,
 			@Param("place_id") int place_id);
 
 }
