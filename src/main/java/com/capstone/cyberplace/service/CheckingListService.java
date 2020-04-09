@@ -1,5 +1,7 @@
 package com.capstone.cyberplace.service;
 
+import java.util.List;
+
 import com.capstone.cyberplace.model.CheckingList;
 
 public interface CheckingListService {
@@ -8,4 +10,8 @@ public interface CheckingListService {
 	CheckingList getCheckingByPlaceID(int placeID);
 
 	void updateItemCheckingList(int place_id, String dateTime);
+
+	void updateStatusCheckingListItem(int checkingStatusID, int checkingID);
+	
+	List<CheckingList> getAllCheckingList();
 }

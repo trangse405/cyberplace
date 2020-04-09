@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	void register(@Param("uname") String uname, @Param("upass") String upass, @Param("roleid") int roleid,
 			@Param("statusid") int statusid);
 
-	//find user by username
+	// find user by username
 	@Query(value = "SELECT * FROM Users  where user_name = :user_name", nativeQuery = true) // jpql
 	User findUserByUserName(@Param("user_name") String user_name);
 
@@ -29,16 +29,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	// get all staff
 
-	@Query(value = "SELECT * FROM Users where role_id = 2", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM Users where role_id = 4", nativeQuery = true) // jpql
 	List<User> getAllStaff();
 
 	// get all user
-	@Query(value = "SELECT * FROM Users where role_id = 4", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM Users where role_id = 2", nativeQuery = true) // jpql
 	List<User> getAllUser();
-	
-	// insert name to userdetail
 
-	
-	
+	// insert name to userdetail
 
 }

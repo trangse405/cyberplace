@@ -1,5 +1,8 @@
 package com.capstone.cyberplace.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.common.CommonConstant;
+import com.capstone.cyberplace.dto.form.ChangeStatusOrderForm;
 import com.capstone.cyberplace.dto.form.InsertedOrderForm;
 import com.capstone.cyberplace.dto.form.UpdateOrderForm;
 import com.capstone.cyberplace.model.OrderList;
@@ -74,14 +78,39 @@ public class OrderListController {
 	}
 
 	@PostMapping("/change-status-order")
-	public String changeStatusOrder(@RequestParam("orderstatusid") int orderstatusid,
+	public boolean changeStatusOrder(@Valid @RequestBody ChangeStatusOrderForm form) {
+
+		try {
+
+			orderListServiceImpl.changeStatusOrder(form.getStatusOrderID(), form.getOrderID());
+			placeServiceImpl.changeStatusPlace(form.getStatusPlaceID(), form.getPlaceID());
+
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	@GetMapping("/get-order-by-userid")
+	public List<OrderList> getListOrderByUserID(@RequestParam("userID") int userID) {
+
+		List<OrderList> listO = new ArrayList<>();
+		listO = orderListServiceImpl.getOrderListUserID(userID);
+		return listO;
+	}
+
+	// --------------------------------------------------------------
+// pending
+	@PostMapping("/change-status-order-staff")
+	public String changeStatusOrderWithStaff(@RequestParam("orderstatusid") int orderstatusid,
 			@RequestParam("staffid") int staffid, @RequestParam("orderid") int orderid) {
 
 		String message = "Change Status Order Success";
 
 		try {
 
-			orderListServiceImpl.changeStatusOrder(orderstatusid, staffid, orderid);
+			orderListServiceImpl.changeStatusOrderWithStaff(orderstatusid, staffid, orderid);
 
 		} catch (Exception e) {
 			message = "Some thing Wrong";

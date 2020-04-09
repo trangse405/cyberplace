@@ -1,5 +1,7 @@
 package com.capstone.cyberplace.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +26,8 @@ public class OrderListServiceImpl implements OrderListService {
 	}
 
 	@Override
-	public void changeStatusOrder(int orderStatusID, int staffID, int orderID) {
-		orderListRepository.changeStatusOrder(orderStatusID, staffID, orderID);
+	public void changeStatusOrderWithStaff(int orderStatusID, int staffID, int orderID) {
+		orderListRepository.changeStatusOrderWithStaff(orderStatusID, staffID, orderID);
 
 	}
 
@@ -40,6 +42,18 @@ public class OrderListServiceImpl implements OrderListService {
 	public OrderList getOrderByPlaceIDAndUserID(int placeID, int userID) {
 
 		return orderListRepository.getOrderByPlaceIDAndUserID(placeID, userID);
+	}
+
+	@Override
+	public void changeStatusOrder(int orderStatusID, int orderID) {
+		orderListRepository.changeStatusOrder(orderStatusID, orderID);
+
+	}
+
+	@Override
+	public List<OrderList> getOrderListUserID(int ordererID) {
+
+		return orderListRepository.getOrderListUserID(ordererID);
 	}
 
 }

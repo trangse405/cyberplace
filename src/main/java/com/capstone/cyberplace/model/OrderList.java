@@ -24,9 +24,6 @@ public class OrderList {
 	@Column(name = "place_id", nullable = false)
 	private int placeID;
 
-	@Column(name = "staff_id", nullable = false)
-	private int staffID;
-
 	@Column(name = "order_status_id", nullable = false)
 	private int orderStatusID;
 
@@ -49,13 +46,13 @@ public class OrderList {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderList(int orderID, int ordererID, int placeID, int staffID, int orderStatusID, Date dateTime,
-			String name, String email, String phone_number, String message) {
+	public OrderList(int orderID, int ordererID, int placeID, int orderStatusID, Date dateTime, String name,
+			String email, String phone_number, String message) {
 		super();
 		this.orderID = orderID;
 		this.ordererID = ordererID;
 		this.placeID = placeID;
-		this.staffID = staffID;
+
 		this.orderStatusID = orderStatusID;
 		this.dateTime = dateTime;
 		this.name = name;
@@ -110,14 +107,6 @@ public class OrderList {
 
 	public void setPlaceID(int placeID) {
 		this.placeID = placeID;
-	}
-
-	public int getStaffID() {
-		return staffID;
-	}
-
-	public void setStaffID(int staffID) {
-		this.staffID = staffID;
 	}
 
 	public int getOrderStatusID() {

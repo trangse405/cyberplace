@@ -1,5 +1,7 @@
 package com.capstone.cyberplace.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,10 +22,10 @@ public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
 			@Param("name") String name, @Param("email") String email, @Param("phone_number") String phoneNumber,
 			@Param("message") String message);
 
-	// change status order
+	// change status order by order id + staff id
 	@Modifying
 	@Query(value = "UPDATE OrderList SET order_status_id = :order_status_id , staff_id =:staff_id  where order_id = :order_id ", nativeQuery = true)
-	void changeStatusOrder(@Param("order_status_id") int orderStatusID, @Param("staff_id") int staffID,
+	void changeStatusOrderWithStaff(@Param("order_status_id") int orderStatusID, @Param("staff_id") int staffID,
 			@Param("order_id") int orderID);
 
 	// update information of order
@@ -38,4 +40,12 @@ public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
 	@Query(value = "SELECT * FROM OrderList where place_id = :place_id and orderer_id =:orderer_id ", nativeQuery = true) // jpql
 	OrderList getOrderByPlaceIDAndUserID(@Param("place_id") int placeID, @Param("orderer_id") int ordererID);
 
+	// change status order
+	@Modifying
+	@Query(value = "UPDATE OrderList SET order_status_id = :order_status_id where order_id = :order_id ", nativeQuery = true)
+	void changeStatusOrder(@Param("order_status_id") int orderStatusID, @Param("order_id") int orderID);
+
+	// get Order by Place ID and User ID
+	@Query(value = "SELECT * FROM OrderList where  orderer_id =:orderer_id ", nativeQuery = true) // jpql
+	List<OrderList> getOrderListUserID(@Param("orderer_id") int ordererID);
 }
