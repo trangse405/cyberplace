@@ -21,9 +21,6 @@ public class CheckingList {
 	@Column(name = "place_id")
 	private int placeID;
 
-	@Column(name = "staff_id")
-	private Integer staffID;
-
 	@Column(name = "date_time")
 	private Date dateTime;
 
@@ -34,11 +31,10 @@ public class CheckingList {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CheckingList(int checkingID, int placeID, int staffID, Date dateTime, int checkingStatusID) {
+	public CheckingList(int checkingID, int placeID, Date dateTime, int checkingStatusID) {
 		super();
 		this.checkingID = checkingID;
 		this.placeID = placeID;
-		this.staffID = staffID;
 		this.dateTime = dateTime;
 		this.checkingStatusID = checkingStatusID;
 	}
@@ -57,14 +53,6 @@ public class CheckingList {
 
 	public void setPlaceID(int placeID) {
 		this.placeID = placeID;
-	}
-
-	public Integer getStaffID() {
-		return staffID;
-	}
-
-	public void setStaffID(Integer staffID) {
-		this.staffID = staffID;
 	}
 
 	public Date getDateTime() {

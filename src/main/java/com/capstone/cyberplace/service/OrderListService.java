@@ -18,5 +18,7 @@ public interface OrderListService {
 	void changeStatusOrder(int orderStatusID, int orderID);
 
 	List<OrderList> getOrderListUserID(int ordererID);
+	
+	List<OrderList> getAllOrder();
 
 }

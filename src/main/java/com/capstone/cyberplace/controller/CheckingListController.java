@@ -52,16 +52,24 @@ public class CheckingListController {
 
 		listP = placeServiceImpl.getListForManagePost(userID);
 		List<CheckingList> listC = new ArrayList<CheckingList>();
-		if(listP != null) {
-			for(Place p : listP) {
-				CheckingList  c = new CheckingList();
+		if (listP != null) {
+			for (Place p : listP) {
+				CheckingList c = new CheckingList();
 				c = checkingListServiceImpl.getCheckingByPlaceID(p.getPlaceID());
-				if(c != null) {
+				if (c != null) {
 					listC.add(c);
 				}
-				
+
 			}
 		}
+
+		return listC;
+	}
+
+	@GetMapping("/get-all-checking-list")
+	public List<CheckingList> getAllCheckingList() {
+
+		List<CheckingList> listC = checkingListServiceImpl.getAllCheckingList();
 
 		return listC;
 	}

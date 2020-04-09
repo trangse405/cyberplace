@@ -56,4 +56,10 @@ public class OrderListServiceImpl implements OrderListService {
 		return orderListRepository.getOrderListUserID(ordererID);
 	}
 
+	@Override
+	public List<OrderList> getAllOrder() {
+
+		return orderListRepository.getAllOrder();
+	}
+
 }
