@@ -13,10 +13,12 @@ import com.capstone.cyberplace.dto.form.AdminManageCheckingForm;
 import com.capstone.cyberplace.model.CheckingList;
 import com.capstone.cyberplace.model.CheckingStatus;
 import com.capstone.cyberplace.model.Place;
+import com.capstone.cyberplace.model.StatusPlace;
 import com.capstone.cyberplace.model.UserDetail;
 import com.capstone.cyberplace.service.impl.CheckingListServiceImpl;
 import com.capstone.cyberplace.service.impl.CheckingStatusServiceImpl;
 import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
+import com.capstone.cyberplace.service.impl.StatusPlaceServiceImpl;
 import com.capstone.cyberplace.service.impl.UserDetailServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -34,12 +36,16 @@ public class ManageCheckingController {
 	@Autowired
 	private CheckingStatusServiceImpl checkingStatusServiceImpl;
 
+	@Autowired
+	private StatusPlaceServiceImpl statusPlaceServiceImpl;
+
 	@GetMapping("/get-all-checking")
 	public List<AdminManageCheckingForm> getAllChecking() {
 		List<AdminManageCheckingForm> list = new ArrayList<>();
 
 		List<CheckingStatus> listCS = checkingStatusServiceImpl.getAllCheckingStatus();
 		List<CheckingList> listC = new ArrayList<>();
+		List<StatusPlace> listSP = statusPlaceServiceImpl.getAllStatusPlace();
 		listC = checkingListServiceImpl.getAllCheckingList();
 		if (listC != null) {
 			for (CheckingList c : listC) {
@@ -53,9 +59,15 @@ public class ManageCheckingController {
 				a.setTitle(p.getTitle());
 				UserDetail ud = userDetailServiceImpl.getDetailByUserID(p.getOwnerID());
 				a.setUserName(ud.getName());
+				a.setStatusPlaceID(p.getStatusPlaceID());
 				for (CheckingStatus cs : listCS) {
 					if (c.getCheckingStatusID() == cs.getCheckingStatusID()) {
 						a.setStatus(cs.getCheckingStatusName());
+					}
+				}
+				for (StatusPlace sp : listSP) {
+					if (p.getStatusPlaceID() == sp.getStatusPlaceID()) {
+						a.setStatusPlace(sp.getStatus());
 					}
 				}
 

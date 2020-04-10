@@ -10,9 +10,27 @@ public class AdminManageCheckingForm {
 	private String phoneNumber;
 	private String contactName;
 	private String status;
+	private String statusPlace;
+	private int statusPlaceID;
 
 	public AdminManageCheckingForm() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getStatusPlace() {
+		return statusPlace;
+	}
+
+	public void setStatusPlace(String statusPlace) {
+		this.statusPlace = statusPlace;
+	}
+
+	public int getStatusPlaceID() {
+		return statusPlaceID;
+	}
+
+	public void setStatusPlaceID(int statusPlaceID) {
+		this.statusPlaceID = statusPlaceID;
 	}
 
 	public int getCheckingID() {

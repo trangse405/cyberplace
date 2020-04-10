@@ -11,6 +11,9 @@ public class AdminManageOrderForm {
 	private String address;
 	private String message;
 	private String status;
+	private int placeID;
+	private String statusPlace;
+	private int statusPlaceID;
 
 	public AdminManageOrderForm() {
 		// TODO Auto-generated constructor stub
@@ -86,6 +89,30 @@ public class AdminManageOrderForm {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getPlaceID() {
+		return placeID;
+	}
+
+	public void setPlaceID(int placeID) {
+		this.placeID = placeID;
+	}
+
+	public String getStatusPlace() {
+		return statusPlace;
+	}
+
+	public void setStatusPlace(String statusPlace) {
+		this.statusPlace = statusPlace;
+	}
+
+	public int getStatusPlaceID() {
+		return statusPlaceID;
+	}
+
+	public void setStatusPlaceID(int statusPlaceID) {
+		this.statusPlaceID = statusPlaceID;
 	}
 
 }

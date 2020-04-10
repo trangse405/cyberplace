@@ -13,10 +13,12 @@ import com.capstone.cyberplace.dto.form.AdminManageOrderForm;
 import com.capstone.cyberplace.model.OrderList;
 import com.capstone.cyberplace.model.OrderStatus;
 import com.capstone.cyberplace.model.Place;
+import com.capstone.cyberplace.model.StatusPlace;
 import com.capstone.cyberplace.model.UserDetail;
 import com.capstone.cyberplace.service.impl.OrderListServiceImpl;
 import com.capstone.cyberplace.service.impl.OrderStatusServiceImpl;
 import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
+import com.capstone.cyberplace.service.impl.StatusPlaceServiceImpl;
 import com.capstone.cyberplace.service.impl.UserDetailServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -36,12 +38,16 @@ public class ManageOrderController {
 	@Autowired
 	private OrderStatusServiceImpl orderStatusServiceImpl;
 
+	@Autowired
+	private StatusPlaceServiceImpl statusPlaceServiceImpl;
+
 	@GetMapping("/get-all-order")
 	public List<AdminManageOrderForm> getAllOrder() {
 		List<AdminManageOrderForm> list = new ArrayList<>();
 
 		List<OrderStatus> listOS = orderStatusServiceImpl.getAllOrderStatus();
 		List<OrderList> listO = new ArrayList<>();
+		List<StatusPlace> listSP = statusPlaceServiceImpl.getAllStatusPlace();
 		listO = orderListServiceImpl.getAllOrder();
 		if (listO != null) {
 			for (OrderList o : listO) {
@@ -54,11 +60,19 @@ public class ManageOrderController {
 				a.setOrderID(o.getOrderID());
 				Place p = placeServiceImpl.getPlaceByPlaceID(o.getPlaceID());
 				a.setAddress(p.getAddress());
+				a.setPlaceID(o.getPlaceID());
+				a.setStatusPlaceID(p.getStatusPlaceID());
+
 				UserDetail ud = userDetailServiceImpl.getDetailByUserID(o.getOrdererID());
 				a.setName(ud.getName());
 				for (OrderStatus os : listOS) {
 					if (o.getOrderStatusID() == os.getOrderStatusID()) {
 						a.setStatus(os.getOrderStatusName());
+					}
+				}
+				for (StatusPlace sp : listSP) {
+					if (p.getStatusPlaceID() == sp.getStatusPlaceID()) {
+						a.setStatusPlace(sp.getStatus());
 					}
 				}
 
