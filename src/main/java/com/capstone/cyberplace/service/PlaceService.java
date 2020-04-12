@@ -2,8 +2,6 @@ package com.capstone.cyberplace.service;
 
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
-
 import com.capstone.cyberplace.model.Place;
 
 public interface PlaceService {
@@ -33,4 +31,6 @@ public interface PlaceService {
 	void changeStatusPlace(int statusPlaceID, int placeID);
 
 	List<Place> getListForManagePost(int userID);
+	
+	List<Place> getAllPlace();
 }

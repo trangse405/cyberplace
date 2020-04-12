@@ -90,4 +90,10 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeRepository.getListForManagePost(userID);
 	}
 
+	@Override
+	public List<Place> getAllPlace() {
+
+		return placeRepository.getAllPlace();
+	}
+
 }

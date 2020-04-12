@@ -23,6 +23,10 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	@Query(value = "SELECT  * from Place where status_place_id =1  ORDER BY counter_view DESC ", nativeQuery = true) // jpql
 	List<Place> getAll();
 
+	// get all place
+	@Query(value = "SELECT  * from Place   ", nativeQuery = true) // jpql
+	List<Place> getAllPlace();
+
 	// find by place id
 	@Query(value = "SELECT  * from Place where place_id = :place_id AND status_place_id = 1", nativeQuery = true) // jpql
 	Place getOneActiveByPlaceID(@Param("place_id") int place_id);
