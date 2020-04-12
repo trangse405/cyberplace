@@ -54,6 +54,7 @@ public class ManageOrderController {
 				AdminManageOrderForm a = new AdminManageOrderForm();
 				a.setContactName(o.getName());
 				a.setEmail(o.getEmail());
+				a.setOrderStatusID(o.getOrderStatusID());
 				a.setPhoneNumber(o.getPhone_number());
 				a.setMessage(o.getMessage());
 				a.setDateTime(String.valueOf(o.getDateTime()));

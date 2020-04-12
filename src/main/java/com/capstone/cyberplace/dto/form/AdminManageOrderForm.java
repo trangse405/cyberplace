@@ -11,12 +11,22 @@ public class AdminManageOrderForm {
 	private String address;
 	private String message;
 	private String status;
+	private int orderStatusID;
+
 	private int placeID;
 	private String statusPlace;
 	private int statusPlaceID;
 
 	public AdminManageOrderForm() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getOrderStatusID() {
+		return orderStatusID;
+	}
+
+	public void setOrderStatusID(int orderStatusID) {
+		this.orderStatusID = orderStatusID;
 	}
 
 	public int getOrderID() {

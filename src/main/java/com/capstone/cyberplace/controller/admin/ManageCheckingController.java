@@ -52,8 +52,10 @@ public class ManageCheckingController {
 				AdminManageCheckingForm a = new AdminManageCheckingForm();
 				a.setCheckingID(c.getCheckingID());
 				a.setDateTime(String.valueOf(c.getDateTime()));
+				a.setCheckingStatusID(c.getCheckingStatusID());
 				Place p = placeServiceImpl.getPlaceByPlaceID(c.getPlaceID());
 				a.setPlaceID(c.getPlaceID());
+
 				a.setContactName(p.getContactName());
 				a.setPhoneNumber(p.getContactPhoneNumber());
 				a.setTitle(p.getTitle());

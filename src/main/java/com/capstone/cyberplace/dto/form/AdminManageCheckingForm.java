@@ -10,6 +10,7 @@ public class AdminManageCheckingForm {
 	private String phoneNumber;
 	private String contactName;
 	private String status;
+	private int checkingStatusID;
 	private String statusPlace;
 	private int statusPlaceID;
 
@@ -95,6 +96,14 @@ public class AdminManageCheckingForm {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getCheckingStatusID() {
+		return checkingStatusID;
+	}
+
+	public void setCheckingStatusID(int checkingStatusID) {
+		this.checkingStatusID = checkingStatusID;
 	}
 
 }
