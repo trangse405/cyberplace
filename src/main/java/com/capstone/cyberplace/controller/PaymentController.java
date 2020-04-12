@@ -36,7 +36,7 @@ public class PaymentController {
 			return false;
 		}
 		if (checkPayment == true) {
-			placeServiceImpl.changeStatusPlace(CommonConstant.Place_Status_ID_Deposited, paymentInfo.getPlaceID());
+			//placeServiceImpl.changeStatusPlace(CommonConstant.Place_Status_ID_Deposited, paymentInfo.getPlaceID());
 		}
 
 		return true;
