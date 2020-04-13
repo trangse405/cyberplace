@@ -20,5 +20,7 @@ public interface OrderListService {
 	List<OrderList> getOrderListUserID(int ordererID);
 	
 	List<OrderList> getAllOrder();
+	
+	List<OrderList> getAllOrderPendingByPlaceID(	 int place_id);
 
 }

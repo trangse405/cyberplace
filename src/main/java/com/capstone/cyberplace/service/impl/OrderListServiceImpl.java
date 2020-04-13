@@ -62,4 +62,9 @@ public class OrderListServiceImpl implements OrderListService {
 		return orderListRepository.getAllOrder();
 	}
 
+	@Override
+	public List<OrderList> getAllOrderPendingByPlaceID(int place_id) {
+		return orderListRepository.getAllOrderPendingByPlaceID(place_id);
+	}
+
 }

@@ -52,4 +52,8 @@ public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
 	// get all order
 	@Query(value = "SELECT * FROM OrderList ", nativeQuery = true) // jpql
 	List<OrderList> getAllOrder();
+	
+	// get order pending by placeid
+		@Query(value = "SELECT * FROM OrderList where place_id = :place_id and order_status_id =2 ", nativeQuery = true) // jpql
+		List<OrderList> getAllOrderPendingByPlaceID(@Param("place_id") int place_id);
 }
