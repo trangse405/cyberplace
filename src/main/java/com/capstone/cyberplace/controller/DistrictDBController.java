@@ -27,8 +27,7 @@ public class DistrictDBController {
 		try {
 			districtDBServiceImpl.insertArea(district);
 
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (Exception e) {			
 			mess = "fail";
 		}
 

@@ -18,7 +18,7 @@ public interface WardDBRepository extends JpaRepository<WardDB, Integer> {
 	@Query(value = "SELECT * FROM WardDB where id = :ward_id", nativeQuery = true) // jpql
 	WardDB getOneWardByID(@Param("ward_id") int wardID);
 
-	@Query(value = "SELECT * FROM WardDB where district_id = :district_id ", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM WardDB where district_id = :district_id ORDER BY ward_name ASC", nativeQuery = true) // jpql
 	List<WardDB> getAllWardByDistrictID(@Param("district_id") int districtID);
 
 }

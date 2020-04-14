@@ -18,7 +18,7 @@ public interface StreetDBRepository extends JpaRepository<StreetDB, Integer> {
 	@Query(value = "SELECT * FROM StreetDB where id = :street_id", nativeQuery = true) // jpql
 	StreetDB getOneStreetByID(@Param("street_id") int streetID);
 
-	@Query(value = "SELECT * FROM StreetDB where district_id = :district_id", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM StreetDB where district_id = :district_id ORDER BY street_name ASC", nativeQuery = true) // jpql
 	List<StreetDB> getAllStreetByDistrictID(@Param("district_id") int district_id);
 
 }

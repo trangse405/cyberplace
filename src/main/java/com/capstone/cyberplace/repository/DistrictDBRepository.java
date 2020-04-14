@@ -13,7 +13,7 @@ import com.capstone.cyberplace.model.DistrictDB;
 @Repository
 public interface DistrictDBRepository extends JpaRepository<DistrictDB, Integer> {
 
-	@Query(value = "SELECT * FROM DistrictDB ", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM DistrictDB ORDER BY district_name ASC ", nativeQuery = true) // jpql
 	List<DistrictDB> getall();
 
 	@Modifying
