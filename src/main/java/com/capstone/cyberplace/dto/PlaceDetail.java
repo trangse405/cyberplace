@@ -18,6 +18,8 @@ public class PlaceDetail {
 	private String latitude;
 	private String roleOfPlace;
 	private int counterView;
+	private String statusPlace;
+	private int statusPlaceID;
 
 	private float frontispiece;
 
@@ -39,31 +41,20 @@ public class PlaceDetail {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PlaceDetail(int placeID, String title, float area, float price, String district, String ward, String street,
-			String address, String longtitude, String latitude, String roleOfPlace, int counterView, float frontispiece,
-			String homeDirection, int bedRooms, int toilets, String description, String imageLarge,
-			List<String> listImage, List<EquipmentListForm> listEquip) {
-		super();
-		this.placeID = placeID;
-		this.title = title;
-		this.area = area;
-		this.price = price;
-		this.district = district;
-		this.ward = ward;
-		this.street = street;
-		this.address = address;
-		this.longtitude = longtitude;
-		this.latitude = latitude;
-		this.roleOfPlace = roleOfPlace;
-		this.counterView = counterView;
-		this.frontispiece = frontispiece;
-		this.homeDirection = homeDirection;
-		this.bedRooms = bedRooms;
-		this.toilets = toilets;
-		this.description = description;
-		this.imageLarge = imageLarge;
-		this.listImage = listImage;
-		this.listEquip = listEquip;
+	public String getStatusPlace() {
+		return statusPlace;
+	}
+
+	public void setStatusPlace(String statusPlace) {
+		this.statusPlace = statusPlace;
+	}
+
+	public int getStatusPlaceID() {
+		return statusPlaceID;
+	}
+
+	public void setStatusPlaceID(int statusPlaceID) {
+		this.statusPlaceID = statusPlaceID;
 	}
 
 	public List<String> getListImage() {

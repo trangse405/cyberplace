@@ -17,11 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.cyberplace.common.CommonConstant;
 import com.capstone.cyberplace.dto.form.ChangeStatusOrderForm;
 import com.capstone.cyberplace.dto.form.InsertedOrderForm;
+import com.capstone.cyberplace.dto.form.OrderForm;
 import com.capstone.cyberplace.dto.form.UpdateOrderForm;
 import com.capstone.cyberplace.model.OrderList;
+import com.capstone.cyberplace.model.OrderStatus;
 import com.capstone.cyberplace.model.Place;
+import com.capstone.cyberplace.model.StatusPlace;
 import com.capstone.cyberplace.service.impl.OrderListServiceImpl;
+import com.capstone.cyberplace.service.impl.OrderStatusServiceImpl;
 import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
+import com.capstone.cyberplace.service.impl.StatusPlaceServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -33,6 +38,12 @@ public class OrderListController {
 
 	@Autowired
 	private PlaceServiceImpl placeServiceImpl;
+
+	@Autowired
+	private StatusPlaceServiceImpl statusPlaceServiceImpl;
+
+	@Autowired
+	private OrderStatusServiceImpl orderStatusServiceImpl;
 
 	@PostMapping("/insert-order")
 	public boolean insertOrder(@Valid @RequestBody InsertedOrderForm inserted) {
@@ -93,11 +104,47 @@ public class OrderListController {
 	}
 
 	@GetMapping("/get-order-by-userid")
-	public List<OrderList> getListOrderByUserID(@RequestParam("userID") int userID) {
+	public List<OrderForm> getListOrderByUserID(@RequestParam("userID") int userID) {
 
+		List<OrderForm> listF = new ArrayList<>();
 		List<OrderList> listO = new ArrayList<>();
 		listO = orderListServiceImpl.getOrderListUserID(userID);
-		return listO;
+		List<StatusPlace> listStatusPlace = statusPlaceServiceImpl.getAllStatusPlace();
+		List<OrderStatus> listOrderStatus = orderStatusServiceImpl.getAllOrderStatus();
+		List<Place> listPlace = placeServiceImpl.getAllPlace();
+		if (listO != null) {
+			for (OrderList o : listO) {
+				OrderForm f = new OrderForm();
+				f.setDateTime(String.valueOf(o.getDateTime()));
+				f.setEmail(o.getEmail());
+				f.setMessage(o.getMessage());
+				f.setName(o.getName());
+				f.setOrdererID(o.getOrdererID());
+				f.setPhoneNumber(o.getPhone_number());
+				f.setOrderStatusID(o.getOrderStatusID());
+				f.setPlaceID(o.getPlaceID());
+				f.setOrderID(o.getOrderID());
+				for (Place p : listPlace) {
+					if (o.getPlaceID() == p.getPlaceID()) {
+						f.setTitle(p.getTitle());
+						for (StatusPlace sp : listStatusPlace) {
+							if (p.getStatusPlaceID() == sp.getStatusPlaceID()) {
+								f.setPlaceStatus(sp.getStatus());
+							}
+						}
+					}
+				}
+
+				for (OrderStatus os : listOrderStatus) {
+					if (o.getOrderStatusID() == os.getOrderStatusID()) {
+						f.setOrderStatus(os.getOrderStatusName());
+					}
+				}
+
+				listF.add(f);
+			}
+		}
+		return listF;
 	}
 
 	// --------------------------------------------------------------

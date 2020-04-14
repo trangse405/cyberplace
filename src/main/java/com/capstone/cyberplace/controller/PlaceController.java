@@ -33,6 +33,7 @@ import com.capstone.cyberplace.model.ImageLink;
 import com.capstone.cyberplace.model.Map;
 import com.capstone.cyberplace.model.Place;
 import com.capstone.cyberplace.model.RoleOfPlace;
+import com.capstone.cyberplace.model.StatusPlace;
 import com.capstone.cyberplace.model.StreetDB;
 import com.capstone.cyberplace.model.WardDB;
 import com.capstone.cyberplace.repository.PlaceRepository;
@@ -43,6 +44,7 @@ import com.capstone.cyberplace.service.impl.ImageLinkServiceImpl;
 import com.capstone.cyberplace.service.impl.MapServiceImpl;
 import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
 import com.capstone.cyberplace.service.impl.RoleOfPlaceServiceImpl;
+import com.capstone.cyberplace.service.impl.StatusPlaceServiceImpl;
 import com.capstone.cyberplace.service.impl.StreetDBServiceImpl;
 import com.capstone.cyberplace.service.impl.WardDBServiceImpl;
 
@@ -76,6 +78,9 @@ public class PlaceController {
 
 	@Autowired
 	private CheckingListServiceImpl checkingListServiceImpl;
+
+	@Autowired
+	private StatusPlaceServiceImpl statusPlaceServiceImpl;
 
 	/*
 	 * trả về danh sách top 6 place active có nhiều view nhất
@@ -281,54 +286,68 @@ public class PlaceController {
 	@GetMapping("/places/{id}")
 	public PlaceDetail getOneById(@PathVariable int id) {
 
-		Place p = placeServiceImpl.getOneActiveByPlaceID(id);
-		PlaceDetail pd = new PlaceDetail();
-		DistrictDB d = districtDBServiceImpl.getOneDistrictByID(p.getDistrict_id());
-		if (d != null) {
-			pd.setDistrict(d.getDistrict());
+		List<StatusPlace> list = statusPlaceServiceImpl.getAllStatusPlace();
+
+		Place p = new Place();
+
+		p = placeServiceImpl.getOneActiveByPlaceID(id);
+		if (p != null) {
+			PlaceDetail pd = new PlaceDetail();
+			DistrictDB d = districtDBServiceImpl.getOneDistrictByID(p.getDistrict_id());
+			if (d != null) {
+				pd.setDistrict(d.getDistrict());
+			}
+			WardDB w = wardDBServiceImpl.getOneWardByID(p.getWard_id());
+			if (w != null) {
+				pd.setWard(w.getWard_name());
+			}
+			StreetDB s = streetDBServiceImpl.getOneStreetByID(p.getStreet_id());
+			if (s != null) {
+				pd.setStreet(s.getStreetName());
+			}
+			Map m = mapServiceImpl.getMapIDByPlaceID(id);
+			if (m != null) {
+				pd.setLatitude(m.getLatitude());
+				pd.setLongtitude(m.getLongtitude());
+			}
+			RoleOfPlace r = roleOfPlaceServiceImpl.getRoleByID(p.getRoleOfPlaceID());
+			// get list Image
+			List<ImageLink> listE = new ArrayList<ImageLink>();
+			List<String> listImage = getListImageForDetail(listE, id);
+			// get list equip
+			List<EquipmentList> listEq = new ArrayList<EquipmentList>();
+			List<EquipmentListForm> listF = getListEquipForDetail(listEq, id);
+
+			pd.setAddress(p.getAddress());
+			pd.setArea(p.getArea());
+			pd.setBedRooms(p.getBedRooms());
+			pd.setCounterView(p.getCounterView());
+			pd.setDescription(p.getDescription());
+			pd.setStatusPlaceID(p.getStatusPlaceID());
+
+			for (StatusPlace sp : list) {
+				if (p.getStatusPlaceID() == sp.getStatusPlaceID()) {
+					pd.setStatusPlace(sp.getStatus());
+				}
+			}
+
+			pd.setFrontispiece(p.getFrontispiece());
+			pd.setHomeDirection(p.getHomeDirection());
+			pd.setImageLarge(p.getImage_large());
+
+			pd.setPlaceID(p.getPlaceID());
+			pd.setPrice(p.getPrice());
+			pd.setRoleOfPlace(r.getRoleName());
+
+			pd.setTitle(p.getTitle());
+			pd.setToilets(p.getToilets());
+
+			pd.setListImage(listImage);
+			pd.setListEquip(listF);
+			return pd;
 		}
-		WardDB w = wardDBServiceImpl.getOneWardByID(p.getWard_id());
-		if (w != null) {
-			pd.setWard(w.getWard_name());
-		}
-		StreetDB s = streetDBServiceImpl.getOneStreetByID(p.getStreet_id());
-		if (s != null) {
-			pd.setStreet(s.getStreetName());
-		}
-		Map m = mapServiceImpl.getMapIDByPlaceID(id);
-		if (m != null) {
-			pd.setLatitude(m.getLatitude());
-			pd.setLongtitude(m.getLongtitude());
-		}
-		RoleOfPlace r = roleOfPlaceServiceImpl.getRoleByID(p.getRoleOfPlaceID());
-//get list Image 
-		List<ImageLink> listE = new ArrayList<ImageLink>();
-		List<String> listImage = getListImageForDetail(listE, id);
-//get list equip
-		List<EquipmentList> listEq = new ArrayList<EquipmentList>();
-		List<EquipmentListForm> listF = getListEquipForDetail(listEq, id);
 
-		pd.setAddress(p.getAddress());
-		pd.setArea(p.getArea());
-		pd.setBedRooms(p.getBedRooms());
-		pd.setCounterView(p.getCounterView());
-		pd.setDescription(p.getDescription());
-
-		pd.setFrontispiece(p.getFrontispiece());
-		pd.setHomeDirection(p.getHomeDirection());
-		pd.setImageLarge(p.getImage_large());
-
-		pd.setPlaceID(p.getPlaceID());
-		pd.setPrice(p.getPrice());
-		pd.setRoleOfPlace(r.getRoleName());
-
-		pd.setTitle(p.getTitle());
-		pd.setToilets(p.getToilets());
-
-		pd.setListImage(listImage);
-		pd.setListEquip(listF);
-
-		return pd;
+		return null;
 	}
 
 	/*
