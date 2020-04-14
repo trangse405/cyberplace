@@ -28,7 +28,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	List<Place> getAllPlace();
 
 	// find by place id
-	@Query(value = "SELECT  * from Place where place_id = :place_id AND status_place_id = 1", nativeQuery = true) // jpql
+	@Query(value = "SELECT  * from Place where place_id = :place_id ", nativeQuery = true) // jpql
 	Place getOneActiveByPlaceID(@Param("place_id") int place_id);
 
 	// searchUltimate
