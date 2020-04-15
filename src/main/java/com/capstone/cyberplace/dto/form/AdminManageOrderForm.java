@@ -3,6 +3,8 @@ package com.capstone.cyberplace.dto.form;
 public class AdminManageOrderForm {
 
 	private int orderID;
+	private int ownerID;
+	private float price;
 	private String contactName;
 	private String name;
 	private String email;
@@ -123,6 +125,22 @@ public class AdminManageOrderForm {
 
 	public void setStatusPlaceID(int statusPlaceID) {
 		this.statusPlaceID = statusPlaceID;
+	}
+
+	public int getOwnerID() {
+		return ownerID;
+	}
+
+	public void setOwnerID(int ownerID) {
+		this.ownerID = ownerID;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
 	}
 
 }

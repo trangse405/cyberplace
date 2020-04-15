@@ -65,7 +65,8 @@ public class ManageOrderController {
 				a.setAddress(p.getAddress());
 				a.setPlaceID(o.getPlaceID());
 				a.setStatusPlaceID(p.getStatusPlaceID());
-
+				a.setOwnerID(p.getOwnerID());
+				a.setPrice(p.getPrice());
 				UserDetail ud = userDetailServiceImpl.getDetailByUserID(o.getOrdererID());
 				a.setName(ud.getName());
 				for (OrderStatus os : listOS) {
