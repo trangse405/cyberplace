@@ -61,6 +61,7 @@ public class ManageOrderController {
 				a.setMessage(o.getMessage());
 				a.setDateTime(String.valueOf(o.getDateTime()));
 				a.setOrderID(o.getOrderID());
+				a.setOrdererID(o.getOrdererID());
 				Place p = placeServiceImpl.getPlaceByPlaceID(o.getPlaceID());
 				a.setAddress(p.getAddress());
 				a.setPlaceID(o.getPlaceID());

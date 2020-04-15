@@ -4,6 +4,7 @@ public class AdminManageOrderForm {
 
 	private int orderID;
 	private int ownerID;
+	private int ordererID;
 	private float price;
 	private String contactName;
 	private String name;
@@ -141,6 +142,14 @@ public class AdminManageOrderForm {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public int getOrdererID() {
+		return ordererID;
+	}
+
+	public void setOrdererID(int ordererID) {
+		this.ordererID = ordererID;
 	}
 
 }
