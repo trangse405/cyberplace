@@ -72,9 +72,7 @@ public class OrderListController {
 	}
 
 	@PostMapping("/update-order")
-	public String updateOrder(@Valid @RequestBody UpdateOrderForm updated) {
-
-		String message = "Update Order Success";
+	public boolean updateOrder(@Valid @RequestBody UpdateOrderForm updated) {
 
 		try {
 
@@ -82,10 +80,10 @@ public class OrderListController {
 					updated.getPhoneNumber(), updated.getMessage(), updated.getOrderID());
 
 		} catch (Exception e) {
-			message = "Some thing Wrong";
+			return false;
 		}
 
-		return message;
+		return true;
 	}
 
 	@PostMapping("/change-status-order")

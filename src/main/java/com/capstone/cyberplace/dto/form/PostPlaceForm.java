@@ -28,6 +28,9 @@ public class PostPlaceForm {
 	private List<EquipmentListForm> listEquip;
 	// page5
 	private List<String> listImageLink;
+
+	// cost of place
+	private List<CostOfPlaceForm> listCost;
 	// page6
 	private String longtitude;
 	private String latitude;
@@ -264,6 +267,14 @@ public class PostPlaceForm {
 
 	public void setCheckingDate(String checkingDate) {
 		this.checkingDate = checkingDate;
+	}
+
+	public List<CostOfPlaceForm> getListCost() {
+		return listCost;
+	}
+
+	public void setListCost(List<CostOfPlaceForm> listCost) {
+		this.listCost = listCost;
 	}
 
 }

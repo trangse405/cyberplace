@@ -23,10 +23,12 @@ import com.capstone.cyberplace.common.CommonConstant;
 import com.capstone.cyberplace.dto.PlaceDetail;
 import com.capstone.cyberplace.dto.PlaceQuickView;
 import com.capstone.cyberplace.dto.SearchCondition;
+import com.capstone.cyberplace.dto.form.CostOfPlaceForm;
 import com.capstone.cyberplace.dto.form.EquipmentListForm;
 import com.capstone.cyberplace.dto.form.PostPlaceForm;
 import com.capstone.cyberplace.dto.form.UpdatePlaceForm;
 import com.capstone.cyberplace.model.CheckingList;
+import com.capstone.cyberplace.model.CostOfPlace;
 import com.capstone.cyberplace.model.DistrictDB;
 import com.capstone.cyberplace.model.EquipmentList;
 import com.capstone.cyberplace.model.ImageLink;
@@ -38,6 +40,7 @@ import com.capstone.cyberplace.model.StreetDB;
 import com.capstone.cyberplace.model.WardDB;
 import com.capstone.cyberplace.repository.PlaceRepository;
 import com.capstone.cyberplace.service.impl.CheckingListServiceImpl;
+import com.capstone.cyberplace.service.impl.CostOfPlaceServiceImpl;
 import com.capstone.cyberplace.service.impl.DistrictDBServiceImpl;
 import com.capstone.cyberplace.service.impl.EquipmentListServiceImpl;
 import com.capstone.cyberplace.service.impl.ImageLinkServiceImpl;
@@ -81,6 +84,9 @@ public class PlaceController {
 
 	@Autowired
 	private StatusPlaceServiceImpl statusPlaceServiceImpl;
+
+	@Autowired
+	private CostOfPlaceServiceImpl costOfPlaceServiceImpl;
 
 	/*
 	 * trả về danh sách top 6 place active có nhiều view nhất
@@ -246,6 +252,29 @@ public class PlaceController {
 		}
 
 		try {
+			List<CostOfPlace> listCost = new ArrayList<CostOfPlace>();
+			listCost = costOfPlaceServiceImpl.getListCostByPlaceID(form.getPlaceID());
+			if (listCost != null) {
+				costOfPlaceServiceImpl.deleteListCostByPlaceID(form.getPlaceID());
+			}
+
+			if (form.getListCost() != null && !form.getListCost().isEmpty()) {
+				try {
+					for (CostOfPlaceForm f : form.getListCost()) {
+						costOfPlaceServiceImpl.insertItemCostOfPlace(form.getPlaceID(), f.getCostName(),
+								f.getCostPrice());
+					}
+				} catch (Exception e) {
+					System.out.print("insert cost error");
+					return false;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("delete cost fail");
+			return false;
+		}
+
+		try {
 
 			List<ImageLink> listImage = new ArrayList<ImageLink>();
 			listImage = imageLinkServiceImpl.getListImageByPlaceID(form.getPlaceID());
@@ -317,6 +346,9 @@ public class PlaceController {
 			// get list equip
 			List<EquipmentList> listEq = new ArrayList<EquipmentList>();
 			List<EquipmentListForm> listF = getListEquipForDetail(listEq, id);
+			// get list cost
+			List<CostOfPlace> listCostOfPlace = new ArrayList<CostOfPlace>();
+			List<CostOfPlaceForm> listCostForm = getListCostForDetail(listCostOfPlace, id);
 
 			pd.setAddress(p.getAddress());
 			pd.setArea(p.getArea());
@@ -324,6 +356,7 @@ public class PlaceController {
 			pd.setCounterView(p.getCounterView());
 			pd.setDescription(p.getDescription());
 			pd.setStatusPlaceID(p.getStatusPlaceID());
+			pd.setListCost(listCostForm);
 
 			for (StatusPlace sp : list) {
 				if (p.getStatusPlaceID() == sp.getStatusPlaceID()) {
@@ -414,6 +447,16 @@ public class PlaceController {
 				return false;
 			}
 
+		}
+		if (form.getListCost() != null && !form.getListCost().isEmpty()) {
+			try {
+				for (CostOfPlaceForm c : form.getListCost()) {
+					costOfPlaceServiceImpl.insertItemCostOfPlace(placeID, c.getCostName(), c.getCostPrice());
+				}
+			} catch (Exception e) {
+				System.out.print("insert cost  error");
+				return false;
+			}
 		}
 
 		try {
@@ -604,6 +647,26 @@ public class PlaceController {
 				f.setName(e.getEquipmentName());
 				f.setPrice(e.getPrice());
 				f.setQuantity(e.getQuantity());
+				list.add(f);
+
+			}
+		}
+
+		return list;
+
+	}
+	// get list cost for place detail
+
+	public List<CostOfPlaceForm> getListCostForDetail(List<CostOfPlace> listC, int placeID) {
+
+		listC = costOfPlaceServiceImpl.getListCostByPlaceID(placeID);
+
+		List<CostOfPlaceForm> list = new ArrayList<CostOfPlaceForm>();
+		if (listC != null) {
+			for (CostOfPlace c : listC) {
+				CostOfPlaceForm f = new CostOfPlaceForm();
+				f.setCostName(c.getCostName());
+				f.setCostPrice(c.getCostPrice());
 				list.add(f);
 
 			}

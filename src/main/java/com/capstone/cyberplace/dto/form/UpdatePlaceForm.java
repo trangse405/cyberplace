@@ -26,6 +26,7 @@ public class UpdatePlaceForm {
 	private int numberToilets;
 	// page 4
 	private List<EquipmentListForm> listEquip;
+	private List<CostOfPlaceForm> listCost;
 	// page5
 	private List<String> listImageLink;
 	// page6
@@ -232,6 +233,14 @@ public class UpdatePlaceForm {
 
 	public void setCheckingDate(String checkingDate) {
 		this.checkingDate = checkingDate;
+	}
+
+	public List<CostOfPlaceForm> getListCost() {
+		return listCost;
+	}
+
+	public void setListCost(List<CostOfPlaceForm> listCost) {
+		this.listCost = listCost;
 	}
 
 	public UpdatePlaceForm(int placeID, String title, int roleOfPlaceID, int districtID, int wardID, int streetID,

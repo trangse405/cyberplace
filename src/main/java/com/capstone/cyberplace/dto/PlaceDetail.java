@@ -2,6 +2,7 @@ package com.capstone.cyberplace.dto;
 
 import java.util.List;
 
+import com.capstone.cyberplace.dto.form.CostOfPlaceForm;
 import com.capstone.cyberplace.dto.form.EquipmentListForm;
 
 public class PlaceDetail {
@@ -36,6 +37,7 @@ public class PlaceDetail {
 	private List<String> listImage;
 
 	private List<EquipmentListForm> listEquip;
+	private List<CostOfPlaceForm> listCost;
 
 	public PlaceDetail() {
 		// TODO Auto-generated constructor stub
@@ -215,6 +217,14 @@ public class PlaceDetail {
 
 	public void setImageLarge(String imageLarge) {
 		this.imageLarge = imageLarge;
+	}
+
+	public List<CostOfPlaceForm> getListCost() {
+		return listCost;
+	}
+
+	public void setListCost(List<CostOfPlaceForm> listCost) {
+		this.listCost = listCost;
 	}
 
 }
