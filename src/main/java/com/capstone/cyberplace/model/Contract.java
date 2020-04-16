@@ -24,8 +24,10 @@ public class Contract {
 	@Column(name = "renter_id", nullable = false)
 	private int renterID;
 
-	@Column(name = "place_id", nullable = false)
+	@Column(name = "place_id")
 	private int placeID;
+	@Column(name = "order_id")
+	private Integer orderID;
 
 	@Column(name = "start_date", nullable = false)
 	private Date startDate;
@@ -36,7 +38,7 @@ public class Contract {
 	@Column(name = "fee", nullable = false)
 	private float fee;
 
-	@Column(name = "contract_status_id", nullable = false)
+	@Column(name = "contract_status_id")
 	private int contractStatusID;
 
 	public Contract() {
@@ -118,6 +120,14 @@ public class Contract {
 
 	public void setContractStatusID(int contractStatusID) {
 		this.contractStatusID = contractStatusID;
+	}
+
+	public Integer getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(Integer orderID) {
+		this.orderID = orderID;
 	}
 
 }

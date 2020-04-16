@@ -15,9 +15,11 @@ import com.capstone.cyberplace.model.CheckingList;
 import com.capstone.cyberplace.model.Contract;
 import com.capstone.cyberplace.model.ContractStatus;
 import com.capstone.cyberplace.model.Place;
+import com.capstone.cyberplace.model.StatusPlace;
 import com.capstone.cyberplace.service.impl.ContractServiceImpl;
 import com.capstone.cyberplace.service.impl.ContractStatusServiceImpl;
 import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
+import com.capstone.cyberplace.service.impl.StatusPlaceServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -31,6 +33,9 @@ public class ManageContractController {
 	@Autowired
 	private ContractServiceImpl contractServiceImpl;
 
+	@Autowired
+	private StatusPlaceServiceImpl statusPlaceServiceImpl;
+
 	@GetMapping("/get-all-contract")
 	public List<ManageContractForm> getAllContract() {
 
@@ -38,6 +43,7 @@ public class ManageContractController {
 		List<Place> listP = placeServiceImpl.getAllPlace();
 		List<ContractStatus> listCS = contractStatusServiceImpl.getAllContractStatus();
 		List<Contract> listC = contractServiceImpl.getAllContract();
+		List<StatusPlace> listStatusPlace = statusPlaceServiceImpl.getAllStatusPlace();
 		if (listC != null) {
 
 			for (Contract c : listC) {
@@ -50,6 +56,8 @@ public class ManageContractController {
 				f.setOwnerID(c.getOwnerID());
 				f.setRenterID(c.getRenterID());
 				f.setPlaceID(c.getPlaceID());
+				f.setOrderID(c.getOrderID());
+
 				for (ContractStatus cs : listCS) {
 					if (c.getContractStatusID() == cs.getContractStatusID()) {
 						f.setStatusContract(cs.getContractStatusName());
@@ -58,6 +66,12 @@ public class ManageContractController {
 				for (Place p : listP) {
 					if (c.getPlaceID() == p.getPlaceID()) {
 						f.setTitlePlace(p.getTitle());
+
+						for (StatusPlace st : listStatusPlace) {
+							if (p.getStatusPlaceID() == st.getStatusPlaceID()) {
+								f.setPlaceStatus(st.getStatus());
+							}
+						}
 					}
 				}
 				list.add(f);
@@ -71,10 +85,36 @@ public class ManageContractController {
 	@GetMapping("/get-all-contract-ownerID")
 	public List<ManageContractForm> getAllContractByOwnerID(@RequestParam("ownerID") int ownerID) {
 
+		List<Contract> listC = contractServiceImpl.getAllContractByOwnerID(ownerID);
+		if (listC != null) {
+
+			return getListContract(listC, ownerID);
+		}
+
+		return null;
+	}
+	
+	@GetMapping("/get-all-contract-renterID")
+	public List<ManageContractForm> getAllContractByRenterID(@RequestParam("renterID") int renterID) {
+
+		List<Contract> listC = contractServiceImpl.getAllContractByRenterID(renterID);
+		if (listC != null) {
+
+			return getListContract(listC, renterID);
+		}
+
+		return null;
+	}
+
+	// -------------------------------------------------------------------
+
+	// get manage contract form by user id
+	public List<ManageContractForm> getListContract(List<Contract> listC, int userID) {
 		List<ManageContractForm> list = new ArrayList<ManageContractForm>();
+
 		List<Place> listP = placeServiceImpl.getAllPlace();
 		List<ContractStatus> listCS = contractStatusServiceImpl.getAllContractStatus();
-		List<Contract> listC = contractServiceImpl.getAllContractByOwnerID(ownerID);
+		List<StatusPlace> listStatusPlace = statusPlaceServiceImpl.getAllStatusPlace();
 		if (listC != null) {
 
 			for (Contract c : listC) {
@@ -87,6 +127,7 @@ public class ManageContractController {
 				f.setOwnerID(c.getOwnerID());
 				f.setRenterID(c.getRenterID());
 				f.setPlaceID(c.getPlaceID());
+				f.setOrderID(c.getOrderID());
 				for (ContractStatus cs : listCS) {
 					if (c.getContractStatusID() == cs.getContractStatusID()) {
 						f.setStatusContract(cs.getContractStatusName());
@@ -95,6 +136,11 @@ public class ManageContractController {
 				for (Place p : listP) {
 					if (c.getPlaceID() == p.getPlaceID()) {
 						f.setTitlePlace(p.getTitle());
+						for (StatusPlace st : listStatusPlace) {
+							if (p.getStatusPlaceID() == st.getStatusPlaceID()) {
+								f.setPlaceStatus(st.getStatus());
+							}
+						}
 					}
 				}
 				list.add(f);

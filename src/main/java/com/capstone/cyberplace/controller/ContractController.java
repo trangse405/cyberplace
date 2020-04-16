@@ -26,7 +26,8 @@ public class ContractController {
 		if (form != null) {
 			try {
 				contractServiceImpl.insertContract(form.getOwnerID(), form.getRenterID(), form.getPlaceID(),
-						form.getStartDate(), form.getEndDate(), form.getFee(), form.getContractStatusID());
+						form.getStartDate(), form.getEndDate(), form.getFee(), form.getContractStatusID(),
+						form.getOrderID());
 			} catch (Exception e) {
 				System.err.print("insert err");
 				return false;

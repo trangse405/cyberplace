@@ -19,8 +19,9 @@ public class ContractServiceImpl implements ContractService {
 
 	@Override
 	public void insertContract(int owner_id, int renter_id, int place_id, String start_date, String end_date, float fee,
-			int contract_status_id) {
-		contractRepository.insertContract(owner_id, renter_id, place_id, start_date, end_date, fee, contract_status_id);
+			int contract_status_id, int orderID) {
+		contractRepository.insertContract(owner_id, renter_id, place_id, start_date, end_date, fee, contract_status_id,
+				orderID);
 
 	}
 
@@ -40,6 +41,12 @@ public class ContractServiceImpl implements ContractService {
 	public List<Contract> getAllContractByOwnerID(int owner_id) {
 
 		return contractRepository.getAllContractByOwnerID(owner_id);
+	}
+
+	@Override
+	public List<Contract> getAllContractByRenterID(int renterID) {
+
+		return contractRepository.getAllContractByRenterID(renterID);
 	}
 
 }

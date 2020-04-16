@@ -5,7 +5,8 @@ public class ManageContractForm {
 	private int ownerID;
 	private int renterID;
 	private int placeID;
-
+	private Integer orderID;
+	private String placeStatus;
 	private String startDate;
 	private String endDate;
 	private float fee;
@@ -95,6 +96,22 @@ public class ManageContractForm {
 
 	public void setTitlePlace(String titlePlace) {
 		this.titlePlace = titlePlace;
+	}
+
+	public Integer getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(Integer orderID) {
+		this.orderID = orderID;
+	}
+
+	public String getPlaceStatus() {
+		return placeStatus;
+	}
+
+	public void setPlaceStatus(String placeStatus) {
+		this.placeStatus = placeStatus;
 	}
 
 }

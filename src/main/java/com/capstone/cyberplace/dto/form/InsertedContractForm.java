@@ -10,9 +10,18 @@ public class InsertedContractForm {
 	private String endDate;
 	private float fee;
 	private int contractStatusID;
+	private int orderID;
 
 	public InsertedContractForm() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(int orderID) {
+		this.orderID = orderID;
 	}
 
 	public int getOwnerID() {
