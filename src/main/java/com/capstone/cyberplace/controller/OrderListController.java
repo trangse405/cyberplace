@@ -125,6 +125,7 @@ public class OrderListController {
 				for (Place p : listPlace) {
 					if (o.getPlaceID() == p.getPlaceID()) {
 						f.setTitle(p.getTitle());
+						f.setPlaceStatusID(p.getStatusPlaceID());
 						for (StatusPlace sp : listStatusPlace) {
 							if (p.getStatusPlaceID() == sp.getStatusPlaceID()) {
 								f.setPlaceStatus(sp.getStatus());

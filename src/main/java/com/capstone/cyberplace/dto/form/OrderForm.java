@@ -14,6 +14,7 @@ public class OrderForm {
 	private String phoneNumber;
 	private String message;
 	private int orderStatusID;
+	private int placeStatusID;
 
 	public OrderForm() {
 		// TODO Auto-generated constructor stub
@@ -113,6 +114,14 @@ public class OrderForm {
 
 	public void setOrderStatusID(int orderStatusID) {
 		this.orderStatusID = orderStatusID;
+	}
+
+	public int getPlaceStatusID() {
+		return placeStatusID;
+	}
+
+	public void setPlaceStatusID(int placeStatusID) {
+		this.placeStatusID = placeStatusID;
 	}
 
 }

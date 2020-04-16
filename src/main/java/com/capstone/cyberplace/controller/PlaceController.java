@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,6 +89,9 @@ public class PlaceController {
 
 	@Autowired
 	private CostOfPlaceServiceImpl costOfPlaceServiceImpl;
+	
+	@Autowired
+    public JavaMailSender emailSender;
 
 	/*
 	 * trả về danh sách top 6 place active có nhiều view nhất
@@ -424,6 +429,7 @@ public class PlaceController {
 	public boolean insertPlace(@Valid @RequestBody PostPlaceForm form) {
 
 		int placeID = getPlaceIDAfterInserted(form);
+		
 
 		if (form.getListEquip() != null && !form.getListEquip().isEmpty()) {
 			try {
@@ -473,6 +479,7 @@ public class PlaceController {
 			System.out.print("insert checking error");
 			return false;
 		}
+		sendEmail(form.getEmail());
 
 		return true;
 	}
@@ -674,6 +681,17 @@ public class PlaceController {
 
 		return list;
 
+	}
+	// send email
+	public void sendEmail(String receiver) {
+	    SimpleMailMessage message = new SimpleMailMessage();
+        
+        message.setTo(receiver);
+        message.setSubject("Hệ thống xác nhận");
+        message.setText("Hệ thống xác nhận bạn đã book lịch đặt nhà ");
+ 
+        // Send Message!
+        this.emailSender.send(message);
 	}
 
 }
