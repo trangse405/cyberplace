@@ -12,6 +12,7 @@ public class ManageContractForm {
 	private float fee;
 	private int contractStatusID;
 	private String statusContract;
+	private int placeStatusID;
 	private String titlePlace;
 
 	public ManageContractForm() {
@@ -112,6 +113,14 @@ public class ManageContractForm {
 
 	public void setPlaceStatus(String placeStatus) {
 		this.placeStatus = placeStatus;
+	}
+
+	public int getPlaceStatusID() {
+		return placeStatusID;
+	}
+
+	public void setPlaceStatusID(int placeStatusID) {
+		this.placeStatusID = placeStatusID;
 	}
 
 }

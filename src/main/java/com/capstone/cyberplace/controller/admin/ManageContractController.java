@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.dto.form.ManageContractForm;
-import com.capstone.cyberplace.model.CheckingList;
 import com.capstone.cyberplace.model.Contract;
 import com.capstone.cyberplace.model.ContractStatus;
 import com.capstone.cyberplace.model.Place;
@@ -66,7 +65,7 @@ public class ManageContractController {
 				for (Place p : listP) {
 					if (c.getPlaceID() == p.getPlaceID()) {
 						f.setTitlePlace(p.getTitle());
-
+						f.setPlaceStatusID(p.getStatusPlaceID());
 						for (StatusPlace st : listStatusPlace) {
 							if (p.getStatusPlaceID() == st.getStatusPlaceID()) {
 								f.setPlaceStatus(st.getStatus());
@@ -136,6 +135,7 @@ public class ManageContractController {
 				for (Place p : listP) {
 					if (c.getPlaceID() == p.getPlaceID()) {
 						f.setTitlePlace(p.getTitle());
+						f.setPlaceStatusID(p.getStatusPlaceID());
 						for (StatusPlace st : listStatusPlace) {
 							if (p.getStatusPlaceID() == st.getStatusPlaceID()) {
 								f.setPlaceStatus(st.getStatus());
