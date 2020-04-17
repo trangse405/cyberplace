@@ -24,7 +24,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	List<Place> getAll();
 
 	// get all place
-	@Query(value = "SELECT  * from Place   ", nativeQuery = true) // jpql
+	@Query(value = "SELECT  * from Place  ORDER BY place_id DESC  ", nativeQuery = true) // jpql
 	List<Place> getAllPlace();
 
 	// find by place id

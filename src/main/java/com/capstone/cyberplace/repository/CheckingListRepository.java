@@ -31,7 +31,7 @@ public interface CheckingListRepository extends JpaRepository<CheckingList, Inte
 	void updateStatusCheckingListItem(@Param("checking_status_id") int checkingStatusID,
 			@Param("checking_id") int checkingID);
 
-	@Query(value = "SELECT * FROM CheckingList ", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM CheckingList ORDER BY checking_id desc", nativeQuery = true) // jpql
 	List<CheckingList> getAllCheckingList();
 
 }
