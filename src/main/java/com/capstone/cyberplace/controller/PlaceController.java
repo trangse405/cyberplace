@@ -3,6 +3,8 @@ package com.capstone.cyberplace.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -89,9 +92,9 @@ public class PlaceController {
 
 	@Autowired
 	private CostOfPlaceServiceImpl costOfPlaceServiceImpl;
-	
+
 	@Autowired
-    public JavaMailSender emailSender;
+	public JavaMailSender emailSender;
 
 	/*
 	 * trả về danh sách top 6 place active có nhiều view nhất
@@ -200,8 +203,18 @@ public class PlaceController {
 			ps.setLatitude(m.getLatitude());
 			ps.setLongtitude(m.getLongtitude());
 		}
+		List<CostOfPlaceForm> listCostForm = new ArrayList<CostOfPlaceForm>();
+		List<CostOfPlace> listCost = costOfPlaceServiceImpl.getListCostByPlaceID(placeID);
+		if (listCost != null) {
+			for (CostOfPlace cost : listCost) {
+				CostOfPlaceForm f = new CostOfPlaceForm();
+				f.setCostName(cost.getCostName());
+				f.setCostPrice(cost.getCostPrice());
+				listCostForm.add(f);
+			}
+		}
 		// fill form
-
+		ps.setListCost(listCostForm);
 		ps.setListEquip(listEQ);
 
 		ps.setCheckingDate(checkedDate);
@@ -426,10 +439,9 @@ public class PlaceController {
 	 * insert các thông tin trong form rao tin
 	 */
 	@PostMapping("/places/insert-places")
-	public boolean insertPlace(@Valid @RequestBody PostPlaceForm form) {
+	public boolean insertPlace(@Valid @RequestBody PostPlaceForm form) throws MessagingException {
 
 		int placeID = getPlaceIDAfterInserted(form);
-		
 
 		if (form.getListEquip() != null && !form.getListEquip().isEmpty()) {
 			try {
@@ -682,16 +694,39 @@ public class PlaceController {
 		return list;
 
 	}
+
 	// send email
-	public void sendEmail(String receiver) {
-	    SimpleMailMessage message = new SimpleMailMessage();
-        
-        message.setTo(receiver);
-        message.setSubject("Hệ thống xác nhận");
-        message.setText("Hệ thống xác nhận bạn đã book lịch đặt nhà ");
- 
-        // Send Message!
-        this.emailSender.send(message);
+	public void sendEmail(String receiver) throws MessagingException {
+
+		MimeMessage message = emailSender.createMimeMessage();
+		boolean multipart = true;
+		MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "UTF-8");
+		String htmlMsg = "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>" + "<meta charset=\"UTF-8\">\r\n"
+				+ "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n"
+				+ "  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\">\r\n"
+				+ "</head>\r\n" + "<body>\r\n" + "<div>\r\n" + "  <div>Xin chào <b>Abc</b>,</div>\r\n"
+				+ "<div><b><br></b></div>\r\n"
+				+ "    &emsp;&emsp; Hệ thống <span class=\"badge badge-info\">CyberPlace</span> xác nhận bạn đã đăng tin <b>\"Nhà Mỹ Đình 3 - CCMN\"&nbsp;</b>\r\n"
+				+ "    <div>Thời gian kiểm tra nhà: <b>10/05/2020 - 09:30SA</b></div>\r\n"
+				+ "            <div>Chúng tôi sẽ liên lạc với bạn qua số điện thoại. Xin vui lòng để ý cuộc gọi tới của bạn.</div>\r\n"
+				+ "    <div><br></div>\r\n" + "   <div>Cảm ơn bạn.</div>\r\n"
+				+ "   <div>__________________________<br><b>CYBER PLACE&nbsp;</b></div><div><b>Address</b>: FPT University</div><div><b>Email</b>:&nbsp;cybermanager99@gmail.com</div>\r\n"
+				+ "</div>" + "</body>\r\n" + "</html>";
+
+		message.setContent(htmlMsg, "text/html");
+		helper.setTo(receiver);
+
+		helper.setSubject("Xác nhận đăng tin");
+
+		this.emailSender.send(message);
+		// SimpleMailMessage message = new SimpleMailMessage();
+
+//        message.setTo(receiver);
+//        message.setSubject("Hệ thống xác nhận");
+//        message.setText("Hệ thống xác nhận bạn đã book lịch đặt nhà ");
+
+		// Send Message!
+		// this.emailSender.send(message);
 	}
 
 }

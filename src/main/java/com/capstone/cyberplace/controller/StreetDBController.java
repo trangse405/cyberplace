@@ -1,6 +1,5 @@
 package com.capstone.cyberplace.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.cyberplace.dto.StreetData;
 import com.capstone.cyberplace.model.StreetDB;
 import com.capstone.cyberplace.service.impl.StreetDBServiceImpl;
 
@@ -28,16 +26,16 @@ public class StreetDBController {
 	}
 
 	@GetMapping("/getstreetbydistrict")
-	public List<StreetData> getAllStreetByWardID(@RequestParam("districtid") int districtID) {
+	public List<StreetDB> getAllStreetByWardID(@RequestParam("districtid") int districtID) {
 
 		List<StreetDB> list = streetDBServiceImpl.getAllStreetByDistrictID(districtID);
-		List<StreetData> listData = new ArrayList<>();
-		for (StreetDB s : list) {
-			StreetData item = new StreetData(s.getId(), s.getStreetName());
-			listData.add(item);
-		}
+//		List<StreetData> listData = new ArrayList<>();
+//		for (StreetDB s : list) {
+//			StreetData item = new StreetData(s.getId(), s.getStreetName());
+//			listData.add(item);
+//		}
 
-		return listData;
+		return list;
 	}
 
 }

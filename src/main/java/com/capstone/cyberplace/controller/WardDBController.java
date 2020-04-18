@@ -29,7 +29,7 @@ public class WardDBController {
 	}
 
 	@GetMapping("/getallwardbydistrict")
-	public List<WardData> getAllWardByDistrict(@RequestParam("districtid") int districtID) {
+	public List<WardDB> getAllWardByDistrict(@RequestParam("districtid") int districtID) {
 
 		List<WardDB> list = wardDBServiceImpl.getAllWardByDistrictID(districtID);
 		List<WardData> listData = new ArrayList<>();
@@ -39,7 +39,7 @@ public class WardDBController {
 			listData.add(item);
 
 		}
-		return listData;
+		return list;
 	}
 
 }

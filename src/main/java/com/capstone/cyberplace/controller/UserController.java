@@ -1,9 +1,16 @@
 package com.capstone.cyberplace.controller;
 
 import java.util.List;
+import java.util.Random;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.cyberplace.common.CommonConstant;
 import com.capstone.cyberplace.dto.UserLogin;
 import com.capstone.cyberplace.dto.form.RegisterForm;
+import com.capstone.cyberplace.dto.form.ValidEmailFrom;
 import com.capstone.cyberplace.model.StreetDB;
 import com.capstone.cyberplace.model.User;
 import com.capstone.cyberplace.service.impl.UserDetailServiceImpl;
@@ -31,13 +39,15 @@ public class UserController {
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
 
+	@Autowired
+	public JavaMailSender emailSender;
+
 	@PostMapping("/register")
 	public boolean insert(@RequestBody RegisterForm form) {
 
 		User user = checkUserName(form.getUsername());
 		if (user != null) {
 			return false;
-
 		}
 
 		try {
@@ -56,6 +66,18 @@ public class UserController {
 			System.out.print(e);
 		}
 		return true;
+	}
+
+	@PostMapping("/send-valid-code")
+	public ValidEmailFrom validCode(@RequestParam("email") String email) throws MessagingException {
+
+		ValidEmailFrom form = new ValidEmailFrom();
+		form.setEmail(email);
+		String code = randomAlphaNumeric(8);
+		form.setValidCode(code);
+		sendEmail(email, code);
+
+		return form;
 	}
 
 	@PostMapping("/login")
@@ -118,6 +140,41 @@ public class UserController {
 
 		return u.getUserID();
 
+	}
+
+	// -------------------------
+	private static final String alpha = "abcdefghijklmnopqrstuvwxyz"; // a-z
+	private static final String alphaUpperCase = alpha.toUpperCase(); // A-Z
+	private static final String digits = "0123456789";
+	private static Random generator = new Random();
+
+	public static int randomNumber(int min, int max) {
+		return generator.nextInt((max - min) + 1) + min;
+	}
+
+	private static final String ALPHA_NUMERIC = alpha + alphaUpperCase + digits;
+
+	public String randomAlphaNumeric(int numberOfCharactor) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < numberOfCharactor; i++) {
+			int number = randomNumber(0, ALPHA_NUMERIC.length() - 1);
+			char ch = ALPHA_NUMERIC.charAt(number);
+			sb.append(ch);
+		}
+		return sb.toString();
+	}
+
+	// send email
+	public void sendEmail(String receiver, String code) throws MessagingException {
+
+		SimpleMailMessage message = new SimpleMailMessage();
+
+		message.setTo(receiver);
+		message.setSubject("Gửi mã xác thực");
+		message.setText("Hệ thống gửi bạn mã xác thực : " + code);
+
+		// Send Message!
+		this.emailSender.send(message);
 	}
 
 }
