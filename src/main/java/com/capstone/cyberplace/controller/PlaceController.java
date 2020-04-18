@@ -28,8 +28,11 @@ import com.capstone.cyberplace.common.CommonConstant;
 import com.capstone.cyberplace.dto.PlaceDetail;
 import com.capstone.cyberplace.dto.PlaceQuickView;
 import com.capstone.cyberplace.dto.SearchCondition;
+import com.capstone.cyberplace.dto.StreetData;
+import com.capstone.cyberplace.dto.WardData;
 import com.capstone.cyberplace.dto.form.CostOfPlaceForm;
 import com.capstone.cyberplace.dto.form.EquipmentListForm;
+import com.capstone.cyberplace.dto.form.FillToUpdateForm;
 import com.capstone.cyberplace.dto.form.PostPlaceForm;
 import com.capstone.cyberplace.dto.form.UpdatePlaceForm;
 import com.capstone.cyberplace.model.CheckingList;
@@ -155,8 +158,9 @@ public class PlaceController {
 	 * trả thông tin cho trang update place
 	 */
 	@GetMapping("/places/fillupdate")
-	public PostPlaceForm fillDataToUpdatePlaceForm(@RequestParam("placeid") int placeID) {
+	public FillToUpdateForm fillDataToUpdatePlaceForm(@RequestParam("placeid") int placeID) {
 
+		FillToUpdateForm form = new FillToUpdateForm();
 		Place p = placerepository.getPlaceByPlaceID(placeID);
 		PostPlaceForm ps = new PostPlaceForm();
 		convertPlaceToPost(p, ps);
@@ -218,8 +222,18 @@ public class PlaceController {
 		ps.setListEquip(listEQ);
 
 		ps.setCheckingDate(checkedDate);
+		form.setForm(ps);
+		DistrictDB district = districtDBServiceImpl.getOneDistrictByID(ps.getDistrictID());
+		form.setDistrict(district);
+		WardDB ward = wardDBServiceImpl.getOneWardByID(ps.getWardID());
+		WardData wardData = new WardData(ward.getId(), ward.getWard_name(), ward.getWardLatitude(),
+				ward.getWardLongitude());
+		form.setWard(wardData);
+		StreetDB street = streetDBServiceImpl.getOneStreetByID(ps.getStreetID());
+		StreetData streetData = new StreetData(street.getId(), street.getStreetName());
+		form.setStreet(streetData);
 
-		return ps;
+		return form;
 	}
 
 	/*
