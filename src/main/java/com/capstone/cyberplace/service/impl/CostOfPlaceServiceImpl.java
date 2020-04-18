@@ -18,8 +18,8 @@ public class CostOfPlaceServiceImpl implements CostOfPlaceService {
 	private CostOfPlaceRepository costOfPlaceRepository;
 
 	@Override
-	public void insertItemCostOfPlace(int place_id, String costName, float costPrice) {
-		costOfPlaceRepository.insertItemCostOfPlace(place_id, costName, costPrice);
+	public void insertItemCostOfPlace(int place_id, String costName, float costPrice, int unitID) {
+		costOfPlaceRepository.insertItemCostOfPlace(place_id, costName, costPrice,  unitID);
 
 	}
 

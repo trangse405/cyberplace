@@ -214,6 +214,7 @@ public class PlaceController {
 				CostOfPlaceForm f = new CostOfPlaceForm();
 				f.setCostName(cost.getCostName());
 				f.setCostPrice(cost.getCostPrice());
+				f.setUnitID(cost.getUnitID());
 				listCostForm.add(f);
 			}
 		}
@@ -242,14 +243,22 @@ public class PlaceController {
 		form.setRoleOfPlaceID(p.getRoleOfPlaceID());
 
 		DistrictDB district = districtDBServiceImpl.getOneDistrictByID(p.getDistrict_id());
-		form.setDistrict(district);
+		if (district != null) {
+			form.setDistrict(district);
+		}
 		WardDB ward = wardDBServiceImpl.getOneWardByID(p.getWard_id());
-		WardData wardData = new WardData(ward.getId(), ward.getWard_name(), ward.getWardLatitude(),
-				ward.getWardLongitude());
-		form.setWard(wardData);
+		if (ward != null) {
+
+			WardData wardData = new WardData(ward.getId(), ward.getWard_name(), ward.getWardLatitude(),
+					ward.getWardLongitude());
+			form.setWard(wardData);
+		}
 		StreetDB street = streetDBServiceImpl.getOneStreetByID(p.getStreet_id());
-		StreetData streetData = new StreetData(street.getId(), street.getStreetName());
-		form.setStreet(streetData);
+		if (street != null) {
+
+			StreetData streetData = new StreetData(street.getId(), street.getStreetName());
+			form.setStreet(streetData);
+		}
 
 		return form;
 	}
@@ -312,7 +321,7 @@ public class PlaceController {
 				try {
 					for (CostOfPlaceForm f : form.getListCost()) {
 						costOfPlaceServiceImpl.insertItemCostOfPlace(form.getPlaceID(), f.getCostName(),
-								f.getCostPrice());
+								f.getCostPrice(), f.getUnitID());
 					}
 				} catch (Exception e) {
 					System.out.print("insert cost error");
@@ -501,7 +510,8 @@ public class PlaceController {
 		if (form.getListCost() != null && !form.getListCost().isEmpty()) {
 			try {
 				for (CostOfPlaceForm c : form.getListCost()) {
-					costOfPlaceServiceImpl.insertItemCostOfPlace(placeID, c.getCostName(), c.getCostPrice());
+					costOfPlaceServiceImpl.insertItemCostOfPlace(placeID, c.getCostName(), c.getCostPrice(),
+							c.getUnitID());
 				}
 			} catch (Exception e) {
 				System.out.print("insert cost  error");
@@ -718,6 +728,7 @@ public class PlaceController {
 				CostOfPlaceForm f = new CostOfPlaceForm();
 				f.setCostName(c.getCostName());
 				f.setCostPrice(c.getCostPrice());
+				f.setUnitID(c.getUnitID());
 				list.add(f);
 
 			}

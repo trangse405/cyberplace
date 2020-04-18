@@ -4,6 +4,7 @@ public class CostOfPlaceForm {
 
 	private String costName;
 	private float costPrice;
+	private int unitID;
 
 	public CostOfPlaceForm() {
 		// TODO Auto-generated constructor stub
@@ -23,6 +24,14 @@ public class CostOfPlaceForm {
 
 	public void setCostPrice(float costPrice) {
 		this.costPrice = costPrice;
+	}
+
+	public int getUnitID() {
+		return unitID;
+	}
+
+	public void setUnitID(int unitID) {
+		this.unitID = unitID;
 	}
 
 }

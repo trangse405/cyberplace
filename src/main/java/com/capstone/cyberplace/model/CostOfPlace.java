@@ -22,17 +22,11 @@ public class CostOfPlace {
 	private String costName;
 	@Column(name = "cost_price")
 	private float costPrice;
+	@Column(name = "unit_id")
+	private Integer unitID;
 
 	public CostOfPlace() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public CostOfPlace(int id, int placeID, String costName, float costPrice) {
-		super();
-		this.id = id;
-		this.placeID = placeID;
-		this.costName = costName;
-		this.costPrice = costPrice;
 	}
 
 	public int getId() {
@@ -65,6 +59,14 @@ public class CostOfPlace {
 
 	public void setCostPrice(float costPrice) {
 		this.costPrice = costPrice;
+	}
+
+	public Integer getUnitID() {
+		return unitID;
+	}
+
+	public void setUnitID(Integer unitID) {
+		this.unitID = unitID;
 	}
 
 }
