@@ -162,8 +162,8 @@ public class PlaceController {
 
 		FillToUpdateForm form = new FillToUpdateForm();
 		Place p = placerepository.getPlaceByPlaceID(placeID);
-		PostPlaceForm ps = new PostPlaceForm();
-		convertPlaceToPost(p, ps);
+
+		// convertPlaceToPost(p, ps);
 		// get list image link
 		List<ImageLink> listS = imageLinkServiceImpl.getListImageByPlaceID(placeID);
 		List<String> list = new ArrayList<String>();
@@ -174,7 +174,7 @@ public class PlaceController {
 			}
 
 		}
-		ps.setListImageLink(list);
+		form.setListImageLink(list);
 
 		// get equipment list
 		List<EquipmentList> listE = equipmentListServiceImpl.getListEquipByPlaceID(placeID);
@@ -204,8 +204,8 @@ public class PlaceController {
 
 		Map m = mapServiceImpl.getMapIDByPlaceID(p.getPlaceID());
 		if (m != null) {
-			ps.setLatitude(m.getLatitude());
-			ps.setLongtitude(m.getLongtitude());
+			form.setLatitude(m.getLatitude());
+			form.setLongtitude(m.getLongtitude());
 		}
 		List<CostOfPlaceForm> listCostForm = new ArrayList<CostOfPlaceForm>();
 		List<CostOfPlace> listCost = costOfPlaceServiceImpl.getListCostByPlaceID(placeID);
@@ -218,18 +218,36 @@ public class PlaceController {
 			}
 		}
 		// fill form
-		ps.setListCost(listCostForm);
-		ps.setListEquip(listEQ);
+		form.setListCost(listCostForm);
+		form.setListEquip(listEQ);
 
-		ps.setCheckingDate(checkedDate);
-		form.setForm(ps);
-		DistrictDB district = districtDBServiceImpl.getOneDistrictByID(ps.getDistrictID());
+		form.setCheckingDate(checkedDate);
+
+		form.setAddressDetail(p.getAddress());
+
+		form.setArea(p.getArea());
+		form.setContactAddress(p.getContactAddress());
+		form.setContactName(p.getContactName());
+		form.setPhoneNumber(p.getContactPhoneNumber());
+		form.setEmail(p.getContactEmail());
+		form.setDescriptions(p.getDescription());
+
+		form.setFrontispiece(p.getFrontispiece());
+		form.setNumberFloors(p.getFloors());
+		form.setHomeDirection(p.getHomeDirection());
+		form.setNumberBedrooms(p.getBedRooms());
+		form.setNumberToilets(p.getToilets());
+		form.setTitle(p.getTitle());
+		form.setPrice(p.getPrice());
+		form.setRoleOfPlaceID(p.getRoleOfPlaceID());
+
+		DistrictDB district = districtDBServiceImpl.getOneDistrictByID(p.getDistrict_id());
 		form.setDistrict(district);
-		WardDB ward = wardDBServiceImpl.getOneWardByID(ps.getWardID());
+		WardDB ward = wardDBServiceImpl.getOneWardByID(p.getWard_id());
 		WardData wardData = new WardData(ward.getId(), ward.getWard_name(), ward.getWardLatitude(),
 				ward.getWardLongitude());
 		form.setWard(wardData);
-		StreetDB street = streetDBServiceImpl.getOneStreetByID(ps.getStreetID());
+		StreetDB street = streetDBServiceImpl.getOneStreetByID(p.getStreet_id());
 		StreetData streetData = new StreetData(street.getId(), street.getStreetName());
 		form.setStreet(streetData);
 
