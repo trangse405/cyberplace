@@ -12,15 +12,23 @@ public class CommonConstant {
 	public static final int Checking_Status_ID_Canceled = 0;
 	public static final int Checking_Status_ID_Approved = 1;
 	public static final int Checking_Status_ID_Pending = 2;
+	
+	public static final String Checking_Status_Canceled = "Hủy bỏ";
+	public static final String Checking_Status_Approved = "Chấp nhận";
+	public static final String Checking_Status_Pending = "Đang chờ duyệt";
 
 	// Contract Status ID
-	public static final int Contract_Status_ID_Valid = 0;
-	public static final int Contract_Status_ID_End = 1;
+	public static final int Contract_Status_ID_Deactive = 0;
+	public static final int Contract_Status_ID_Active= 1;
+	public static final int Contract_Status_ID_Pending= 2;
+	public static final int Contract_Status_ID_Cancel= 1;
 
 	// Order Status ID
 	public static final int Order_Status_ID_Canceled = 0;
 	public static final int Order_Status_ID_Approved = 1;
 	public static final int Order_Status_ID_Pending = 2;
+	public static final int Order_Status_ID_Consider = 3;
+	public static final int Order_Status_ID_Deal = 4;
 
 	// Payment Status ID
 	public static final int Payment_Status_ID_Unpaid = 0;
@@ -37,7 +45,7 @@ public class CommonConstant {
 	public static final int Place_Status_ID_Deactive = 3;
 	public static final int Place_Status_ID_Rented = 4;
 	public static final int Place_Status_ID_Checking = 5;
-	public static final int Place_Status_ID_Deposited = 6;
+
 
 	// Number of loopin BCrypt.gensalt
 

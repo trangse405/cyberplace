@@ -436,6 +436,8 @@ public class PlaceController {
 
 			pd.setListImage(listImage);
 			pd.setListEquip(listF);
+
+			placerepository.updateView(p.getCounterView() + 1, p.getPlaceID());
 			return pd;
 		}
 
@@ -533,7 +535,8 @@ public class PlaceController {
 			System.out.print("insert checking error");
 			return false;
 		}
-		sendEmail(form.getEmail());
+		sendEmail2(form.getEmail(), form.getContactName(), form.getTitle(), form.getCheckingDate(),
+				form.getPhoneNumber());
 
 		return true;
 	}
@@ -744,17 +747,13 @@ public class PlaceController {
 		MimeMessage message = emailSender.createMimeMessage();
 		boolean multipart = true;
 		MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "UTF-8");
-		String htmlMsg = "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>" + "<meta charset=\"UTF-8\">\r\n"
-				+ "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n"
-				+ "  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\">\r\n"
-				+ "</head>\r\n" + "<body>\r\n" + "<div>\r\n" + "  <div>Xin chào <b>Abc</b>,</div>\r\n"
-				+ "<div><b><br></b></div>\r\n"
-				+ "    &emsp;&emsp; Hệ thống <span class=\"badge badge-info\">CyberPlace</span> xác nhận bạn đã đăng tin <b>\"Nhà Mỹ Đình 3 - CCMN\"&nbsp;</b>\r\n"
-				+ "    <div>Thời gian kiểm tra nhà: <b>10/05/2020 - 09:30SA</b></div>\r\n"
-				+ "            <div>Chúng tôi sẽ liên lạc với bạn qua số điện thoại. Xin vui lòng để ý cuộc gọi tới của bạn.</div>\r\n"
+		String htmlMsg = "<div>\r\n" + "<div>\r\n" + "  <div>Xin chào <b>Abc</b>,</div>\r\n"
+				+ "<div><b><br></b></div>Hệ thống <span>CyberPlace</span> xác nhận bạn đã đăng tin <b>Nhà Ma</b>\r\n"
+				+ "    <div>Thời gian kiểm tra nhà <b>10/05/2020 - 09:30SA</b></div>\r\n"
+				+ "            <div>Chúng tôi sẽ liên lạc với bạn qua số điện thoại. Xin vui lòng chú ý cuộc gọi tới điện thoại của bạn .</div>\r\n"
 				+ "    <div><br></div>\r\n" + "   <div>Cảm ơn bạn.</div>\r\n"
-				+ "   <div>__________________________<br><b>CYBER PLACE&nbsp;</b></div><div><b>Address</b>: FPT University</div><div><b>Email</b>:&nbsp;cybermanager99@gmail.com</div>\r\n"
-				+ "</div>" + "</body>\r\n" + "</html>";
+				+ "   <div>__________________________<br><b>CYBER PLACE&nbsp;</b></div><div><b>Address</b>: FPT University</div><div><b>Email</b>:&nbsp;<a href=\"mailto:cybermanager99@gmail.com\" target=\"_blank\">cybermanager99@gmail.<wbr>com</a></div>\r\n"
+				+ "</div></div>";
 
 		message.setContent(htmlMsg, "text/html");
 		helper.setTo(receiver);
@@ -770,6 +769,38 @@ public class PlaceController {
 
 		// Send Message!
 		// this.emailSender.send(message);
+	}
+
+	// send email
+	public void sendEmail2(String receiver, String userName, String title, String datetime, String phoneNumber)
+			throws MessagingException {
+
+		MimeMessage message = emailSender.createMimeMessage();
+		boolean multipart = true;
+		
+		MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "UTF-8");
+		String htmlMsg = "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>" + "<meta charset=\"UTF-8\">\r\n"
+				+ "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n"
+				+ "  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\">\r\n"
+				+ "</head>\r\n" + "<body>\r\n" + "<div>\r\n" + "  <div>Xin chào <b>" + userName + " </b>,</div>\r\n"
+				+ "<div><b><br></b></div>\r\n"
+				+ "    &emsp;&emsp; Hệ thống <span class=\"badge badge-info\">CyberPlace</span> xác nhận bạn đã đăng tin <b>\" "
+				+ title + "\"&nbsp;</b>\r\n" + "   \r\n"
+			
+				+ ". Chúng tôi sẽ kiểm tra tin đăng và phản hồi bạn trong thời gian sớm nhất ,vui lòng kiểm tra email thường xuyên.</div>\r\n" + "    <div><br></div>\r\n"
+				+ "   <div>Cảm ơn bạn đã sử dụng hệ thống của chúng tôi .</div>\r\n"
+				+ "   <div>__________________________<br><b>CYBER PLACE&nbsp;</b></div><div><b>Address</b>: FPT University</div><div><b>Email</b>:&nbsp;cybermanager99@gmail.com</div>\r\n"
+				+ "</div>" + "</body>\r\n" + "</html>";
+
+	
+		helper.setText(htmlMsg, true);
+		
+		helper.setTo(receiver);
+
+		helper.setSubject("Xác nhận tin đăng");
+
+		this.emailSender.send(message);
+
 	}
 
 }

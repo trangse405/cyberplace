@@ -96,5 +96,10 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	// get list place for manage post
 	@Query(value = "SELECT * FROM Place where owner_id = :owner_id ", nativeQuery = true) // jpql
 	List<Place> getListForManagePost(@Param("owner_id") int userID);
+	
+	// update view
+	@Modifying
+	@Query(value = "UPDATE Place SET counter_view = :counter_view where place_id =:place_id  ", nativeQuery = true) // jpql
+	void updateView(@Param("counter_view") int counterView, @Param("place_id") int placeID);
 
 }

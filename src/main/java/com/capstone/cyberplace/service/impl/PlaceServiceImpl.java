@@ -96,4 +96,10 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeRepository.getAllPlace();
 	}
 
+	@Override
+	public void updateView(int counterView, int placeID) {
+		placeRepository.updateView(counterView, placeID);
+		
+	}
+
 }

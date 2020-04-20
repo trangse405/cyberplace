@@ -31,6 +31,8 @@ public interface PlaceService {
 	void changeStatusPlace(int statusPlaceID, int placeID);
 
 	List<Place> getListForManagePost(int userID);
-	
+
 	List<Place> getAllPlace();
+
+	void updateView(int counterView, int placeID);
 }
