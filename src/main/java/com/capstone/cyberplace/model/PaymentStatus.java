@@ -13,10 +13,10 @@ public class PaymentStatus {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "payment_status_id", nullable = false)
+	@Column(name = "bill_status_id", nullable = false)
 	private int paymentStatusID;
 
-	@Column(name = "payment_status_name", nullable = false)
+	@Column(name = "bill_status_name", nullable = false)
 	private String paymentStatusName;
 
 	public PaymentStatus() {
