@@ -16,4 +16,8 @@ public interface ContractService {
 	List<Contract> getAllContractByOwnerID(int owner_id);
 
 	List<Contract> getAllContractByRenterID(int renterID);
+
+	Contract getContractByContractID(int contractID);
+
+	
 }

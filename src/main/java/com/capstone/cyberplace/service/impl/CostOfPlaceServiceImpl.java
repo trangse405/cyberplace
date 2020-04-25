@@ -19,7 +19,7 @@ public class CostOfPlaceServiceImpl implements CostOfPlaceService {
 
 	@Override
 	public void insertItemCostOfPlace(int place_id, String costName, float costPrice, int unitID) {
-		costOfPlaceRepository.insertItemCostOfPlace(place_id, costName, costPrice,  unitID);
+		costOfPlaceRepository.insertItemCostOfPlace(place_id, costName, costPrice, unitID);
 
 	}
 
@@ -33,6 +33,12 @@ public class CostOfPlaceServiceImpl implements CostOfPlaceService {
 	public void deleteListCostByPlaceID(int placeID) {
 		costOfPlaceRepository.deleteListCostByPlaceID(placeID);
 
+	}
+
+	@Override
+	public CostOfPlace getCostOfPlaceByID(int id) {
+
+		return costOfPlaceRepository.getCostOfPlaceByID(id);
 	}
 
 }

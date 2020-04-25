@@ -21,7 +21,8 @@ public class CommonConstant {
 	public static final int Contract_Status_ID_Deactive = 0;
 	public static final int Contract_Status_ID_Active= 1;
 	public static final int Contract_Status_ID_Pending= 2;
-	public static final int Contract_Status_ID_Cancel= 1;
+	public static final int Contract_Status_ID_Cancel= 3;
+	public static final int Contract_Status_ID_Ban= 4;
 
 	// Order Status ID
 	public static final int Order_Status_ID_Canceled = 0;

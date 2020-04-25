@@ -22,6 +22,9 @@ public interface ContractRepository extends JpaRepository<Contract, Integer> {
 	@Query(value = "SELECT * FROM Contract where renter_id = :renter_id ", nativeQuery = true) // jpql
 	List<Contract> getAllContractByRenterID(@Param("renter_id") int renterID);
 
+	@Query(value = "SELECT * FROM Contract where contract_id = :contract_id ", nativeQuery = true) // jpql
+	Contract getContractByContractID(@Param("contract_id") int contractID);
+
 	@Modifying
 	@Query(value = "INSERT INTO Contract (owner_id , renter_id , place_id ,start_date ,end_date ,fee,contract_status_id ,order_id) VALUES (:owner_id , :renter_id, :place_id, :start_date, :end_date, :fee, :contract_status_id , :order_id)", nativeQuery = true) // jpql
 	void insertContract(@Param("owner_id") int owner_id, @Param("renter_id") int renter_id,

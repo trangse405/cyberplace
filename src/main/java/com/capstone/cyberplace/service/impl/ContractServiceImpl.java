@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.cyberplace.model.Contract;
+import com.capstone.cyberplace.model.CostOfLivingBill;
 import com.capstone.cyberplace.repository.ContractRepository;
 import com.capstone.cyberplace.service.ContractService;
 
@@ -48,5 +49,13 @@ public class ContractServiceImpl implements ContractService {
 
 		return contractRepository.getAllContractByRenterID(renterID);
 	}
+
+	@Override
+	public Contract getContractByContractID(int contractID) {
+
+		return contractRepository.getContractByContractID(contractID);
+	}
+
+
 
 }

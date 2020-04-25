@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -69,12 +68,16 @@ public class PlaceController {
 
 	@Autowired
 	private RoleOfPlaceServiceImpl roleOfPlaceServiceImpl;
+	
 	@Autowired
 	private DistrictDBServiceImpl districtDBServiceImpl;
+	
 	@Autowired
 	private WardDBServiceImpl wardDBServiceImpl;
+	
 	@Autowired
 	private StreetDBServiceImpl streetDBServiceImpl;
+	
 	@Autowired
 	private MapServiceImpl mapServiceImpl;
 

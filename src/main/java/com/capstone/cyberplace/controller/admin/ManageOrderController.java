@@ -68,7 +68,13 @@ public class ManageOrderController {
 				a.setStatusPlaceID(p.getStatusPlaceID());
 				a.setOwnerID(p.getOwnerID());
 				a.setPrice(p.getPrice());
-				UserDetail ud = userDetailServiceImpl.getDetailByUserID(o.getOrdererID());
+				UserDetail ud = new UserDetail();
+				try {
+					ud = userDetailServiceImpl.getDetailByUserID(o.getOrdererID());
+				} catch (Exception e) {
+					System.out.print("user detail null");
+				}
+
 				a.setName(ud.getName());
 				for (OrderStatus os : listOS) {
 					if (o.getOrderStatusID() == os.getOrderStatusID()) {
