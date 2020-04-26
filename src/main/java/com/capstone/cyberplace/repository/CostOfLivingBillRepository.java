@@ -16,7 +16,7 @@ public interface CostOfLivingBillRepository extends JpaRepository<CostOfLivingBi
 	@Modifying
 	@Query(value = " INSERT INTO CostOfLivingBill(contract_id , date_collect , total_expense ,bill_status_id) VALUES (:contract_id, :date_collect, :total_expense, :bill_status_id)", nativeQuery = true) // jpql
 	void insertCostOfLivingBill(@Param("contract_id") int contractID, @Param("date_collect") String dateCollect,
-			@Param("total_expense") float totalExpense, @Param("payment_status_id") int paymentStatusID);
+			@Param("total_expense") float totalExpense, @Param("bill_status_id") int paymentStatusID);
 
 	@Query(value = "SELECT * FROM CostOfLivingBill where date_collect < GETDATE() + 31 ", nativeQuery = true) // jpql
 	List<CostOfLivingBill> getAllBillBefore30Days();
@@ -35,6 +35,6 @@ public interface CostOfLivingBillRepository extends JpaRepository<CostOfLivingBi
 	CostOfLivingBill getBillByColID(@Param("col_id") int colID);
 
 	@Modifying
-	@Query(value = " UPDATE CostOfLivingBill SET payment_status_id = :payment_status_id where col_id = :col_id ", nativeQuery = true) // jpql
-	void changeStatus(@Param("payment_status_id") int paymentStatusId, @Param("col_id") int colID);
+	@Query(value = " UPDATE CostOfLivingBill SET bill_status_id = :bill_status_id where col_id = :col_id ", nativeQuery = true) // jpql
+	void changeStatus(@Param("bill_status_id") int paymentStatusId, @Param("col_id") int colID);
 }
