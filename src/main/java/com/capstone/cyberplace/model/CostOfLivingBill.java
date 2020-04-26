@@ -27,7 +27,7 @@ public class CostOfLivingBill {
 	@Column(name = "total_expense", nullable = false)
 	private float totalExpense;
 
-	@Column(name = "payment_status_id", nullable = false)
+	@Column(name = "bill_status_id", nullable = false)
 	private int paymentStatusID;
 
 	public CostOfLivingBill() {

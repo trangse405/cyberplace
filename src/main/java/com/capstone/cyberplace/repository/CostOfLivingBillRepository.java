@@ -14,7 +14,7 @@ import com.capstone.cyberplace.model.CostOfLivingBill;
 public interface CostOfLivingBillRepository extends JpaRepository<CostOfLivingBill, Integer> {
 
 	@Modifying
-	@Query(value = " INSERT INTO CostOfLivingBill(contract_id , date_collect , total_expense ,payment_status_id) VALUES (:contract_id, :date_collect, :total_expense, :payment_status_id)", nativeQuery = true) // jpql
+	@Query(value = " INSERT INTO CostOfLivingBill(contract_id , date_collect , total_expense ,bill_status_id) VALUES (:contract_id, :date_collect, :total_expense, :bill_status_id)", nativeQuery = true) // jpql
 	void insertCostOfLivingBill(@Param("contract_id") int contractID, @Param("date_collect") String dateCollect,
 			@Param("total_expense") float totalExpense, @Param("payment_status_id") int paymentStatusID);
 
