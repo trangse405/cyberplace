@@ -2,28 +2,28 @@ package com.capstone.cyberplace.dto;
 
 public class UpdateBillForm {
 
-	private int colID;
-	private int costOfPlaceID;
+	private int colId;
+	private int costId;
 	private float amount;
 
 	public UpdateBillForm() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getColID() {
-		return colID;
+	public int getColId() {
+		return colId;
 	}
 
-	public void setColID(int colID) {
-		this.colID = colID;
+	public void setColId(int colId) {
+		this.colId = colId;
 	}
 
-	public int getCostOfPlaceID() {
-		return costOfPlaceID;
+	public int getCostId() {
+		return costId;
 	}
 
-	public void setCostOfPlaceID(int costOfPlaceID) {
-		this.costOfPlaceID = costOfPlaceID;
+	public void setCostId(int costId) {
+		this.costId = costId;
 	}
 
 	public float getAmount() {
@@ -33,5 +33,7 @@ public class UpdateBillForm {
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
+
+	
 
 }

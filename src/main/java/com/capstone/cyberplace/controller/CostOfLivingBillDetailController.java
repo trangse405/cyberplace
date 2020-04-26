@@ -77,15 +77,15 @@ public class CostOfLivingBillDetailController {
 		if (form != null) {
 			for (UpdateBillForm detail : form) {
 				try {
-					costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), detail.getColID(),
-							detail.getCostOfPlaceID());
-					CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostOfPlaceID());
+					costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), detail.getColId(),
+							detail.getCostId());
+					CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
 					if (cost != null) {
 
-						CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColID());
+						CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
 						float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense();
 						try {
-							costOfLivingBillServiceImpl.updateTotal(total, detail.getColID());
+							costOfLivingBillServiceImpl.updateTotal(total, detail.getColId());
 						} catch (Exception e) {
 							System.out.print("update bill err");
 							return false;
