@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.dto.COLBillDetail;
+import com.capstone.cyberplace.dto.COLBillUpdate;
 import com.capstone.cyberplace.dto.UpdateBillForm;
 import com.capstone.cyberplace.model.CostOfLivingBill;
 import com.capstone.cyberplace.model.CostOfLivingBillDetail;
@@ -97,70 +98,86 @@ public class CostOfLivingBillDetailController {
 	}
 
 	@PostMapping("/updatebilldetail")
-	public boolean updateBill(@Valid @RequestBody List<UpdateBillForm> form) {
+	public boolean updateBill(@Valid @RequestBody COLBillUpdate form) {
 
 		if (form != null) {
-			for (UpdateBillForm detail : form) {
+			int colID = 0;
+			List<COLBillDetail> listDetail = form.getColBillDetails();
+			for (COLBillDetail detail : listDetail) {
+				colID = detail.getColId();
 				if (detail.getUnitID() == 1) {
-					CostOfLivingBillDetail costDetail = costOfLivingBillDetailServiceImpl
-							.getDetailByColIDAndCostOfPlaceID(detail.getColId(), detail.getCostId());
-					if (costDetail.getAmount() == 0) {
-						try {
 
-							CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
-							if (cost != null) {
-								float expense_per_cost = detail.getAmount() * cost.getCostPrice();
-								costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), expense_per_cost,
-										detail.getColId(), detail.getCostId());
-								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
-								// float total = detail.getAmount() * cost.getCostPrice() +
-								// bill.getTotalExpense();
-								try {
-									costOfLivingBillServiceImpl.updateTotal(detail.getTotalExpense(),
-											detail.getColId());
-								} catch (Exception e) {
-									System.out.print("update bill err");
-									return false;
-								}
-
-							}
-						} catch (Exception e) {
-							System.out.print("update detail err");
-							return false;
-						}
-					} else {
-
-						try {
-
-							CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
-							if (cost != null) {
-								float expense_per_cost = detail.getAmount() * cost.getCostPrice();
-								costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), expense_per_cost,
-										detail.getColId(), detail.getCostId());
-								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
-								// float total = detail.getAmount() * cost.getCostPrice() +
-								// bill.getTotalExpense()
-								// - costDetail.getAmount() * cost.getCostPrice();
-								try {
-									costOfLivingBillServiceImpl.updateTotal(detail.getTotalExpense(),
-											detail.getColId());
-								} catch (Exception e) {
-									System.out.print("update bill err");
-									return false;
-								}
-
-							}
-						} catch (Exception e) {
-							System.out.print("update detail err");
-							return false;
-						}
-
-					}
+					costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), detail.getExpensePerCost(),
+							detail.getColId(), detail.getCostId());
 				}
-
 			}
+			costOfLivingBillServiceImpl.updateTotal(form.getTotalExpense(), colID);
+			return true;
+
 		}
-		return true;
+
+//		if (form != null) {
+//			for (UpdateBillForm detail : form) {
+//				if (detail.getUnitID() == 1) {
+//					CostOfLivingBillDetail costDetail = costOfLivingBillDetailServiceImpl
+//							.getDetailByColIDAndCostOfPlaceID(detail.getColId(), detail.getCostId());
+//					if (costDetail.getAmount() == 0) {
+//						try {
+//
+//							CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
+//							if (cost != null) {
+//								float expense_per_cost = detail.getAmount() * cost.getCostPrice();
+//								costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), expense_per_cost,
+//										detail.getColId(), detail.getCostId());
+//								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
+//								// float total = detail.getAmount() * cost.getCostPrice() +
+//								// bill.getTotalExpense();
+//								try {
+//									costOfLivingBillServiceImpl.updateTotal(detail.getTotalExpense(),
+//											detail.getColId());
+//								} catch (Exception e) {
+//									System.out.print("update bill err");
+//									return false;
+//								}
+//
+//							}
+//						} catch (Exception e) {
+//							System.out.print("update detail err");
+//							return false;
+//						}
+//					} else {
+//
+//						try {
+//
+//							CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
+//							if (cost != null) {
+//								float expense_per_cost = detail.getAmount() * cost.getCostPrice();
+//								costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), expense_per_cost,
+//										detail.getColId(), detail.getCostId());
+//								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
+//								// float total = detail.getAmount() * cost.getCostPrice() +
+//								// bill.getTotalExpense()
+//								// - costDetail.getAmount() * cost.getCostPrice();
+//								try {
+//									costOfLivingBillServiceImpl.updateTotal(detail.getTotalExpense(),
+//											detail.getColId());
+//								} catch (Exception e) {
+//									System.out.print("update bill err");
+//									return false;
+//								}
+//
+//							}
+//						} catch (Exception e) {
+//							System.out.print("update detail err");
+//							return false;
+//						}
+//
+//					}
+//				}
+//
+//			}
+//		}
+		return false;
 	}
 
 }

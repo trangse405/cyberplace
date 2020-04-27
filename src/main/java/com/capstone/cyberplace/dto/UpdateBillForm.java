@@ -6,19 +6,13 @@ public class UpdateBillForm {
 	private int costId;
 	private float amount;
 	private int unitID;
-	private float totalExpense;
+	
 
 	public UpdateBillForm() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public float getTotalExpense() {
-		return totalExpense;
-	}
 
-	public void setTotalExpense(float totalExpense) {
-		this.totalExpense = totalExpense;
-	}
 
 	public int getColId() {
 		return colId;
