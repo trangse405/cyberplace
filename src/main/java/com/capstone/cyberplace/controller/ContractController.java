@@ -20,10 +20,12 @@ import com.capstone.cyberplace.dto.form.InsertedContractForm;
 import com.capstone.cyberplace.model.Contract;
 import com.capstone.cyberplace.model.CostOfLivingBill;
 import com.capstone.cyberplace.model.CostOfPlace;
+import com.capstone.cyberplace.model.Place;
 import com.capstone.cyberplace.service.impl.ContractServiceImpl;
 import com.capstone.cyberplace.service.impl.CostOfLivingBillDetailServiceImpl;
 import com.capstone.cyberplace.service.impl.CostOfLivingBillServiceImpl;
 import com.capstone.cyberplace.service.impl.CostOfPlaceServiceImpl;
+import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -40,6 +42,9 @@ public class ContractController {
 
 	@Autowired
 	private CostOfLivingBillDetailServiceImpl detailServiceImpl;
+
+	@Autowired
+	private PlaceServiceImpl placeServiceImpl;
 
 	@PostMapping("/insert")
 	public boolean insert(@Valid @RequestBody InsertedContractForm form) {
@@ -101,7 +106,12 @@ public class ContractController {
 		int times = totalDay / 30;
 
 		List<CostOfPlace> listCost = costOfPlaceServiceImpl.getListCostByPlaceID(c.getPlaceID());
+		Place p = placeServiceImpl.getPlaceByPlaceID(c.getPlaceID());
+
 		float hardCostInMonth = 0;
+		if (p != null) {
+			hardCostInMonth += p.getPrice();
+		}
 		for (CostOfPlace cost : listCost) {
 			if (cost.getUnitID() == 2) {
 				hardCostInMonth += cost.getCostPrice();
@@ -125,12 +135,12 @@ public class ContractController {
 			if (compare != 0) {
 				String date = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day);
 				costOfLivingBillServiceImpl.insertCostOfLivingBill(c.getContractID(), date, hardCostInMonth,
-						CommonConstant.Payment_Status_ID_Unpaid);
+						CommonConstant.Payment_Status_ID_Not_Process);
 			}
 			if (compare == 0) {
 				String date = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day);
 				costOfLivingBillServiceImpl.insertCostOfLivingBill(c.getContractID(), date, hardCostInMonth,
-						CommonConstant.Payment_Status_ID_Unpaid);
+						CommonConstant.Payment_Status_ID_Not_Process);
 				break;
 			}
 

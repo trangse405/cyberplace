@@ -46,14 +46,15 @@ public class CostOfLivingBillDetailController {
 		List<COLBillDetail> list = new ArrayList<>();
 
 		List<CostOfLivingBillDetail> listDetail = costOfLivingBillDetailServiceImpl.getBillDetailByColID(colID);
-
+		int placeID = 0;
 		if (listDetail != null) {
 			for (CostOfLivingBillDetail detail : listDetail) {
 				COLBillDetail bd = new COLBillDetail();
 				bd.setAmount(detail.getAmount());
-				bd.setColId(colID);
+				bd.setColId(detail.getColID());
 				bd.setCostId(detail.getCostOfPlaceID());
 				CostOfPlace c = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostOfPlaceID());
+				placeID = c.getPlaceID();
 				bd.setCostPrice(c.getCostPrice());
 				bd.setExpensePerCost(detail.getExpensePerCost());
 				bd.setCostName(c.getCostName());
@@ -64,6 +65,28 @@ public class CostOfLivingBillDetailController {
 					}
 				}
 				list.add(bd);
+
+			}
+		}
+
+		List<CostOfPlace> listCost = costOfPlaceServiceImpl.getListCostByPlaceID(placeID);
+		for (CostOfPlace cost : listCost) {
+			if (cost.getUnitID() == 2) {
+				COLBillDetail c = new COLBillDetail();
+				c.setAmount(1);
+				c.setColId(colID);
+				c.setCostId(cost.getId());
+				c.setCostPrice(cost.getCostPrice());
+
+				List<CostUnitName> listUnitName = costUnitNameServiceImpl.getAllListCostName();
+				for (CostUnitName unit : listUnitName) {
+					if (cost.getUnitID() == unit.getId()) {
+						c.setUnitName(unit.getUnitName());
+					}
+				}
+				c.setCostName(cost.getCostName());
+				c.setExpensePerCost(cost.getCostPrice());
+				list.add(c);
 
 			}
 		}

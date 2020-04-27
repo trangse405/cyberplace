@@ -12,7 +12,7 @@ import com.capstone.cyberplace.model.CostOfLivingBillDetail;
 
 @Repository
 public interface CostOfLivingBillDetailRepository extends JpaRepository<CostOfLivingBillDetail, Integer> {
-	@Query(value = "SELECT * FROM CostOfLivingBillDetail   where col_id  = :col_id", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM CostOfLivingBillDetail where col_id  = :col_id", nativeQuery = true) // jpql
 	List<CostOfLivingBillDetail> getBillDetailByColID(@Param("col_id") int colID);
 
 	@Modifying

@@ -1,5 +1,7 @@
 package com.capstone.cyberplace.dto;
 
+import java.util.List;
+
 public class COLBill {
 
 	private int colId;
@@ -11,6 +13,10 @@ public class COLBill {
 	private float totalExpense;
 	private int paymentStatusId;
 	private String paymentStatusName;
+	private List<COLBillDetail> colBillDetails;
+
+	// tien nha
+	private float placePrice;
 
 	public COLBill() {
 
@@ -86,6 +92,22 @@ public class COLBill {
 
 	public void setPaymentStatusName(String paymentStatusName) {
 		this.paymentStatusName = paymentStatusName;
+	}
+
+	public float getPlacePrice() {
+		return placePrice;
+	}
+
+	public void setPlacePrice(float placePrice) {
+		this.placePrice = placePrice;
+	}
+
+	public List<COLBillDetail> getColBillDetails() {
+		return colBillDetails;
+	}
+
+	public void setColBillDetails(List<COLBillDetail> colBillDetails) {
+		this.colBillDetails = colBillDetails;
 	}
 
 }

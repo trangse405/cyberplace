@@ -34,6 +34,7 @@ public class CommonConstant {
 	// Payment Status ID
 	public static final int Payment_Status_ID_Unpaid = 0;
 	public static final int Payment_Status_ID_Paid = 1;
+	public static final int Payment_Status_ID_Not_Process = 2;
 
 	// User Status ID
 	public static final int User_Status_ID_Deactive = 0;

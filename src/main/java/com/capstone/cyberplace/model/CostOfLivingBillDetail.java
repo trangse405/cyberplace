@@ -3,16 +3,21 @@ package com.capstone.cyberplace.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
+
+import com.capstone.cyberplace.model.id.CostOfLivingBillDetailID;
 
 @Entity
 @Table(name = "CostOfLivingBillDetail")
+@IdClass(CostOfLivingBillDetailID.class)
 public class CostOfLivingBillDetail {
 
 	@Id
 	@Column(name = "col_id", nullable = false)
 	private int colID;
 	
+	@Id
 	@Column(name = "cost_of_place_id", nullable = false)
 	private int costOfPlaceID;
 

@@ -12,12 +12,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.dto.COLBill;
+import com.capstone.cyberplace.dto.COLBillDetail;
 import com.capstone.cyberplace.model.Contract;
 import com.capstone.cyberplace.model.CostOfLivingBill;
+import com.capstone.cyberplace.model.CostOfLivingBillDetail;
+import com.capstone.cyberplace.model.CostOfPlace;
+import com.capstone.cyberplace.model.CostUnitName;
 import com.capstone.cyberplace.model.PaymentStatus;
+import com.capstone.cyberplace.model.Place;
 import com.capstone.cyberplace.service.impl.ContractServiceImpl;
+import com.capstone.cyberplace.service.impl.CostOfLivingBillDetailServiceImpl;
 import com.capstone.cyberplace.service.impl.CostOfLivingBillServiceImpl;
+import com.capstone.cyberplace.service.impl.CostOfPlaceServiceImpl;
+import com.capstone.cyberplace.service.impl.CostUnitNameServiceImpl;
 import com.capstone.cyberplace.service.impl.PaymentStatusServiceImpl;
+import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -26,12 +35,22 @@ public class CostOfLivingBillController {
 
 	@Autowired
 	private CostOfLivingBillServiceImpl costOfLivingBillServiceImpl;
+	@Autowired
+	private CostOfPlaceServiceImpl costOfPlaceServiceImpl;
 
 	@Autowired
 	private PaymentStatusServiceImpl paymentStatusServiceImpl;
 
 	@Autowired
 	private ContractServiceImpl contractServiceImpl;
+
+	@Autowired
+	private CostUnitNameServiceImpl costUnitNameServiceImpl;
+
+	@Autowired
+	private PlaceServiceImpl placeServiceImpl;
+	@Autowired
+	private CostOfLivingBillDetailServiceImpl costOfLivingBillDetailServiceImpl;
 
 	@GetMapping("/getall30daysafter")
 	public List<COLBill> getAll() {
@@ -60,12 +79,52 @@ public class CostOfLivingBillController {
 						bill.setPaymentStatusName(ps.getPaymentStatusName());
 					}
 				}
+
+				Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
+				bill.setPlacePrice(p.getPrice());
+				bill.setColBillDetails(getDetail(c.getColID()));
 				list.add(bill);
 
 			}
 		}
 
 		return list;
+	}
+
+	@GetMapping("/getbillbycolid")
+	public COLBill getBillByCOLID(@RequestParam("colID") int colID) {
+
+		CostOfLivingBill c = costOfLivingBillServiceImpl.getBillByColID(colID);
+		if (c != null) {
+
+			COLBill bill = new COLBill();
+			bill.setColId(c.getColID());
+			bill.setDateCollect(String.valueOf(c.getDateCollect()));
+			bill.setPaymentStatusId(c.getPaymentStatusID());
+			bill.setTotalExpense(c.getTotalExpense());
+			bill.setContractId(c.getContractID());
+
+			Contract contract = contractServiceImpl.getContractByContractID(c.getContractID());
+			if (contract != null) {
+				bill.setOwnerID(contract.getOwnerID());
+				bill.setRenterId(contract.getRenterID());
+				bill.setPlaceId(contract.getPlaceID());
+
+			}
+			List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
+			for (PaymentStatus ps : listPay) {
+				if (c.getPaymentStatusID() == ps.getPaymentStatusID()) {
+					bill.setPaymentStatusName(ps.getPaymentStatusName());
+				}
+
+				Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
+				bill.setPlacePrice(p.getPrice());
+				bill.setColBillDetails(getDetail(c.getColID()));
+				return bill;
+			}
+		}
+
+		return null;
 	}
 
 	@GetMapping("/getbillbyownterid")
@@ -95,6 +154,9 @@ public class CostOfLivingBillController {
 							c.setPaymentStatusName(ps.getPaymentStatusName());
 						}
 					}
+					Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
+					c.setPlacePrice(p.getPrice());
+					c.setColBillDetails(getDetail(bill.getColID()));
 					list.add(c);
 
 				}
@@ -131,6 +193,9 @@ public class CostOfLivingBillController {
 							c.setPaymentStatusName(ps.getPaymentStatusName());
 						}
 					}
+					Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
+					c.setPlacePrice(p.getPrice());
+					c.setColBillDetails(getDetail(bill.getColID()));
 					list.add(c);
 
 				}
@@ -150,6 +215,57 @@ public class CostOfLivingBillController {
 		}
 
 		return true;
+	}
+
+	private List<COLBillDetail> getDetail(int colID) {
+		List<COLBillDetail> list = new ArrayList<>();
+
+		List<CostOfLivingBillDetail> listDetail = costOfLivingBillDetailServiceImpl.getBillDetailByColID(colID);
+		int placeID = 0;
+		if (listDetail != null) {
+			for (CostOfLivingBillDetail detail : listDetail) {
+				COLBillDetail bd = new COLBillDetail();
+				bd.setAmount(detail.getAmount());
+				bd.setColId(detail.getColID());
+				bd.setCostId(detail.getCostOfPlaceID());
+				CostOfPlace c = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostOfPlaceID());
+				placeID = c.getPlaceID();
+				bd.setCostPrice(c.getCostPrice());
+				bd.setExpensePerCost(detail.getExpensePerCost());
+				bd.setCostName(c.getCostName());
+				List<CostUnitName> listUnitName = costUnitNameServiceImpl.getAllListCostName();
+				for (CostUnitName unit : listUnitName) {
+					if (c.getUnitID() == unit.getId()) {
+						bd.setUnitName(unit.getUnitName());
+					}
+				}
+				list.add(bd);
+
+			}
+		}
+
+		List<CostOfPlace> listCost = costOfPlaceServiceImpl.getListCostByPlaceID(placeID);
+		for (CostOfPlace cost : listCost) {
+			if (cost.getUnitID() == 2) {
+				COLBillDetail c = new COLBillDetail();
+				c.setAmount(1);
+				c.setColId(colID);
+				c.setCostId(cost.getId());
+				c.setCostPrice(cost.getCostPrice());
+
+				List<CostUnitName> listUnitName = costUnitNameServiceImpl.getAllListCostName();
+				for (CostUnitName unit : listUnitName) {
+					if (cost.getUnitID() == unit.getId()) {
+						c.setUnitName(unit.getUnitName());
+					}
+				}
+				c.setCostName(cost.getCostName());
+				c.setExpensePerCost(cost.getCostPrice());
+				list.add(c);
+
+			}
+		}
+		return list;
 	}
 
 }
