@@ -113,9 +113,11 @@ public class CostOfLivingBillDetailController {
 								costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), expense_per_cost,
 										detail.getColId(), detail.getCostId());
 								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
-								float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense();
+								// float total = detail.getAmount() * cost.getCostPrice() +
+								// bill.getTotalExpense();
 								try {
-									costOfLivingBillServiceImpl.updateTotal(total, detail.getColId());
+									costOfLivingBillServiceImpl.updateTotal(detail.getTotalExpense(),
+											detail.getColId());
 								} catch (Exception e) {
 									System.out.print("update bill err");
 									return false;
@@ -136,10 +138,12 @@ public class CostOfLivingBillDetailController {
 								costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), expense_per_cost,
 										detail.getColId(), detail.getCostId());
 								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
-								float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense()
-										- costDetail.getAmount() * cost.getCostPrice();
+								// float total = detail.getAmount() * cost.getCostPrice() +
+								// bill.getTotalExpense()
+								// - costDetail.getAmount() * cost.getCostPrice();
 								try {
-									costOfLivingBillServiceImpl.updateTotal(total, detail.getColId());
+									costOfLivingBillServiceImpl.updateTotal(detail.getTotalExpense(),
+											detail.getColId());
 								} catch (Exception e) {
 									System.out.print("update bill err");
 									return false;
