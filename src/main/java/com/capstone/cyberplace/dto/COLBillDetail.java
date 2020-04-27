@@ -9,6 +9,7 @@ public class COLBillDetail {
 	private String costName;
 	private float costPrice;
 	private String unitName;
+	private int unitID;
 
 	public COLBillDetail() {
 
@@ -68,6 +69,14 @@ public class COLBillDetail {
 
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
+	}
+
+	public int getUnitID() {
+		return unitID;
+	}
+
+	public void setUnitID(int unitID) {
+		this.unitID = unitID;
 	}
 
 }

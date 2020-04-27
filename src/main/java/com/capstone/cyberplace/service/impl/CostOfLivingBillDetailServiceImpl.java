@@ -19,7 +19,6 @@ public class CostOfLivingBillDetailServiceImpl implements CostOfLivingBillDetail
 
 	@Override
 	public List<CostOfLivingBillDetail> getBillDetailByColID(int colID) {
-		// TODO Auto-generated method stub
 		return repository.getBillDetailByColID(colID);
 	}
 
@@ -33,6 +32,12 @@ public class CostOfLivingBillDetailServiceImpl implements CostOfLivingBillDetail
 	public void updateBillDetail(float amount, int col_id, int cost_of_place_id) {
 		repository.updateBillDetail(amount, col_id, cost_of_place_id);
 
+	}
+
+	@Override
+	public CostOfLivingBillDetail getDetailByColIDAndCostOfPlaceID(int colID, int cost_of_place_id) {
+
+		return repository.getDetailByColIDAndCostOfPlaceID(colID, cost_of_place_id);
 	}
 
 }

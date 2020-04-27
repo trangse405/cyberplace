@@ -257,6 +257,7 @@ public class CostOfLivingBillController {
 				for (CostUnitName unit : listUnitName) {
 					if (cost.getUnitID() == unit.getId()) {
 						c.setUnitName(unit.getUnitName());
+						c.setUnitID(unit.getId());
 					}
 				}
 				c.setCostName(cost.getCostName());

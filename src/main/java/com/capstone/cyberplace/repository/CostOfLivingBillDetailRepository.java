@@ -24,4 +24,8 @@ public interface CostOfLivingBillDetailRepository extends JpaRepository<CostOfLi
 	@Modifying
 	@Query(value = "UPDATE CostOfLivingBillDetail SET amount =:amount where col_id =:col_id AND cost_of_place_id =:cost_of_place_id ", nativeQuery = true) // jpql
 	void updateBillDetail(@Param("amount") float amount, @Param("col_id") int col_id, @Param("cost_of_place_id") int cost_of_place_id);
+	
+	
+	@Query(value = "SELECT * FROM CostOfLivingBillDetail where col_id = :col_id and cost_of_place_id = :cost_of_place_id", nativeQuery = true) // jpql
+	CostOfLivingBillDetail getDetailByColIDAndCostOfPlaceID(@Param("col_id") int colID ,@Param("cost_of_place_id") int cost_of_place_id  );
 }
