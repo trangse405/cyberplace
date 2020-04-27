@@ -106,11 +106,12 @@ public class CostOfLivingBillDetailController {
 							.getDetailByColIDAndCostOfPlaceID(detail.getColId(), detail.getCostId());
 					if (costDetail.getAmount() == 0) {
 						try {
-							costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), detail.getColId(),
-									detail.getCostId());
+
 							CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
 							if (cost != null) {
-
+								float expense_per_cost = detail.getAmount() * cost.getCostPrice();
+								costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), expense_per_cost,
+										detail.getColId(), detail.getCostId());
 								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
 								float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense();
 								try {
@@ -128,11 +129,12 @@ public class CostOfLivingBillDetailController {
 					} else {
 
 						try {
-							costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), detail.getColId(),
-									detail.getCostId());
+
 							CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
 							if (cost != null) {
-
+								float expense_per_cost = detail.getAmount() * cost.getCostPrice();
+								costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), expense_per_cost,
+										detail.getColId(), detail.getCostId());
 								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
 								float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense()
 										- costDetail.getAmount() * cost.getCostPrice();

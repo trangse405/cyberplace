@@ -29,8 +29,8 @@ public class CostOfLivingBillDetailServiceImpl implements CostOfLivingBillDetail
 	}
 
 	@Override
-	public void updateBillDetail(float amount, int col_id, int cost_of_place_id) {
-		repository.updateBillDetail(amount, col_id, cost_of_place_id);
+	public void updateBillDetail(float amount, float expense_per_cost, int col_id, int cost_of_place_id) {
+		repository.updateBillDetail(amount, expense_per_cost, col_id, cost_of_place_id);
 
 	}
 

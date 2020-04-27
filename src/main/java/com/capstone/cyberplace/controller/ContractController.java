@@ -161,7 +161,7 @@ public class ContractController {
 						if (cost.getUnitID() == 1) {
 							try {
 								detailServiceImpl.insertCostOfLivingBillDetail(bill.getColID(), cost.getId(),
-										cost.getCostPrice(), 0);
+										0, 0);
 							} catch (Exception e) {
 								System.out.print(e);
 							}

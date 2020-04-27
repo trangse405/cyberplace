@@ -10,7 +10,7 @@ public interface CostOfLivingBillDetailService {
 
 	void insertCostOfLivingBillDetail(int colID, int cost_of_place_id, float expensePerCost, float amount);
 
-	void updateBillDetail(float amount, int col_id, int cost_of_place_id);
+	void updateBillDetail(float amount,float expense_per_cost ,int col_id, int cost_of_place_id);
 
 	CostOfLivingBillDetail getDetailByColIDAndCostOfPlaceID(int colID, int cost_of_place_id);
 }
