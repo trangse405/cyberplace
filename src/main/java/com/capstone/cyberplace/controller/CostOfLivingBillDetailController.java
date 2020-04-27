@@ -135,7 +135,7 @@ public class CostOfLivingBillDetailController {
 
 								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
 								float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense()
-										- costDetail.getAmount() * costDetail.getExpensePerCost();
+										- costDetail.getAmount() * cost.getCostPrice();
 								try {
 									costOfLivingBillServiceImpl.updateTotal(total, detail.getColId());
 								} catch (Exception e) {
