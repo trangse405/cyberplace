@@ -101,53 +101,55 @@ public class CostOfLivingBillDetailController {
 
 		if (form != null) {
 			for (UpdateBillForm detail : form) {
-				CostOfLivingBillDetail costDetail = costOfLivingBillDetailServiceImpl
-						.getDetailByColIDAndCostOfPlaceID(detail.getColId(), detail.getCostId());
-				if (costDetail.getAmount() == 0) {
-					try {
-						costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), detail.getColId(),
-								detail.getCostId());
-						CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
-						if (cost != null) {
+				if (detail.getUnitID() == 1) {
+					CostOfLivingBillDetail costDetail = costOfLivingBillDetailServiceImpl
+							.getDetailByColIDAndCostOfPlaceID(detail.getColId(), detail.getCostId());
+					if (costDetail.getAmount() == 0) {
+						try {
+							costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), detail.getColId(),
+									detail.getCostId());
+							CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
+							if (cost != null) {
 
-							CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
-							float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense();
-							try {
-								costOfLivingBillServiceImpl.updateTotal(total, detail.getColId());
-							} catch (Exception e) {
-								System.out.print("update bill err");
-								return false;
+								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
+								float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense();
+								try {
+									costOfLivingBillServiceImpl.updateTotal(total, detail.getColId());
+								} catch (Exception e) {
+									System.out.print("update bill err");
+									return false;
+								}
+
 							}
-
+						} catch (Exception e) {
+							System.out.print("update detail err");
+							return false;
 						}
-					} catch (Exception e) {
-						System.out.print("update detail err");
-						return false;
-					}
-				} else {
+					} else {
 
-					try {
-						costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), detail.getColId(),
-								detail.getCostId());
-						CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
-						if (cost != null) {
+						try {
+							costOfLivingBillDetailServiceImpl.updateBillDetail(detail.getAmount(), detail.getColId(),
+									detail.getCostId());
+							CostOfPlace cost = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostId());
+							if (cost != null) {
 
-							CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
-							float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense()
-									- costDetail.getAmount() * costDetail.getExpensePerCost();
-							try {
-								costOfLivingBillServiceImpl.updateTotal(total, detail.getColId());
-							} catch (Exception e) {
-								System.out.print("update bill err");
-								return false;
+								CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(detail.getColId());
+								float total = detail.getAmount() * cost.getCostPrice() + bill.getTotalExpense()
+										- costDetail.getAmount() * costDetail.getExpensePerCost();
+								try {
+									costOfLivingBillServiceImpl.updateTotal(total, detail.getColId());
+								} catch (Exception e) {
+									System.out.print("update bill err");
+									return false;
+								}
+
 							}
-
+						} catch (Exception e) {
+							System.out.print("update detail err");
+							return false;
 						}
-					} catch (Exception e) {
-						System.out.print("update detail err");
-						return false;
-					}
 
+					}
 				}
 
 			}

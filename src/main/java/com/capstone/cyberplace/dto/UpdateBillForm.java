@@ -5,6 +5,7 @@ public class UpdateBillForm {
 	private int colId;
 	private int costId;
 	private float amount;
+	private int unitID;
 
 	public UpdateBillForm() {
 		// TODO Auto-generated constructor stub
@@ -34,6 +35,12 @@ public class UpdateBillForm {
 		this.amount = amount;
 	}
 
-	
+	public int getUnitID() {
+		return unitID;
+	}
+
+	public void setUnitID(int unitID) {
+		this.unitID = unitID;
+	}
 
 }
