@@ -136,28 +136,30 @@ public class CostOfLivingBillController {
 		if (listContract != null) {
 
 			for (Contract contract : listContract) {
-				CostOfLivingBill bill = costOfLivingBillServiceImpl
+				List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl
 						.getAllBillBefore30DaysByContractID(contract.getContractID());
-				if (bill != null) {
-					COLBill c = new COLBill();
-					c.setColId(bill.getColID());
-					c.setContractId(contract.getContractID());
-					c.setDateCollect(String.valueOf(bill.getDateCollect()));
-					c.setOwnerID(contract.getOwnerID());
-					c.setPaymentStatusId(bill.getPaymentStatusID());
-					c.setPlaceId(contract.getPlaceID());
-					c.setRenterId(contract.getRenterID());
-					c.setTotalExpense(bill.getTotalExpense());
-					List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
-					for (PaymentStatus ps : listPay) {
-						if (bill.getPaymentStatusID() == ps.getPaymentStatusID()) {
-							c.setPaymentStatusName(ps.getPaymentStatusName());
+				if (listBill != null) {
+					for (CostOfLivingBill bill : listBill) {
+						COLBill c = new COLBill();
+						c.setColId(bill.getColID());
+						c.setContractId(contract.getContractID());
+						c.setDateCollect(String.valueOf(bill.getDateCollect()));
+						c.setOwnerID(contract.getOwnerID());
+						c.setPaymentStatusId(bill.getPaymentStatusID());
+						c.setPlaceId(contract.getPlaceID());
+						c.setRenterId(contract.getRenterID());
+						c.setTotalExpense(bill.getTotalExpense());
+						List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
+						for (PaymentStatus ps : listPay) {
+							if (bill.getPaymentStatusID() == ps.getPaymentStatusID()) {
+								c.setPaymentStatusName(ps.getPaymentStatusName());
+							}
 						}
+						Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
+						c.setPlacePrice(p.getPrice());
+						c.setColBillDetails(getDetail(bill.getColID()));
+						list.add(c);
 					}
-					Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
-					c.setPlacePrice(p.getPrice());
-					c.setColBillDetails(getDetail(bill.getColID()));
-					list.add(c);
 
 				}
 			}
@@ -175,28 +177,30 @@ public class CostOfLivingBillController {
 		if (listContract != null) {
 
 			for (Contract contract : listContract) {
-				CostOfLivingBill bill = costOfLivingBillServiceImpl
+				List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl
 						.getAllBillBefore30DaysByContractID(contract.getContractID());
-				if (bill != null) {
-					COLBill c = new COLBill();
-					c.setColId(bill.getColID());
-					c.setContractId(contract.getContractID());
-					c.setDateCollect(String.valueOf(bill.getDateCollect()));
-					c.setOwnerID(contract.getOwnerID());
-					c.setPaymentStatusId(bill.getPaymentStatusID());
-					c.setPlaceId(contract.getPlaceID());
-					c.setRenterId(contract.getRenterID());
-					c.setTotalExpense(bill.getTotalExpense());
-					List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
-					for (PaymentStatus ps : listPay) {
-						if (bill.getPaymentStatusID() == ps.getPaymentStatusID()) {
-							c.setPaymentStatusName(ps.getPaymentStatusName());
+				if (listBill != null) {
+					for (CostOfLivingBill bill : listBill) {
+						COLBill c = new COLBill();
+						c.setColId(bill.getColID());
+						c.setContractId(contract.getContractID());
+						c.setDateCollect(String.valueOf(bill.getDateCollect()));
+						c.setOwnerID(contract.getOwnerID());
+						c.setPaymentStatusId(bill.getPaymentStatusID());
+						c.setPlaceId(contract.getPlaceID());
+						c.setRenterId(contract.getRenterID());
+						c.setTotalExpense(bill.getTotalExpense());
+						List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
+						for (PaymentStatus ps : listPay) {
+							if (bill.getPaymentStatusID() == ps.getPaymentStatusID()) {
+								c.setPaymentStatusName(ps.getPaymentStatusName());
+							}
 						}
+						Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
+						c.setPlacePrice(p.getPrice());
+						c.setColBillDetails(getDetail(bill.getColID()));
+						list.add(c);
 					}
-					Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
-					c.setPlacePrice(p.getPrice());
-					c.setColBillDetails(getDetail(bill.getColID()));
-					list.add(c);
 
 				}
 			}

@@ -30,7 +30,7 @@ public class CostOfLivingBillServiceImpl implements CostOfLivingBillService {
 	}
 
 	@Override
-	public CostOfLivingBill getAllBillBefore30DaysByContractID(int contractID) {
+	public List<CostOfLivingBill> getAllBillBefore30DaysByContractID(int contractID) {
 
 		return costOfLivingBillRepository.getAllBillBefore30DaysByContractID(contractID);
 	}

@@ -22,7 +22,7 @@ public interface CostOfLivingBillRepository extends JpaRepository<CostOfLivingBi
 	List<CostOfLivingBill> getAllBillBefore30Days();
 
 	@Query(value = "SELECT * FROM CostOfLivingBill where date_collect < GETDATE() + 31 AND contract_id = :contract_id", nativeQuery = true) // jpql
-	CostOfLivingBill getAllBillBefore30DaysByContractID(@Param("contract_id") int contractID);
+	List<CostOfLivingBill> getAllBillBefore30DaysByContractID(@Param("contract_id") int contractID);
 
 	@Query(value = "SELECT * FROM CostOfLivingBill where  contract_id = :contract_id", nativeQuery = true) // jpql
 	List<CostOfLivingBill> getAllBillByContractID(@Param("contract_id") int contractID);
