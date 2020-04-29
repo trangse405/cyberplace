@@ -59,4 +59,10 @@ public class CostOfLivingBillServiceImpl implements CostOfLivingBillService {
 
 	}
 
+	@Override
+	public void updateCashPaidLinkByColID(String cashPaidLink, int colID) {
+		costOfLivingBillRepository.updateCashPaidLinkByColID(cashPaidLink, colID);
+
+	}
+
 }

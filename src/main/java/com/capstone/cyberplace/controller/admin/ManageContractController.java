@@ -56,6 +56,12 @@ public class ManageContractController {
 				f.setRenterID(c.getRenterID());
 				f.setPlaceID(c.getPlaceID());
 				f.setOrderID(c.getOrderID());
+				if (c.getContractLink() != null) {
+					f.setContractLink(c.getContractLink());
+				}
+				if (c.getIsUseService() != null) {
+					f.setIsUseService(c.getIsUseService());
+				}
 
 				for (ContractStatus cs : listCS) {
 					if (c.getContractStatusID() == cs.getContractStatusID()) {
@@ -92,7 +98,7 @@ public class ManageContractController {
 
 		return null;
 	}
-	
+
 	@GetMapping("/get-all-contract-renterID")
 	public List<ManageContractForm> getAllContractByRenterID(@RequestParam("renterID") int renterID) {
 
@@ -127,6 +133,13 @@ public class ManageContractController {
 				f.setRenterID(c.getRenterID());
 				f.setPlaceID(c.getPlaceID());
 				f.setOrderID(c.getOrderID());
+				if (c.getContractLink() != null) {
+					f.setContractLink(c.getContractLink());
+				}
+				if (c.getIsUseService() != null) {
+					f.setIsUseService(c.getIsUseService());
+				}
+
 				for (ContractStatus cs : listCS) {
 					if (c.getContractStatusID() == cs.getContractStatusID()) {
 						f.setStatusContract(cs.getContractStatusName());

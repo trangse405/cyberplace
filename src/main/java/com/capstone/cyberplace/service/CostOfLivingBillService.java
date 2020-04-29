@@ -19,4 +19,6 @@ public interface CostOfLivingBillService {
 	CostOfLivingBill getBillByColID(int colID);
 
 	void changeStatus(int paymentStatusId, int colID);
+
+	void updateCashPaidLinkByColID(String cashPaidLink, int colID);
 }

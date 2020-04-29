@@ -40,22 +40,47 @@ public class Contract {
 
 	@Column(name = "contract_status_id")
 	private int contractStatusID;
+	
+	@Column(name = "is_use_service")
+	private Integer isUseService;
+
+	@Column(name = "contract_link")
+	private String contractLink;
 
 	public Contract() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Contract(int contractID, int ownerID, int renterID, int placeID, Date startDate, Date endDate, float fee,
-			int contractStatusID) {
+	public Contract(int contractID, int ownerID, int renterID, int placeID, Integer orderID, Date startDate,
+			Date endDate, float fee, int contractStatusID, Integer isUseService, String contractLink) {
 		super();
 		this.contractID = contractID;
 		this.ownerID = ownerID;
 		this.renterID = renterID;
 		this.placeID = placeID;
+		this.orderID = orderID;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.fee = fee;
 		this.contractStatusID = contractStatusID;
+		this.isUseService = isUseService;
+		this.contractLink = contractLink;
+	}
+
+	public Integer getIsUseService() {
+		return isUseService;
+	}
+
+	public void setIsUseService(Integer isUseService) {
+		this.isUseService = isUseService;
+	}
+
+	public String getContractLink() {
+		return contractLink;
+	}
+
+	public void setContractLink(String contractLink) {
+		this.contractLink = contractLink;
 	}
 
 	public int getContractID() {

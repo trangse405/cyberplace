@@ -26,11 +26,12 @@ public interface ContractRepository extends JpaRepository<Contract, Integer> {
 	Contract getContractByContractID(@Param("contract_id") int contractID);
 
 	@Modifying
-	@Query(value = "INSERT INTO Contract (owner_id , renter_id , place_id ,start_date ,end_date ,fee,contract_status_id ,order_id) VALUES (:owner_id , :renter_id, :place_id, :start_date, :end_date, :fee, :contract_status_id , :order_id)", nativeQuery = true) // jpql
+	@Query(value = "INSERT INTO Contract (owner_id , renter_id , place_id ,start_date ,end_date ,fee,contract_status_id ,order_id , is_use_service , contract_link) VALUES (:owner_id , :renter_id, :place_id, :start_date, :end_date, :fee, :contract_status_id , :order_id, :is_use_service , :contract_link)", nativeQuery = true) // jpql
 	void insertContract(@Param("owner_id") int owner_id, @Param("renter_id") int renter_id,
 			@Param("place_id") int place_id, @Param("start_date") String start_date, @Param("end_date") String end_date,
 			@Param("fee") float fee, @Param("contract_status_id") int contract_status_id,
-			@Param("order_id") int orderID);
+			@Param("order_id") int orderID, @Param("is_use_service") int is_use_service,
+			@Param("contract_link") String contract_link);
 
 	@Modifying
 	@Query(value = "UPDATE Contract SET contract_status_id =:contract_status_id where contract_id =:contract_id ", nativeQuery = true) // jpql

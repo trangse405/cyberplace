@@ -30,17 +30,22 @@ public class CostOfLivingBill {
 	@Column(name = "bill_status_id", nullable = false)
 	private int paymentStatusID;
 
+	@Column(name = "cash_paid_link")
+	private String cashPaidLink;
+
 	public CostOfLivingBill() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CostOfLivingBill(int colID, int contractID, Date dateCollect, float totalExpense, int paymentStatusID) {
+	public CostOfLivingBill(int colID, int contractID, Date dateCollect, float totalExpense, int paymentStatusID,
+			String cashPaidLink) {
 		super();
 		this.colID = colID;
 		this.contractID = contractID;
 		this.dateCollect = dateCollect;
 		this.totalExpense = totalExpense;
 		this.paymentStatusID = paymentStatusID;
+		this.cashPaidLink = cashPaidLink;
 	}
 
 	public int getColID() {
@@ -81,6 +86,14 @@ public class CostOfLivingBill {
 
 	public void setPaymentStatusID(int paymentStatusID) {
 		this.paymentStatusID = paymentStatusID;
+	}
+
+	public String getCashPaidLink() {
+		return cashPaidLink;
+	}
+
+	public void setCashPaidLink(String cashPaidLink) {
+		this.cashPaidLink = cashPaidLink;
 	}
 
 }

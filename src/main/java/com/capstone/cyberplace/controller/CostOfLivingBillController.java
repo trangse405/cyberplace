@@ -221,6 +221,20 @@ public class CostOfLivingBillController {
 		return true;
 	}
 
+	@PostMapping("/updateCashPaidLink")
+	public boolean updateCashPaidLink(@RequestParam("cashPaidLink") String cashPaidLink,
+			@RequestParam("colID") int colID) {
+		try {
+			costOfLivingBillServiceImpl.updateCashPaidLinkByColID(cashPaidLink, colID);
+			;
+
+		} catch (Exception e) {
+			System.err.print("change err");
+		}
+
+		return true;
+	}
+
 	private List<COLBillDetail> getDetail(int colID) {
 		List<COLBillDetail> list = new ArrayList<>();
 

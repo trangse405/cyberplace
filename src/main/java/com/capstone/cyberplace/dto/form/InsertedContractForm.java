@@ -11,9 +11,27 @@ public class InsertedContractForm {
 	private float fee;
 	private int contractStatusID;
 	private int orderID;
+	private int isUseService;
+	private String contractLink;
 
 	public InsertedContractForm() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getIsUseService() {
+		return isUseService;
+	}
+
+	public void setIsUseService(int isUseService) {
+		this.isUseService = isUseService;
+	}
+
+	public String getContractLink() {
+		return contractLink;
+	}
+
+	public void setContractLink(String contractLink) {
+		this.contractLink = contractLink;
 	}
 
 	public int getOrderID() {

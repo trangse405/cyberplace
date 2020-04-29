@@ -14,9 +14,27 @@ public class ManageContractForm {
 	private String statusContract;
 	private int placeStatusID;
 	private String titlePlace;
+	private String contractLink;
+	private int isUseService;
 
 	public ManageContractForm() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getContractLink() {
+		return contractLink;
+	}
+
+	public void setContractLink(String contractLink) {
+		this.contractLink = contractLink;
+	}
+
+	public int getIsUseService() {
+		return isUseService;
+	}
+
+	public void setIsUseService(int isUseService) {
+		this.isUseService = isUseService;
 	}
 
 	public int getContractID() {

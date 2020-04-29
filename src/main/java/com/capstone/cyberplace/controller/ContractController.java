@@ -49,11 +49,11 @@ public class ContractController {
 	@PostMapping("/insert")
 	public boolean insert(@Valid @RequestBody InsertedContractForm form) {
 
-		if (form != null) {
+		if (form != null && form.getIsUseService() == 1) {
 			try {
 				contractServiceImpl.insertContract(form.getOwnerID(), form.getRenterID(), form.getPlaceID(),
 						form.getStartDate(), form.getEndDate(), form.getFee(), form.getContractStatusID(),
-						form.getOrderID());
+						form.getOrderID(), form.getIsUseService(), form.getContractLink());
 			} catch (Exception e) {
 				System.err.print("insert err");
 				return false;
@@ -68,10 +68,12 @@ public class ContractController {
 	public boolean changeStatusContract(@RequestParam("contractStatusID") int contractStatusID,
 			@RequestParam("contractID") int contractID) {
 
+		Contract c = contractServiceImpl.getContractByContractID(contractID);
+
 		try {
 			contractServiceImpl.changeStatusContractByContractID(contractStatusID, contractID);
 
-			if (contractStatusID == CommonConstant.Contract_Status_ID_Active) {
+			if (contractStatusID == CommonConstant.Contract_Status_ID_Active && c.getIsUseService() == 1) {
 				insertBill(contractServiceImpl.getContractByContractID(contractID));
 
 				insertBillDetail(contractID);
@@ -160,8 +162,7 @@ public class ContractController {
 					for (CostOfPlace cost : listCost) {
 						if (cost.getUnitID() == 1) {
 							try {
-								detailServiceImpl.insertCostOfLivingBillDetail(bill.getColID(), cost.getId(),
-										0, 0);
+								detailServiceImpl.insertCostOfLivingBillDetail(bill.getColID(), cost.getId(), 0, 0);
 							} catch (Exception e) {
 								System.out.print(e);
 							}

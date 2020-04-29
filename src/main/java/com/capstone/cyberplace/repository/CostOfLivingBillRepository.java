@@ -37,4 +37,8 @@ public interface CostOfLivingBillRepository extends JpaRepository<CostOfLivingBi
 	@Modifying
 	@Query(value = " UPDATE CostOfLivingBill SET bill_status_id = :bill_status_id where col_id = :col_id ", nativeQuery = true) // jpql
 	void changeStatus(@Param("bill_status_id") int paymentStatusId, @Param("col_id") int colID);
+	
+	@Modifying
+	@Query(value = " UPDATE CostOfLivingBill SET cash_paid_link = :cash_paid_link where col_id = :col_id ", nativeQuery = true) // jpql
+	void updateCashPaidLinkByColID(@Param("cash_paid_link") String cashPaidLink, @Param("col_id") int colID);
 }
