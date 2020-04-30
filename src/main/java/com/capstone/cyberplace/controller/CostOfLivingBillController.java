@@ -3,16 +3,21 @@ package com.capstone.cyberplace.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.dto.COLBill;
 import com.capstone.cyberplace.dto.COLBillDetail;
+import com.capstone.cyberplace.dto.form.InsertedContractForm;
+import com.capstone.cyberplace.dto.form.UpdateCashPaidLinkForm;
 import com.capstone.cyberplace.model.Contract;
 import com.capstone.cyberplace.model.CostOfLivingBill;
 import com.capstone.cyberplace.model.CostOfLivingBillDetail;
@@ -226,11 +231,10 @@ public class CostOfLivingBillController {
 	}
 
 	@PostMapping("/updateCashPaidLink")
-	public boolean updateCashPaidLink(@RequestParam("cashPaidLink") String cashPaidLink,
-			@RequestParam("colID") int colID) {
+	public boolean updateCashPaidLink(@Valid @RequestBody UpdateCashPaidLinkForm form) {
 		try {
-			costOfLivingBillServiceImpl.updateCashPaidLinkByColID(cashPaidLink, colID);
-			;
+			costOfLivingBillServiceImpl.updateCashPaidLinkByColID(form.getCashPaidLink(), form.getColID());
+		
 
 		} catch (Exception e) {
 			System.err.print("change err");
