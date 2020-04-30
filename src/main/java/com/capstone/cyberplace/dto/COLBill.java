@@ -13,6 +13,7 @@ public class COLBill {
 	private float totalExpense;
 	private int paymentStatusId;
 	private String paymentStatusName;
+	private String cashPaidLink;
 	private List<COLBillDetail> colBillDetails;
 
 	// tien nha
@@ -20,6 +21,14 @@ public class COLBill {
 
 	public COLBill() {
 
+	}
+
+	public String getCashPaidLink() {
+		return cashPaidLink;
+	}
+
+	public void setCashPaidLink(String cashPaidLink) {
+		this.cashPaidLink = cashPaidLink;
 	}
 
 	public int getColId() {

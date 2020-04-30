@@ -65,6 +65,7 @@ public class CostOfLivingBillController {
 				bill.setPaymentStatusId(c.getPaymentStatusID());
 				bill.setTotalExpense(c.getTotalExpense());
 				bill.setContractId(c.getContractID());
+				bill.setCashPaidLink(c.getCashPaidLink());
 
 				Contract contract = contractServiceImpl.getContractByContractID(c.getContractID());
 				if (contract != null) {
@@ -104,6 +105,7 @@ public class CostOfLivingBillController {
 			bill.setTotalExpense(c.getTotalExpense());
 			bill.setContractId(c.getContractID());
 
+			bill.setCashPaidLink(c.getCashPaidLink());
 			Contract contract = contractServiceImpl.getContractByContractID(c.getContractID());
 			if (contract != null) {
 				bill.setOwnerID(contract.getOwnerID());
@@ -149,6 +151,7 @@ public class CostOfLivingBillController {
 						c.setPlaceId(contract.getPlaceID());
 						c.setRenterId(contract.getRenterID());
 						c.setTotalExpense(bill.getTotalExpense());
+						c.setCashPaidLink(bill.getCashPaidLink());
 						List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
 						for (PaymentStatus ps : listPay) {
 							if (bill.getPaymentStatusID() == ps.getPaymentStatusID()) {
@@ -190,6 +193,7 @@ public class CostOfLivingBillController {
 						c.setPlaceId(contract.getPlaceID());
 						c.setRenterId(contract.getRenterID());
 						c.setTotalExpense(bill.getTotalExpense());
+						c.setCashPaidLink(bill.getCashPaidLink());
 						List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
 						for (PaymentStatus ps : listPay) {
 							if (bill.getPaymentStatusID() == ps.getPaymentStatusID()) {
