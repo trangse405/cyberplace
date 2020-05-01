@@ -49,7 +49,7 @@ public class ContractController {
 	@PostMapping("/insert")
 	public boolean insert(@Valid @RequestBody InsertedContractForm form) {
 
-		if (form != null && form.getIsUseService() == 1) {
+		if (form != null ) {
 			try {
 				contractServiceImpl.insertContract(form.getOwnerID(), form.getRenterID(), form.getPlaceID(),
 						form.getStartDate(), form.getEndDate(), form.getFee(), form.getContractStatusID(),
