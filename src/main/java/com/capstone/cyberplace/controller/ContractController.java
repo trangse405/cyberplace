@@ -111,14 +111,7 @@ public class ContractController {
 		Place p = placeServiceImpl.getPlaceByPlaceID(c.getPlaceID());
 
 		float hardCostInMonth = 0;
-		if (p != null) {
-			hardCostInMonth += p.getPrice();
-		}
-		for (CostOfPlace cost : listCost) {
-			if (cost.getUnitID() == 2) {
-				hardCostInMonth += cost.getCostPrice();
-			}
-		}
+		
 
 		Calendar calStart = Calendar.getInstance();
 		calStart.set(Integer.parseInt(startSplit[0]), Integer.parseInt(startSplit[1]), Integer.parseInt(startSplit[2]));
