@@ -101,6 +101,9 @@ public class CostOfLivingBillController {
 	public COLBill getBillByCOLID(@RequestParam("colID") int colID) {
 
 		CostOfLivingBill c = costOfLivingBillServiceImpl.getBillByColID(colID);
+
+		// Contract contract =
+		// contractServiceImpl.getContractByContractID(c.getContractID());
 		if (c != null) {
 
 			COLBill bill = new COLBill();
@@ -234,7 +237,6 @@ public class CostOfLivingBillController {
 	public boolean updateCashPaidLink(@Valid @RequestBody UpdateCashPaidLinkForm form) {
 		try {
 			costOfLivingBillServiceImpl.updateCashPaidLinkByColID(form.getCashPaidLink(), form.getColID());
-		
 
 		} catch (Exception e) {
 			System.err.print("change err");
@@ -246,8 +248,10 @@ public class CostOfLivingBillController {
 	private List<COLBillDetail> getDetail(int colID) {
 		List<COLBillDetail> list = new ArrayList<>();
 
+		CostOfLivingBill bill = costOfLivingBillServiceImpl.getBillByColID(colID);
+		Contract contract = contractServiceImpl.getContractByContractID(bill.getContractID());
 		List<CostOfLivingBillDetail> listDetail = costOfLivingBillDetailServiceImpl.getBillDetailByColID(colID);
-		int placeID = 0;
+		int placeID = contract.getPlaceID();
 		if (listDetail != null) {
 			for (CostOfLivingBillDetail detail : listDetail) {
 				COLBillDetail bd = new COLBillDetail();
@@ -255,7 +259,7 @@ public class CostOfLivingBillController {
 				bd.setColId(detail.getColID());
 				bd.setCostId(detail.getCostOfPlaceID());
 				CostOfPlace c = costOfPlaceServiceImpl.getCostOfPlaceByID(detail.getCostOfPlaceID());
-				placeID = c.getPlaceID();
+				// placeID = c.getPlaceID();
 				bd.setCostPrice(c.getCostPrice());
 				bd.setExpensePerCost(detail.getExpensePerCost());
 				bd.setCostName(c.getCostName());
@@ -272,27 +276,30 @@ public class CostOfLivingBillController {
 		}
 
 		List<CostOfPlace> listCost = costOfPlaceServiceImpl.getListCostByPlaceID(placeID);
-		for (CostOfPlace cost : listCost) {
-			if (cost.getUnitID() == 2) {
-				COLBillDetail c = new COLBillDetail();
-				c.setAmount(1);
-				c.setColId(colID);
-				c.setCostId(cost.getId());
-				c.setCostPrice(cost.getCostPrice());
+		if (listCost != null) {
+			for (CostOfPlace cost : listCost) {
+				if (cost.getUnitID() == 2) {
+					COLBillDetail c = new COLBillDetail();
+					c.setAmount(1);
+					c.setColId(colID);
+					c.setCostId(cost.getId());
+					c.setCostPrice(cost.getCostPrice());
 
-				List<CostUnitName> listUnitName = costUnitNameServiceImpl.getAllListCostName();
-				for (CostUnitName unit : listUnitName) {
-					if (cost.getUnitID() == unit.getId()) {
-						c.setUnitName(unit.getUnitName());
-						c.setUnitID(unit.getId());
+					List<CostUnitName> listUnitName = costUnitNameServiceImpl.getAllListCostName();
+					for (CostUnitName unit : listUnitName) {
+						if (cost.getUnitID() == unit.getId()) {
+							c.setUnitName(unit.getUnitName());
+							c.setUnitID(unit.getId());
+						}
 					}
-				}
-				c.setCostName(cost.getCostName());
-				c.setExpensePerCost(cost.getCostPrice());
-				list.add(c);
+					c.setCostName(cost.getCostName());
+					c.setExpensePerCost(cost.getCostPrice());
+					list.add(c);
 
+				}
 			}
 		}
+
 		return list;
 	}
 
