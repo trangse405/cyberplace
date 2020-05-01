@@ -1,5 +1,7 @@
 package com.capstone.cyberplace.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +20,10 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 			@Param("create_time") String createTime, @Param("status") String status, @Param("payer_id") String payerID,
 			@Param("money") float money, @Param("description") String description ,@Param("order_id") String order_id );
 
+	
+	@Query(value = "SELECT * FROM Payment", nativeQuery = true) // jpql
+	List<Payment> getAllPayment();
+	
+	@Query(value = "SELECT * FROM Payment where user_id = :user_id", nativeQuery = true) // jpql
+	List<Payment> getPaymentByUserID(@Param("user_id") int userID);
 }
