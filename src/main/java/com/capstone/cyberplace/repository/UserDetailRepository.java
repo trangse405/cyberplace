@@ -26,4 +26,12 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Integer>
 	// get detail by user id
 	@Query(value = " SELECT * FROM UserDetail where user_id =:user_id", nativeQuery = true) // jpql
 	UserDetail getDetailByUserID(@Param("user_id") int userID);
+	
+	
+	@Modifying
+	@Query(value = "UPDATE UserDetail SET name = :name , gender =:gender , day_of_birth =:day_of_birth , address = :address , phone_number =:phone_number , email =:email , bank_account = :bank_account, avatar_link =:avatar_link where user_id = :user_id ", nativeQuery = true) // jpql
+	void updateUserDetail( @Param("name") String name, @Param("gender") String gender,
+			@Param("day_of_birth") String dayOfBirth, @Param("address") String address,
+			@Param("phone_number") String phoneNumber, @Param("email") String email,
+			@Param("bank_account") String bankAccount, @Param("avatar_link") String avatarLink ,@Param("user_id") int userID );
 }

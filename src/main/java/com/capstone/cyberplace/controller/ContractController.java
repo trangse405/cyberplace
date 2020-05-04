@@ -8,6 +8,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,9 @@ public class ContractController {
 
 	@Autowired
 	private PlaceServiceImpl placeServiceImpl;
+	
+	@Autowired
+	public JavaMailSender emailSender;
 
 	@PostMapping("/insert")
 	public boolean insert(@Valid @RequestBody InsertedContractForm form) {
@@ -77,6 +81,7 @@ public class ContractController {
 				insertBill(contractServiceImpl.getContractByContractID(contractID));
 
 				insertBillDetail(contractID);
+			
 			}
 		} catch (Exception e) {
 			System.err.print(e);
@@ -168,5 +173,6 @@ public class ContractController {
 		}
 
 	}
+
 
 }

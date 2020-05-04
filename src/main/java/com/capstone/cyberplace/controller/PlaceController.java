@@ -544,7 +544,7 @@ public class PlaceController {
 			System.out.print("insert checking error");
 			return false;
 		}
-		sendEmail2(form.getEmail(), form.getContactName(), form.getTitle(), form.getCheckingDate(),
+		sendEmail(form.getEmail(), form.getContactName(), form.getTitle(), form.getCheckingDate(),
 				form.getPhoneNumber());
 
 		return true;
@@ -750,38 +750,10 @@ public class PlaceController {
 
 	}
 
-	// send email
-	public void sendEmail(String receiver) throws MessagingException {
-
-		MimeMessage message = emailSender.createMimeMessage();
-		boolean multipart = true;
-		MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "UTF-8");
-		String htmlMsg = "<div>\r\n" + "<div>\r\n" + "  <div>Xin chào <b>Abc</b>,</div>\r\n"
-				+ "<div><b><br></b></div>Hệ thống <span>CyberPlace</span> xác nhận bạn đã đăng tin <b>Nhà Ma</b>\r\n"
-				+ "    <div>Thời gian kiểm tra nhà <b>10/05/2020 - 09:30SA</b></div>\r\n"
-				+ "            <div>Chúng tôi sẽ liên lạc với bạn qua số điện thoại. Xin vui lòng chú ý cuộc gọi tới điện thoại của bạn .</div>\r\n"
-				+ "    <div><br></div>\r\n" + "   <div>Cảm ơn bạn.</div>\r\n"
-				+ "   <div>__________________________<br><b>CYBER PLACE&nbsp;</b></div><div><b>Address</b>: FPT University</div><div><b>Email</b>:&nbsp;<a href=\"mailto:cybermanager99@gmail.com\" target=\"_blank\">cybermanager99@gmail.<wbr>com</a></div>\r\n"
-				+ "</div></div>";
-
-		message.setContent(htmlMsg, "text/html");
-		helper.setTo(receiver);
-
-		helper.setSubject("Xác nhận đăng tin");
-
-		this.emailSender.send(message);
-		// SimpleMailMessage message = new SimpleMailMessage();
-
-//        message.setTo(receiver);
-//        message.setSubject("Hệ thống xác nhận");
-//        message.setText("Hệ thống xác nhận bạn đã book lịch đặt nhà ");
-
-		// Send Message!
-		// this.emailSender.send(message);
-	}
+	
 
 	// send email
-	public void sendEmail2(String receiver, String userName, String title, String datetime, String phoneNumber)
+	public void sendEmail(String receiver, String userName, String title, String datetime, String phoneNumber)
 			throws MessagingException {
 
 		MimeMessage message = emailSender.createMimeMessage();

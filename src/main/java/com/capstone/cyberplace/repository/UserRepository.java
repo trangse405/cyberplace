@@ -36,6 +36,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "SELECT * FROM Users where role_id = 2", nativeQuery = true) // jpql
 	List<User> getAllUser();
 
-	// insert name to userdetail
+	@Query(value = "SELECT * FROM Users where user_id = :user_id ", nativeQuery = true) // jpql
+	User getUserByUserID(@Param("user_id") int userID);
+	
+
+	@Modifying
+	@Query(value = "UPDATE Users  SET status_id = :status_id where user_id = :user_id ", nativeQuery = true) // jpql
+	void changeStatus(@Param("status_id") int statusID, @Param("user_id") int userID);
 
 }

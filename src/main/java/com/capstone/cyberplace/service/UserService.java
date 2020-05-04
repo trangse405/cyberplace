@@ -16,4 +16,8 @@ public interface UserService {
 
 	List<User> getAllUser();
 
+	User getUserByUserID(int userID);
+
+	void changeStatus(int statusID, int userID);
+
 }

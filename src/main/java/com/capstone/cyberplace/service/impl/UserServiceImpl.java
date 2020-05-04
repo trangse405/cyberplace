@@ -50,4 +50,16 @@ public class UserServiceImpl implements UserService {
 		return userRepository.getAllUser();
 	}
 
+	@Override
+	public User getUserByUserID(int userID) {
+
+		return userRepository.getUserByUserID(userID);
+	}
+
+	@Override
+	public void changeStatus(int statusID, int userID) {
+		userRepository.changeStatus(statusID, userID);
+
+	}
+
 }

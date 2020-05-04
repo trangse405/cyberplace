@@ -36,4 +36,12 @@ public class UserDetailServiceImpl implements UserDetailService {
 		return userDetailRepository.getDetailByUserID(userID);
 	}
 
+	@Override
+	public void updateUserDetail(String name, String gender, String dayOfBirth, String address, String phoneNumber,
+			String email, String bankAccount, String avatarLink, int userID) {
+		userDetailRepository.updateUserDetail(name, gender, dayOfBirth, address, phoneNumber, email, bankAccount,
+				avatarLink, userID);
+
+	}
+
 }
