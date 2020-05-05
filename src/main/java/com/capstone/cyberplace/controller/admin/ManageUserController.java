@@ -68,7 +68,7 @@ public class ManageUserController {
 				if (detail != null) {
 					userForm.setName(detail.getName());
 					userForm.setGender(detail.getGender());
-					userForm.setDOB(String.valueOf(detail.getDayOfBirth()));
+					userForm.setDob(String.valueOf(detail.getDayOfBirth()));
 					userForm.setAddress(detail.getAddress());
 					userForm.setPhoneNumber(detail.getPhoneNumber());
 					userForm.setEmail(detail.getEmail());
@@ -110,7 +110,7 @@ public class ManageUserController {
 				if (detail != null) {
 					userForm.setName(detail.getName());
 					userForm.setGender(detail.getGender());
-					userForm.setDOB(String.valueOf(detail.getDayOfBirth()));
+					userForm.setDob(String.valueOf(detail.getDayOfBirth()));
 					userForm.setAddress(detail.getAddress());
 					userForm.setPhoneNumber(detail.getPhoneNumber());
 					userForm.setEmail(detail.getEmail());
@@ -130,7 +130,7 @@ public class ManageUserController {
 	public boolean updateUser(@Valid @RequestBody AdminManageUserForm form) {
 
 		if (form != null) {
-			userDetailServiceImpl.updateUserDetail(form.getName(), form.getGender(), form.getDOB(), form.getAddress(),
+			userDetailServiceImpl.updateUserDetail(form.getName(), form.getGender(), form.getDob(), form.getAddress(),
 					form.getPhoneNumber(), form.getEmail(), form.getBankAccount(), form.getAvatarLink(),
 					form.getUserID());
 

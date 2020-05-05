@@ -8,7 +8,7 @@ public class AdminManageUserForm {
 	private String statusName;
 	private String name;
 	private String gender;
-	private String DOB;
+	private String dob;
 	private String address;
 	private String phoneNumber;
 	private String email;
@@ -75,12 +75,12 @@ public class AdminManageUserForm {
 		this.gender = gender;
 	}
 
-	public String getDOB() {
-		return DOB;
+	public String getDob() {
+		return dob;
 	}
 
-	public void setDOB(String dOB) {
-		DOB = dOB;
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
 
 	public String getAddress() {
