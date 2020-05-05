@@ -13,8 +13,7 @@ import com.capstone.cyberplace.model.RoleOfUser;
 @Repository
 public interface RoleOfUserRepository extends JpaRepository<RoleOfUser, Integer> {
 
-	@Query(value = "SELECT TOP (1000) [role_id]\r\n" + "      ,[role_name]\r\n"
-			+ "  FROM [CapstoneDB].[dbo].[RoleOfUser]", nativeQuery = true) // jpql
+	@Query(value = "SELECT * FROM RoleOfUser", nativeQuery = true) // jpql
 	List<RoleOfUser> getall();
 
 	

@@ -42,6 +42,16 @@ public class User {
 	}
 	
 	
+	
+	
+
+	public User(String userName, String password, int roleID, int statusID) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.roleID = roleID;
+		this.statusID = statusID;
+	}
 
 	public int getUserID() {
 		return userID;
