@@ -53,11 +53,14 @@ public class CheckingListController {
 			UserDetail user = userDetailServiceImpl.getDetailByUserID(p.getOwnerID());
 			if (form.getStatusCheckingID() == 0) {
 				sendEmailCancel(user.getEmail(), user.getName(), p.getTitle());
+				sendEmailCancel(p.getContactEmail(), user.getName(), p.getTitle());
 			}
-			if (form.getCheckingID() == 1) {
+			if (form.getStatusCheckingID() == 1) {
 				CheckingList c = checkingListServiceImpl.getCheckingByPlaceID(form.getPlaceID());
 				sendEmailAccept(user.getEmail(), user.getName(), p.getTitle(), String.valueOf(c.getDateTime()),
 						p.getContactPhoneNumber());
+						sendEmailAccept(p.getContactEmail(), user.getName(), p.getTitle(), String.valueOf(c.getDateTime()),
+								p.getContactPhoneNumber());
 			}
 
 		} catch (Exception e) {
@@ -134,7 +137,7 @@ public class CheckingListController {
 				+ "  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\">\r\n"
 				+ "</head>\r\n" + "<body>\r\n" + "<div>\r\n" + "  <div>Xin chào <b>" + userName + " </b>,</div>\r\n"
 				+ "<div><b><br></b></div>\r\n"
-				+ "    &emsp;&emsp; Hệ thống <span class=\"badge badge-info\">CyberPlace</span> xác nhận bạn đã đăng tin <b>\" "
+				+ "    &emsp;&emsp; Hệ thống <span class=\"badge badge-info\">CyberPlace</span> xác nhận sẽ đi kiểm tra nhà  <b>\" "
 				+ title + "\"&nbsp;</b>\r\n" + "    <div>Thời gian kiểm tra nhà: <b>" + datetime + "</b></div>\r\n"
 				+ "            <div>Chúng tôi sẽ liên lạc với bạn qua số điện thoại " + phoneNumber
 				+ ". Xin vui lòng để ý cuộc gọi tới của bạn.</div>\r\n" + "    <div><br></div>\r\n"

@@ -1,5 +1,6 @@
 package com.capstone.cyberplace.controller.admin;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.dto.form.AdminManageUserForm;
-import com.capstone.cyberplace.dto.form.ChangeStatusCheckingForm;
 import com.capstone.cyberplace.model.RoleOfUser;
 import com.capstone.cyberplace.model.StatusOfUser;
 import com.capstone.cyberplace.model.User;
@@ -130,6 +130,7 @@ public class ManageUserController {
 	public boolean updateUser(@Valid @RequestBody AdminManageUserForm form) {
 
 		if (form != null) {
+		
 			userDetailServiceImpl.updateUserDetail(form.getName(), form.getGender(), form.getDob(), form.getAddress(),
 					form.getPhoneNumber(), form.getEmail(), form.getBankAccount(), form.getAvatarLink(),
 					form.getUserID());
