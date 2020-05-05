@@ -42,6 +42,8 @@ public class UserController {
 	@Autowired
 	public JavaMailSender emailSender;
 
+	private String default_avatar_link = "https://lh3.googleusercontent.com/proxy/CQjK6vpWjzvnVeCc6CxMy7-aldYB8a0-TEjlX4bSFisLyFKh8abqP4u5WKkIl3vvalLCJ6MK4CcjQrPwOFesoHyEVQM3zvEm72l9yiVx1l6efbIKwXALOnaeQIpy?fbclid=IwAR1ELm3kkx3NyU9C_sd75u6xf9xPNFyt72cbNA_YrPjhpY8J4B6eD5344Ic";
+
 	@PostMapping("/register")
 	public boolean insert(@RequestBody RegisterForm form) {
 
@@ -60,7 +62,8 @@ public class UserController {
 
 			int uID = getUserID(form.getUsername());
 
-			userDetailServiceImpl.insertNameToUserDetail(uID, form.getLastName() + form.getFirstName());
+			userDetailServiceImpl.insertNameToUserDetail(uID, form.getLastName() + form.getFirstName(),
+					default_avatar_link);
 
 		} catch (Exception e) {
 			System.out.print(e);

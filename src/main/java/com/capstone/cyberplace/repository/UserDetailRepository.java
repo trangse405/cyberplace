@@ -20,8 +20,8 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Integer>
 			@Param("bank_account") String bankAccount, @Param("avatar_link") String avatarLink);
 
 	@Modifying
-	@Query(value = " INSERT INTO UserDetail (user_id,name) VALUES (:user_id,:name)", nativeQuery = true) // jpql
-	void insertNameToUserDetail(@Param("user_id") int userID, @Param("name") String name);
+	@Query(value = "INSERT INTO UserDetail (user_id,name , avatar_link) VALUES (:user_id,:name ,:avatar_link)", nativeQuery = true) // jpql
+	void insertNameToUserDetail(@Param("user_id") int userID, @Param("name") String name , @Param("avatar_link") String avatarLink);
 
 	// get detail by user id
 	@Query(value = " SELECT * FROM UserDetail where user_id =:user_id", nativeQuery = true) // jpql

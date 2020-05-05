@@ -25,8 +25,8 @@ public class UserDetailServiceImpl implements UserDetailService {
 	}
 
 	@Override
-	public void insertNameToUserDetail(int userID, String name) {
-		userDetailRepository.insertNameToUserDetail(userID, name);
+	public void insertNameToUserDetail(int userID, String name, String avatarLink) {
+		userDetailRepository.insertNameToUserDetail(userID, name, avatarLink);
 
 	}
 

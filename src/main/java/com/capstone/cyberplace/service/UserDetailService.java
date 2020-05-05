@@ -7,7 +7,7 @@ public interface UserDetailService {
 
 	void insertUserDetail(InsertedUserDetailForm form);
 
-	void insertNameToUserDetail(int userID, String name);
+	void insertNameToUserDetail(int userID, String name ,String avatarLink);
 
 	UserDetail getDetailByUserID(int userID);
 
