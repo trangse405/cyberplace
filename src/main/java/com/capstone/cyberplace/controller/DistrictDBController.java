@@ -20,7 +20,10 @@ public class DistrictDBController {
 
 	@Autowired
 	private DistrictDBServiceImpl districtDBServiceImpl;
-
+	
+	/*
+	 * api to insert district
+	 */
 	@PostMapping("/insert")
 	public String insert(@RequestParam("district") String district) {
 		String mess = "ok";
@@ -33,7 +36,9 @@ public class DistrictDBController {
 
 		return mess;
 	}
-	
+	/*
+	 * api get all district
+	 */
 	@GetMapping("/getalldistrict")
     public List<DistrictDB> getAllDistrict() {
 		

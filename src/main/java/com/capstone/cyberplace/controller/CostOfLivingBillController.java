@@ -57,6 +57,10 @@ public class CostOfLivingBillController {
 	@Autowired
 	private CostOfLivingBillDetailServiceImpl costOfLivingBillDetailServiceImpl;
 
+	
+	/*
+	 * api to get bill before today + 31 days
+	 */
 	@GetMapping("/getall30daysafter")
 	public List<COLBill> getAll() {
 		List<COLBill> list = new ArrayList<>();
@@ -96,7 +100,10 @@ public class CostOfLivingBillController {
 
 		return list;
 	}
-
+	
+	/*
+	 * api to get bill by cost of living bill id
+	 */
 	@GetMapping("/getbillbycolid")
 	public COLBill getBillByCOLID(@RequestParam("colID") int colID) {
 
@@ -136,7 +143,10 @@ public class CostOfLivingBillController {
 
 		return null;
 	}
-
+	
+	/*
+	 * api to get bill by owner id
+	 */
 	@GetMapping("/getbillbyownterid")
 	public List<COLBill> getAllByOwnerID(@RequestParam("ownerID") int ownerID) {
 		List<COLBill> list = new ArrayList<>();
@@ -178,7 +188,10 @@ public class CostOfLivingBillController {
 
 		return list;
 	}
-
+	
+	/*
+	 * api to get bill by renter id
+	 */
 	@GetMapping("/getbillbyrenterid")
 	public List<COLBill> getAllByRenterID(@RequestParam("renterID") int renterID) {
 		List<COLBill> list = new ArrayList<>();
@@ -220,7 +233,10 @@ public class CostOfLivingBillController {
 
 		return list;
 	}
-
+	
+	/*
+	 * api to change status bill
+	 */
 	@PostMapping("/changeStatusBill")
 	public boolean changeStatusBill(@RequestParam("colID") int colID, @RequestParam("billStatusID") int billStatusID) {
 		try {
@@ -232,7 +248,10 @@ public class CostOfLivingBillController {
 
 		return true;
 	}
-
+	
+	/*
+	 * api to update cash paid link bu update form 
+	 */
 	@PostMapping("/updateCashPaidLink")
 	public boolean updateCashPaidLink(@Valid @RequestBody UpdateCashPaidLinkForm form) {
 		try {
@@ -244,7 +263,11 @@ public class CostOfLivingBillController {
 
 		return true;
 	}
-
+	
+	
+	/*
+	 * api to get bill detail by cost of living bill id
+	 */
 	private List<COLBillDetail> getDetail(int colID) {
 		List<COLBillDetail> list = new ArrayList<>();
 

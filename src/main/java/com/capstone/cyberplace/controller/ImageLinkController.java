@@ -33,6 +33,9 @@ public class ImageLinkController {
 	@Autowired
 	private GoogleDriveApiService googleDriveServiceImpl;
 
+	/*
+	 * api to upload file to google drive
+	 */
 //	@PostMapping("/upload")
 //	public String uploadImage(@RequestParam("file") MultipartFile[] file) throws IOException {
 //
@@ -61,7 +64,9 @@ public class ImageLinkController {
 //
 //		return link;
 //	}
-
+	/*
+	 * api to upload file to local storage
+	 */
 	@PostMapping("/upload")
 	public ResponseEntity<?> uploadFileMulti(@RequestParam("file") MultipartFile[] file) throws Exception {
 

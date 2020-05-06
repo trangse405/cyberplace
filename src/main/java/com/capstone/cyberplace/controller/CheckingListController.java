@@ -26,6 +26,22 @@ import com.capstone.cyberplace.service.impl.CheckingListServiceImpl;
 import com.capstone.cyberplace.service.impl.PlaceServiceImpl;
 import com.capstone.cyberplace.service.impl.UserDetailServiceImpl;
 
+/**
+ * @author admin
+ *
+ */
+/**
+ * @author admin
+ *
+ */
+/**
+ * @author admin
+ *
+ */
+/**
+ * @author admin
+ *
+ */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/checkinglist")
@@ -41,7 +57,9 @@ public class CheckingListController {
 
 	@Autowired
 	public JavaMailSender emailSender;
-
+	/*
+	 *  api to change status checking by a checking form 
+	 * */
 	@PostMapping("/change-status-checking")
 	public boolean changeStatusChecking(@Valid @RequestBody ChangeStatusCheckingForm form) {
 
@@ -52,15 +70,27 @@ public class CheckingListController {
 			Place p = placeServiceImpl.getPlaceByPlaceID(form.getPlaceID());
 			UserDetail user = userDetailServiceImpl.getDetailByUserID(p.getOwnerID());
 			if (form.getStatusCheckingID() == 0) {
-				sendEmailCancel(user.getEmail(), user.getName(), p.getTitle());
-				sendEmailCancel(p.getContactEmail(), user.getName(), p.getTitle());
+				if (user.getEmail().equalsIgnoreCase(p.getContactEmail())) {
+
+					sendEmailCancel(user.getEmail(), user.getName(), p.getTitle());
+				} else {
+					sendEmailCancel(p.getContactEmail(), user.getName(), p.getTitle());
+					sendEmailCancel(user.getEmail(), user.getName(), p.getTitle());
+				}
+
 			}
 			if (form.getStatusCheckingID() == 1) {
 				CheckingList c = checkingListServiceImpl.getCheckingByPlaceID(form.getPlaceID());
-				sendEmailAccept(user.getEmail(), user.getName(), p.getTitle(), String.valueOf(c.getDateTime()),
-						p.getContactPhoneNumber());
-						sendEmailAccept(p.getContactEmail(), user.getName(), p.getTitle(), String.valueOf(c.getDateTime()),
-								p.getContactPhoneNumber());
+				if (user.getEmail().equalsIgnoreCase(p.getContactEmail())) {
+					sendEmailAccept(user.getEmail(), user.getName(), p.getTitle(), String.valueOf(c.getDateTime()),
+							p.getContactPhoneNumber());
+				} else {
+					sendEmailAccept(user.getEmail(), user.getName(), p.getTitle(), String.valueOf(c.getDateTime()),
+							p.getContactPhoneNumber());
+					sendEmailAccept(p.getContactEmail(), user.getName(), p.getTitle(), String.valueOf(c.getDateTime()),
+							p.getContactPhoneNumber());
+				}
+
 			}
 
 		} catch (Exception e) {
@@ -69,7 +99,9 @@ public class CheckingListController {
 
 		return true;
 	}
-
+	/*
+	 *  api to get  checking list by user id
+	 * */		
 	@GetMapping("/get-checking-list")
 	public List<CheckingList> getAllCheckingListbyUserID(@RequestParam("userID") int userID) {
 		List<Place> listP = new ArrayList<Place>();
@@ -90,6 +122,9 @@ public class CheckingListController {
 		return listC;
 	}
 
+	/*
+	 *  api to get all checking list
+	 * */
 	@GetMapping("/get-all-checking-list")
 	public List<CheckingList> getAllCheckingList() {
 
@@ -98,6 +133,10 @@ public class CheckingListController {
 		return listC;
 	}
 
+	
+	/*
+	 *  function to send a cancel email
+	 * */
 	public void sendEmailCancel(String receiver, String userName, String title) throws MessagingException {
 
 		MimeMessage message = emailSender.createMimeMessage();
@@ -124,7 +163,9 @@ public class CheckingListController {
 		this.emailSender.send(message);
 
 	}
-
+	/*
+	 *  function to send a accept email
+	 * */
 	public void sendEmailAccept(String receiver, String userName, String title, String datetime, String phoneNumber)
 			throws MessagingException {
 

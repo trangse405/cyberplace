@@ -50,6 +50,9 @@ public class ContractController {
 	@Autowired
 	public JavaMailSender emailSender;
 
+	/*
+	 * api to  insert a contract form 
+	 */
 	@PostMapping("/insert")
 	public boolean insert(@Valid @RequestBody InsertedContractForm form) {
 
@@ -68,6 +71,9 @@ public class ContractController {
 		return true;
 	}
 
+	/*
+	 * api to  change  a contract status by contract id and status id
+	 */
 	@PostMapping("/change-status")
 	public boolean changeStatusContract(@RequestParam("contractStatusID") int contractStatusID,
 			@RequestParam("contractID") int contractID) {
@@ -92,7 +98,9 @@ public class ContractController {
 	}
 
 	// -------------------------
-
+	/*
+	 * function  to  insert a bill 
+	 */
 	public void insertBill(Contract c) {
 
 		String startDate = String.valueOf(c.getStartDate());
@@ -147,7 +155,9 @@ public class ContractController {
 		}
 
 	}
-
+	/*
+	 * api to  insert a bill detail 
+	 */
 	public void insertBillDetail(int contractID) {
 		Contract c = contractServiceImpl.getContractByContractID(contractID);
 		List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl.getAllBillByContractID(c.getContractID());

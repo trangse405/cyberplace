@@ -44,7 +44,10 @@ public class OrderListController {
 
 	@Autowired
 	private OrderStatusServiceImpl orderStatusServiceImpl;
-
+	
+	/*
+	 * api to insert an order by InsertedOrderForm;
+	 */
 	@PostMapping("/insert-order")
 	public boolean insertOrder(@Valid @RequestBody InsertedOrderForm inserted) {
 
@@ -64,13 +67,20 @@ public class OrderListController {
 
 		return true;
 	}
-
+	
+	/*
+	 * api to get and order by place id and user id
+	 */
 	@GetMapping("/get-order-place-user")
 	public OrderList getOrderByPlaceIDAndUserID(@RequestParam("placeid") int placeID,
 			@RequestParam("userid") int userID) {
 		return orderListServiceImpl.getOrderByPlaceIDAndUserID(placeID, userID);
 	}
-
+	
+	
+	/*
+	 * api update order by UpdateOrderForm
+	 */
 	@PostMapping("/update-order")
 	public boolean updateOrder(@Valid @RequestBody UpdateOrderForm updated) {
 
@@ -85,7 +95,11 @@ public class OrderListController {
 
 		return true;
 	}
-
+	
+	
+	/*
+	 * api to change status order
+	 */
 	@PostMapping("/change-status-order")
 	public boolean changeStatusOrder(@Valid @RequestBody ChangeStatusOrderForm form) {
 
@@ -101,6 +115,10 @@ public class OrderListController {
 		return true;
 	}
 
+	
+	/*
+	 * api to get order by user id
+	 */
 	@GetMapping("/get-order-by-userid")
 	public List<OrderForm> getListOrderByUserID(@RequestParam("userID") int userID) {
 

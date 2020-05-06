@@ -19,6 +19,9 @@ public class CostUnitNameController {
 	@Autowired
 	private CostUnitNameServiceImpl costUnitNameServiceImpl;
 
+	/*
+	 * api get all cost unit name
+	 */
 	@GetMapping("/getAllCostUnitName")
 	public List<CostUnitName> getAll() {
 

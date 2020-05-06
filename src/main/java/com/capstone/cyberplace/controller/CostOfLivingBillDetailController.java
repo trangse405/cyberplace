@@ -45,6 +45,10 @@ public class CostOfLivingBillDetailController {
 	@Autowired
 	private ContractServiceImpl contractServiceImpl;
 
+	
+	/*
+	 * api to get bill detail by col id
+	 */
 	@GetMapping("/getdetailbycolid")
 	public List<COLBillDetail> getAll(@RequestParam("colID") int colID) {
 		List<COLBillDetail> list = new ArrayList<>();
@@ -103,7 +107,9 @@ public class CostOfLivingBillDetailController {
 
 		return list;
 	}
-
+	/*
+	 * api to update bill detail
+	 */
 	@PostMapping("/updatebilldetail")
 	public boolean updateBill(@Valid @RequestBody COLBillUpdate form) {
 

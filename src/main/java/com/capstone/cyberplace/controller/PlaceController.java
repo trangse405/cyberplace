@@ -103,7 +103,7 @@ public class PlaceController {
 	public JavaMailSender emailSender;
 
 	/*
-	 * trả về danh sách top 6 place active có nhiều view nhất
+	 * function to return top 6 place have most viewed
 	 */
 	@GetMapping("/places/top6")
 	public List<PlaceQuickView> getTop6() {
@@ -114,7 +114,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * trả về tất cả place có trong hệ thống (dành cho site admin)
+	 * return place by page and number element
 	 */
 	@GetMapping("/places/page")
 	public Page<Place> getPagePlace(@RequestParam("page") int page, @RequestParam("number") int number) {
@@ -125,20 +125,18 @@ public class PlaceController {
 	}
 
 	/*
-	 * trả về tất cả place đang active
+	 * api to return status of a place
 	 */
 	@GetMapping("/places/checkplace")
 	public int checkPlace(@RequestParam("placeid") int placeID) {
 
 		Place p = placeServiceImpl.getPlaceByPlaceID(placeID);
-
-		// trả về status tương ứng
 		return p.getStatusPlaceID();
 
 	}
 
 	/*
-	 * trả về tất cả place đang active
+	 * return all active place
 	 */
 	@GetMapping("/places/all")
 	public List<PlaceQuickView> getAllActive() {
@@ -158,7 +156,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * trả thông tin cho trang update place
+	 * return information of a place for update
 	 */
 	@GetMapping("/places/fillupdate")
 	public FillToUpdateForm fillDataToUpdatePlaceForm(@RequestParam("placeid") int placeID) {
@@ -267,7 +265,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * update place
+	 * api to  update place
 	 */
 	@PostMapping("/places/update")
 	public boolean updatePlace(@Valid @RequestBody UpdatePlaceForm form) {
@@ -372,7 +370,7 @@ public class PlaceController {
 	// ---------------------------------------
 
 	/*
-	 * trả về chi tiết place theo ID
+	 * api to return detail information of a place by place id
 	 */
 	@GetMapping("/places/{id}")
 	public PlaceDetail getOneById(@PathVariable int id) {
@@ -454,7 +452,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * trả về danh sách ảnh theo placeID
+	 * api to return list image of a place by place id
 	 */
 	@GetMapping("/places/images/{id}")
 	public List<String> getListImageLinkByPlaceID(@PathVariable int id) {
@@ -468,7 +466,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * trả về danh sách kết quả tìm kiếm theo page
+	 * api to return search result by search condition
 	 */
 
 	@PostMapping("/places/search-page")
@@ -488,7 +486,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * insert các thông tin trong form rao tin
+	 * api to insert information of a place to database
 	 */
 	@PostMapping("/places/insert-places")
 	public boolean insertPlace(@Valid @RequestBody PostPlaceForm form) throws MessagingException {
@@ -551,7 +549,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * trả về số kết quả tìm được
+	 * api to return number of element of search result
 	 */
 	@PostMapping("/places/count-search-result")
 	public int getCountSearch(@Valid @RequestBody SearchCondition cond) {
@@ -568,7 +566,7 @@ public class PlaceController {
 
 	//////////////////////////////////////////////////////////////////////////
 	/*
-	 * xử lý phân trang
+	 *  function to handing pageable
 	 */
 	private Page<PlaceQuickView> toPage(List<PlaceQuickView> list, Pageable pageable) {
 		if (pageable.getOffset() >= list.size()) {
@@ -582,7 +580,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * format list place thành định dạng xem trên trang chủ
+	 * function to format list data of place to perform in the website
 	 */
 	public List<PlaceQuickView> getPlaceQuickView(List<Place> listP) {
 
@@ -624,7 +622,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * lấy ra place id sau khi insert thông tin vào bảng place
+	 * function to insert and return place id when insert a place to database
 	 */
 	public int getPlaceIDAfterInserted(PostPlaceForm form) {
 
@@ -666,7 +664,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * đổ thông tin place ra post để update
+	 * funtion to set up data to website form before update
 	 */
 	public void convertPlaceToPost(Place p, PostPlaceForm pf) {
 
@@ -692,7 +690,9 @@ public class PlaceController {
 
 	}
 
-	// get list Image for place detail
+	/*
+	 * funtion get list image by place id
+	 */
 	public List<String> getListImageForDetail(List<ImageLink> listI, int placeID) {
 		listI = imageLinkServiceImpl.getListImageByPlaceID(placeID);
 
@@ -706,7 +706,9 @@ public class PlaceController {
 		return list;
 	}
 
-	// get list equip for place detail
+	/*
+	 * funtion get list equip by place id
+	 */
 	public List<EquipmentListForm> getListEquipForDetail(List<EquipmentList> listE, int placeID) {
 
 		listE = equipmentListServiceImpl.getListEquipByPlaceID(placeID);
@@ -728,7 +730,9 @@ public class PlaceController {
 		return list;
 
 	}
-	// get list cost for place detail
+	/*
+	 * funtion get list cost by place id
+	 */
 
 	public List<CostOfPlaceForm> getListCostForDetail(List<CostOfPlace> listC, int placeID) {
 
@@ -752,7 +756,9 @@ public class PlaceController {
 
 	
 
-	// send email
+	/*
+	 * funtion to send email 
+	 */
 	public void sendEmail(String receiver, String userName, String title, String datetime, String phoneNumber)
 			throws MessagingException {
 
