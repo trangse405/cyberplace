@@ -68,7 +68,13 @@ public class ManageUserController {
 				if (detail != null) {
 					userForm.setName(detail.getName());
 					userForm.setGender(detail.getGender());
-					userForm.setDob(String.valueOf(detail.getDayOfBirth()));
+					String date = String.valueOf(detail.getDayOfBirth());
+					if(date.equalsIgnoreCase("1900-01-01")) {
+						userForm.setDob(null);
+					}else {
+						userForm.setDob(String.valueOf(detail.getDayOfBirth()));
+					}
+					
 					userForm.setAddress(detail.getAddress());
 					userForm.setPhoneNumber(detail.getPhoneNumber());
 					userForm.setEmail(detail.getEmail());
