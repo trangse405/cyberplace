@@ -61,48 +61,48 @@ public class CostOfLivingBillController {
 	/*
 	 * api to get bill before today + 31 days
 	 */
+//	@GetMapping("/getall30daysafter")
+//	public List<COLBill> getAll() {
+//		List<COLBill> list = new ArrayList<>();
+//
+//		List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl.getAllBillBefore30Days();
+//		if (listBill != null) {
+//			for (CostOfLivingBill c : listBill) {
+//				COLBill bill = new COLBill();
+//				bill.setColId(c.getColID());
+//				bill.setDateCollect(String.valueOf(c.getDateCollect()));
+//				bill.setPaymentStatusId(c.getPaymentStatusID());
+//				bill.setTotalExpense(c.getTotalExpense());
+//				bill.setContractId(c.getContractID());
+//				bill.setCashPaidLink(c.getCashPaidLink());
+//
+//				Contract contract = contractServiceImpl.getContractByContractID(c.getContractID());
+//				if (contract != null) {
+//					bill.setOwnerID(contract.getOwnerID());
+//					bill.setRenterId(contract.getRenterID());
+//					bill.setPlaceId(contract.getPlaceID());
+//
+//				}
+//				List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
+//				for (PaymentStatus ps : listPay) {
+//					if (c.getPaymentStatusID() == ps.getPaymentStatusID()) {
+//						bill.setPaymentStatusName(ps.getPaymentStatusName());
+//					}
+//				}
+//
+//				Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
+//				bill.setPlacePrice(p.getPrice());
+//				bill.setColBillDetails(getDetail(c.getColID()));
+//				list.add(bill);
+//
+//			}
+//		}
+//		getNumberToEndMonth();
+//		return list;
+//	}
+
 	@GetMapping("/getall30daysafter")
 	public List<COLBill> getAll() {
-		List<COLBill> list = new ArrayList<>();
-
-		List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl.getAllBillBefore30Days();
-		if (listBill != null) {
-			for (CostOfLivingBill c : listBill) {
-				COLBill bill = new COLBill();
-				bill.setColId(c.getColID());
-				bill.setDateCollect(String.valueOf(c.getDateCollect()));
-				bill.setPaymentStatusId(c.getPaymentStatusID());
-				bill.setTotalExpense(c.getTotalExpense());
-				bill.setContractId(c.getContractID());
-				bill.setCashPaidLink(c.getCashPaidLink());
-
-				Contract contract = contractServiceImpl.getContractByContractID(c.getContractID());
-				if (contract != null) {
-					bill.setOwnerID(contract.getOwnerID());
-					bill.setRenterId(contract.getRenterID());
-					bill.setPlaceId(contract.getPlaceID());
-
-				}
-				List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
-				for (PaymentStatus ps : listPay) {
-					if (c.getPaymentStatusID() == ps.getPaymentStatusID()) {
-						bill.setPaymentStatusName(ps.getPaymentStatusName());
-					}
-				}
-
-				Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
-				bill.setPlacePrice(p.getPrice());
-				bill.setColBillDetails(getDetail(c.getColID()));
-				list.add(bill);
-
-			}
-		}
-		getNumberToEndMonth();
-		return list;
-	}
-
-	@GetMapping("/getalltoendmonth")
-	public List<COLBill> getAllEndOfMonth() {
 		List<COLBill> list = new ArrayList<>();
 		int number = getNumberToEndMonth();
 		List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl.getAllBillBeforeEndMonth(number);
@@ -192,12 +192,12 @@ public class CostOfLivingBillController {
 		List<COLBill> list = new ArrayList<>();
 
 		List<Contract> listContract = contractServiceImpl.getAllContractByOwnerID(ownerID);
-
+		int number = getNumberToEndMonth();
 		if (listContract != null) {
 
 			for (Contract contract : listContract) {
 				List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl
-						.getAllBillBefore30DaysByContractID(contract.getContractID());
+						.getAllBillBeforeEndMonthByContractID(number, contract.getContractID());
 				if (listBill != null) {
 					for (CostOfLivingBill bill : listBill) {
 						COLBill c = new COLBill();
@@ -237,12 +237,12 @@ public class CostOfLivingBillController {
 		List<COLBill> list = new ArrayList<>();
 
 		List<Contract> listContract = contractServiceImpl.getAllContractByRenterID(renterID);
-
+		int number = getNumberToEndMonth();
 		if (listContract != null) {
 
 			for (Contract contract : listContract) {
 				List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl
-						.getAllBillBefore30DaysByContractID(contract.getContractID());
+						.getAllBillBeforeEndMonthByContractID(number, contract.getContractID());
 				if (listBill != null) {
 					for (CostOfLivingBill bill : listBill) {
 						COLBill c = new COLBill();

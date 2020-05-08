@@ -71,4 +71,10 @@ public class CostOfLivingBillServiceImpl implements CostOfLivingBillService {
 		return costOfLivingBillRepository.getAllBillBeforeEndMonth(number);
 	}
 
+	@Override
+	public List<CostOfLivingBill> getAllBillBeforeEndMonthByContractID(int number, int contractID) {
+
+		return costOfLivingBillRepository.getAllBillBeforeEndMonthByContractID(number, contractID);
+	}
+
 }
