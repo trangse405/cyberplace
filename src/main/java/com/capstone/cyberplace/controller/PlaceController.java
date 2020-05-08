@@ -68,16 +68,16 @@ public class PlaceController {
 
 	@Autowired
 	private RoleOfPlaceServiceImpl roleOfPlaceServiceImpl;
-	
+
 	@Autowired
 	private DistrictDBServiceImpl districtDBServiceImpl;
-	
+
 	@Autowired
 	private WardDBServiceImpl wardDBServiceImpl;
-	
+
 	@Autowired
 	private StreetDBServiceImpl streetDBServiceImpl;
-	
+
 	@Autowired
 	private MapServiceImpl mapServiceImpl;
 
@@ -265,7 +265,7 @@ public class PlaceController {
 	}
 
 	/*
-	 * api to  update place
+	 * api to update place
 	 */
 	@PostMapping("/places/update")
 	public boolean updatePlace(@Valid @RequestBody UpdatePlaceForm form) {
@@ -469,69 +469,36 @@ public class PlaceController {
 	 * api to return search result by search condition
 	 */
 
-	@PostMapping("/places/search-page")
-	public List<PlaceQuickView> getListSearchByPage(@Valid @RequestBody SearchCondition cond) {
-		String formatTitle = "";
-		if (!cond.getTitle().equals("")) {
-			formatTitle = "%" + cond.getTitle() + "%";
-		}
-		Pageable pageable = PageRequest.of(cond.getPage(), cond.getAmount());
-
-		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
-				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
-
-		List<PlaceQuickView> listContent = getPlaceQuickView(listP);
-
-		return toPage(listContent, pageable).getContent();
-	}
-	
-	
-	/*
-	 * api to return search result by search condition and search word by word in title
-	 */
-
-	@PostMapping("/places/new-search-page")
-	public List<PlaceQuickView> newSearch(@Valid @RequestBody SearchCondition cond) {
+//	@PostMapping("/places/search-page")
+//	public List<PlaceQuickView> getListSearchByPage(@Valid @RequestBody SearchCondition cond) {
 //		String formatTitle = "";
 //		if (!cond.getTitle().equals("")) {
 //			formatTitle = "%" + cond.getTitle() + "%";
 //		}
+//		Pageable pageable = PageRequest.of(cond.getPage(), cond.getAmount());
+//
+//		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
+//				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
+//
+//		List<PlaceQuickView> listContent = getPlaceQuickView(listP);
+//
+//		return toPage(listContent, pageable).getContent();
+//	}
+
+	/*
+	 * api to return search result by search condition and search word by word in
+	 * title
+	 */
+
+	@PostMapping("/places/search-page")
+	public List<PlaceQuickView> getListSearchByPage(@Valid @RequestBody SearchCondition cond) {
+
 		Pageable pageable = PageRequest.of(cond.getPage(), cond.getAmount());
-
-		String title = cond.getTitle();
-		String[] words=title.split("\\s");
-		List<Place> listTotal = new ArrayList<>();
-		for (int i = 0; i < words.length; i++) {
-			String formatWord =  "%" + words[i] + "%";
-			List<Place> listP = placeServiceImpl.searhPlace(formatWord, cond.getDistrictID(), cond.getRoleOfPlaceID(),
-					cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
-			for(Place p : listP) {
-				listTotal.add(p);
-			}
-			
-		}
-		
-		
-		List<Place> listTotalFormat = new ArrayList<>();
-		for (int i = 0; i < listTotal.size(); i++) {
-			if(!listTotalFormat.contains(listTotal.get(i))) {
-				listTotalFormat.add(listTotal.get(i));
-			}
-		}
-		
-		
-		//List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
-				//cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
-
+		List<Place> listTotalFormat = getListSearch(cond);
 		List<PlaceQuickView> listContent = getPlaceQuickView(listTotalFormat);
 
 		return toPage(listContent, pageable).getContent();
 	}
-	
-	
-	
-	
-	
 
 	/*
 	 * api to insert information of a place to database
@@ -601,22 +568,14 @@ public class PlaceController {
 	 */
 	@PostMapping("/places/count-search-result")
 	public int getCountSearch(@Valid @RequestBody SearchCondition cond) {
-		String formatTitle = "";
-		if (!cond.getTitle().equals("")) {
-			formatTitle = "%" + cond.getTitle() + "%";
-		}
-		
-		List<Place> listP = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
-				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
+		List<Place> listTotalFormat = getListSearch(cond);
 
-		return listP.size();
+		return listTotalFormat.size();
 	}
-	
-
 
 	//////////////////////////////////////////////////////////////////////////
 	/*
-	 *  function to handing pageable
+	 * function to handing pageable
 	 */
 	private Page<PlaceQuickView> toPage(List<PlaceQuickView> list, Pageable pageable) {
 		if (pageable.getOffset() >= list.size()) {
@@ -804,10 +763,42 @@ public class PlaceController {
 
 	}
 
-	
+	public List<Place> getListSearch(SearchCondition cond) {
+		String formatTitle = "";
+		if (!cond.getTitle().equals("")) {
+			formatTitle = "%" + cond.getTitle() + "%";
+		}
+
+		String title = cond.getTitle();
+		String[] words = title.split("\\s");
+		List<Place> listTotal = new ArrayList<>();
+		List<Place> listBasic = placeServiceImpl.searhPlace(formatTitle, cond.getDistrictID(), cond.getRoleOfPlaceID(),
+				cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
+		for (Place p : listBasic) {
+			listTotal.add(p);
+		}
+		for (int i = 0; i < words.length; i++) {
+			String formatWord = "%" + words[i] + "%";
+			List<Place> listP = placeServiceImpl.searhPlace(formatWord, cond.getDistrictID(), cond.getRoleOfPlaceID(),
+					cond.getAreaMin(), cond.getAreaMax(), cond.getPriceMin(), cond.getPriceMax());
+			for (Place p : listP) {
+				listTotal.add(p);
+			}
+
+		}
+
+		List<Place> listTotalFormat = new ArrayList<>();
+		for (int i = 0; i < listTotal.size(); i++) {
+			if (!listTotalFormat.contains(listTotal.get(i))) {
+				listTotalFormat.add(listTotal.get(i));
+			}
+		}
+
+		return listTotalFormat;
+	}
 
 	/*
-	 * funtion to send email 
+	 * funtion to send email
 	 */
 	public void sendEmail(String receiver, String userName, String title, String datetime, String phoneNumber)
 			throws MessagingException {
