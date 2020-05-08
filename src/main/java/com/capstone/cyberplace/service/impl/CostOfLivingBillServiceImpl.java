@@ -65,4 +65,10 @@ public class CostOfLivingBillServiceImpl implements CostOfLivingBillService {
 
 	}
 
+	@Override
+	public List<CostOfLivingBill> getAllBillBeforeEndMonth(int number) {
+
+		return costOfLivingBillRepository.getAllBillBeforeEndMonth(number);
+	}
+
 }

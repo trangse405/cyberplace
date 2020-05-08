@@ -1,6 +1,8 @@
 package com.capstone.cyberplace.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.cyberplace.dto.COLBill;
 import com.capstone.cyberplace.dto.COLBillDetail;
-import com.capstone.cyberplace.dto.form.InsertedContractForm;
 import com.capstone.cyberplace.dto.form.UpdateCashPaidLinkForm;
 import com.capstone.cyberplace.model.Contract;
 import com.capstone.cyberplace.model.CostOfLivingBill;
@@ -57,7 +58,6 @@ public class CostOfLivingBillController {
 	@Autowired
 	private CostOfLivingBillDetailServiceImpl costOfLivingBillDetailServiceImpl;
 
-	
 	/*
 	 * api to get bill before today + 31 days
 	 */
@@ -97,10 +97,50 @@ public class CostOfLivingBillController {
 
 			}
 		}
-
+		getNumberToEndMonth();
 		return list;
 	}
-	
+
+	@GetMapping("/getalltoendmonth")
+	public List<COLBill> getAllEndOfMonth() {
+		List<COLBill> list = new ArrayList<>();
+		int number = getNumberToEndMonth();
+		List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl.getAllBillBeforeEndMonth(number);
+		if (listBill != null) {
+			for (CostOfLivingBill c : listBill) {
+				COLBill bill = new COLBill();
+				bill.setColId(c.getColID());
+				bill.setDateCollect(String.valueOf(c.getDateCollect()));
+				bill.setPaymentStatusId(c.getPaymentStatusID());
+				bill.setTotalExpense(c.getTotalExpense());
+				bill.setContractId(c.getContractID());
+				bill.setCashPaidLink(c.getCashPaidLink());
+
+				Contract contract = contractServiceImpl.getContractByContractID(c.getContractID());
+				if (contract != null) {
+					bill.setOwnerID(contract.getOwnerID());
+					bill.setRenterId(contract.getRenterID());
+					bill.setPlaceId(contract.getPlaceID());
+
+				}
+				List<PaymentStatus> listPay = paymentStatusServiceImpl.getAllPaymentStatus();
+				for (PaymentStatus ps : listPay) {
+					if (c.getPaymentStatusID() == ps.getPaymentStatusID()) {
+						bill.setPaymentStatusName(ps.getPaymentStatusName());
+					}
+				}
+
+				Place p = placeServiceImpl.getPlaceByPlaceID(contract.getPlaceID());
+				bill.setPlacePrice(p.getPrice());
+				bill.setColBillDetails(getDetail(c.getColID()));
+				list.add(bill);
+
+			}
+		}
+		getNumberToEndMonth();
+		return list;
+	}
+
 	/*
 	 * api to get bill by cost of living bill id
 	 */
@@ -143,7 +183,7 @@ public class CostOfLivingBillController {
 
 		return null;
 	}
-	
+
 	/*
 	 * api to get bill by owner id
 	 */
@@ -188,7 +228,7 @@ public class CostOfLivingBillController {
 
 		return list;
 	}
-	
+
 	/*
 	 * api to get bill by renter id
 	 */
@@ -233,7 +273,7 @@ public class CostOfLivingBillController {
 
 		return list;
 	}
-	
+
 	/*
 	 * api to change status bill
 	 */
@@ -248,9 +288,9 @@ public class CostOfLivingBillController {
 
 		return true;
 	}
-	
+
 	/*
-	 * api to update cash paid link bu update form 
+	 * api to update cash paid link bu update form
 	 */
 	@PostMapping("/updateCashPaidLink")
 	public boolean updateCashPaidLink(@Valid @RequestBody UpdateCashPaidLinkForm form) {
@@ -263,8 +303,7 @@ public class CostOfLivingBillController {
 
 		return true;
 	}
-	
-	
+
 	/*
 	 * api to get bill detail by cost of living bill id
 	 */
@@ -324,6 +363,23 @@ public class CostOfLivingBillController {
 		}
 
 		return list;
+	}
+
+	public int getNumberToEndMonth() {
+		int number = 0;
+		Calendar cal = Calendar.getInstance();
+		Date date = cal.getTime();
+		int month = cal.get(Calendar.MONTH) + 1;
+		int year = cal.get(Calendar.YEAR);
+		int day = cal.getActualMaximum(Calendar.DATE);
+		int today = cal.get(Calendar.DAY_OF_MONTH);
+		System.out.println("tháng : " + month);
+		System.out.println("năm : " + year);
+		System.out.println("ngày cuối tháng : " + day);
+		System.out.println("ngày hiện tại  : " + today);
+		number = day - today;
+		System.out.println("Chênh lệch  : " + number);
+		return number;
 	}
 
 }

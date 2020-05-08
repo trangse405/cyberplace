@@ -10,6 +10,8 @@ public interface CostOfLivingBillService {
 
 	List<CostOfLivingBill> getAllBillBefore30Days();
 
+	List<CostOfLivingBill> getAllBillBeforeEndMonth(int number);
+
 	List<CostOfLivingBill> getAllBillBefore30DaysByContractID(int contractID);
 
 	List<CostOfLivingBill> getAllBillByContractID(int contractID);
