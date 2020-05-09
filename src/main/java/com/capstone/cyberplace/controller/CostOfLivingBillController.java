@@ -104,7 +104,7 @@ public class CostOfLivingBillController {
 	@GetMapping("/getall30daysafter")
 	public List<COLBill> getAll() {
 		List<COLBill> list = new ArrayList<>();
-		int number = getNumberToEndMonth();
+		int number = 31;
 		List<CostOfLivingBill> listBill = costOfLivingBillServiceImpl.getAllBillBeforeEndMonth(number);
 		if (listBill != null) {
 			for (CostOfLivingBill c : listBill) {
@@ -137,7 +137,7 @@ public class CostOfLivingBillController {
 
 			}
 		}
-		getNumberToEndMonth();
+	
 		return list;
 	}
 
@@ -192,7 +192,7 @@ public class CostOfLivingBillController {
 		List<COLBill> list = new ArrayList<>();
 
 		List<Contract> listContract = contractServiceImpl.getAllContractByOwnerID(ownerID);
-		int number = getNumberToEndMonth();
+		int number = 31;
 		if (listContract != null) {
 
 			for (Contract contract : listContract) {
@@ -237,7 +237,7 @@ public class CostOfLivingBillController {
 		List<COLBill> list = new ArrayList<>();
 
 		List<Contract> listContract = contractServiceImpl.getAllContractByRenterID(renterID);
-		int number = getNumberToEndMonth();
+		int number = 31;
 		if (listContract != null) {
 
 			for (Contract contract : listContract) {
